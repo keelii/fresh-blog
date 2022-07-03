@@ -4,7 +4,8 @@
 /// <reference lib="deno.ns" />
 /// <reference lib="deno.unstable" />
 
-export const POST_DIR = join(Deno.cwd(), "posts");
+export const CONTENT_DIR = join(Deno.cwd(), "content");
+export const POST_DIR = join(CONTENT_DIR, "posts");
 
 import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
@@ -41,6 +42,7 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
   .meta { color: #ccc; font-size: 0.5em; }
   .highlight { margin-bottom: 1.4em; }
   .container .utterances { max-width: none; }
+  .comment { margin-top: 40px; }
   `
   ctx.styles.splice(0, ctx.styles.length, resetCSS + wysiwygCSS + customCSS);
   // ctx.styles.splice(0, ctx.styles.length, ...(sheet).target);

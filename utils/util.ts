@@ -1,6 +1,6 @@
 import { parse } from "https://deno.land/std/encoding/toml.ts";
 import { basename } from "https://deno.land/std/path/mod.ts";
-import {walkSync} from "https://deno.land/std/fs/mod.ts"
+import { walkSync } from "https://deno.land/std/fs/mod.ts";
 
 export interface TomlInfo {
   title: string;

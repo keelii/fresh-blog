@@ -6,6 +6,7 @@ import { join } from "https://deno.land/std/path/mod.ts";
 import { render } from "https://deno.land/x/gfm@0.1.20/mod.ts";
 import { parseToml, toDisplayDate } from "../../../../utils/util.ts";
 import { Container } from "../../../../component/Container.tsx";
+import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
 import { POST_DIR } from "../../../../main.ts";
 
@@ -25,15 +26,14 @@ export default function ArticleDetail(props: PageProps) {
     }
   `;
 
-  console.log(toml.math);
-
   return (
     <Layout title={toml.title}>
       <Container>
         <header>
           <h1>{toml.title}</h1>
           <span className="meta">
-            {toDisplayDate(toml.date)} <a href="/">首页</a>
+            {toDisplayDate(toml.date)}
+            <a href="/">首页</a>
           </span>
         </header>
         <article className={"wysiwyg"}>
@@ -52,20 +52,8 @@ export default function ArticleDetail(props: PageProps) {
               />
             </Fragment>
           )}
-          <div className="comment">
-            <script
-              src="https://utteranc.es/client.js"
-              // @ts-ignore:
-              repo="keelii/blog"
-              issue-term="title"
-              label="评论"
-              theme="github-light"
-              crossorigin="anonymous"
-              async
-            >
-            </script>
-          </div>
         </article>
+        <Comment />
       </Container>
     </Layout>
   );
