@@ -4,11 +4,15 @@
 /// <reference lib="deno.ns" />
 /// <reference lib="deno.unstable" />
 
+export const POST_DIR = join(Deno.cwd(), "posts");
+
 import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
 
 import { config, setup } from "@twind";
 import { virtualSheet } from "twind/sheets";
+import {join} from "https://deno.land/std/path/mod.ts"
+
 
 const sheet = virtualSheet();
 sheet.reset();

@@ -1,17 +1,19 @@
 import { parse } from "https://deno.land/std/encoding/toml.ts";
 import { basename } from "https://deno.land/std/path/mod.ts";
+import {walkSync} from "https://deno.land/std/fs/mod.ts"
 
 export interface TomlInfo {
   title: string;
   url: string;
   categories: string[];
   tags: string[];
+  math?: boolean;
   date: Date;
   content: string;
 }
 
 export function toDisplayDate(date: Date) {
-  return new Intl.DateTimeFormat("zh-Hans-CN", {}).format(date)
+  return new Intl.DateTimeFormat("zh-Hans-CN", {}).format(date);
 }
 
 export function getTomlString(content: string) {
@@ -56,10 +58,26 @@ export function parseToml(path: string) {
       date,
       categories: toml.categories,
       tags: toml.tags,
+      math: toml.math,
       content: mdContent,
     };
   } catch (e) {
     console.error(e);
     return {} as TomlInfo;
   }
+}
+
+export function getPosts(dir: string) {
+  const items = walkSync(dir);
+  const articles: TomlInfo[] = [];
+
+  for (const item of items) {
+    if (item.isFile) {
+      const info = parseToml(item.path);
+      info && articles.push(info);
+    }
+  }
+
+  // @ts-ignore:
+  return articles.sort((a, b) => b.date - a.date);
 }

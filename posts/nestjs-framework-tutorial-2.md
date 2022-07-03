@@ -27,15 +27,15 @@ src
 ├── app.controller.ts
 ├── app.module.ts
 ├── app.service.ts
-└── main.ts
+└── util.ts
 ```
 
 分别对应的功能如下表：
 
 | app.controller.ts | 只有一个路由的控制器（controller）示例 |
 | app.module.ts | 应用程序的根模块（root module） |
-| main.ts | 应用程序的入口文件，使用 `NestFactory` 方法创建应用实例 |
-在 main.ts 中我们可以看到，默认使用了 NestFactory 的 create() 静态方法返回创建的应用对象，此对应会实现 INestApplication 接口。
+| util.ts | 应用程序的入口文件，使用 `NestFactory` 方法创建应用实例 |
+在 util.ts 中我们可以看到，默认使用了 NestFactory 的 create() 静态方法返回创建的应用对象，此对应会实现 INestApplication 接口。
 
 ## 平台
 

@@ -76,7 +76,7 @@ CREATE /project-name/src/app.controller.spec.ts (617 bytes)
 CREATE /project-name/src/app.controller.ts (274 bytes)
 CREATE /project-name/src/app.module.ts (249 bytes)
 CREATE /project-name/src/app.service.ts (142 bytes)
-CREATE /project-name/src/main.ts (208 bytes)
+CREATE /project-name/src/util.ts (208 bytes)
 CREATE /project-name/test/app.e2e-spec.ts (561 bytes)
 CREATE /project-name/test/jest-e2e.json (183 bytes)
 
@@ -95,7 +95,7 @@ $ yarn run start
 ➜  github.com cd project-name
 ➜  project-name git:(master) ✗ yarn run start
 yarn run v1.10.1
-$ ts-node -r tsconfig-paths/register src/main.ts
+$ ts-node -r tsconfig-paths/register src/util.ts
 [Nest] 26470   - 2019/06/30 下午8:58   [NestFactory] Starting Nest application...
 [Nest] 26470   - 2019/06/30 下午8:58   [InstanceLoader] AppModule dependencies initialized +11ms
 [Nest] 26470   - 2019/06/30 下午8:58   [RoutesResolver] AppController {/}: +5ms
@@ -109,6 +109,6 @@ $ ts-node -r tsconfig-paths/register src/main.ts
 
 自动生成的配置文件还是挺多的，我们现在暂不用关注这些，只需要知道大概是做什么的就行了。
 
-从上面的命令行中可以看出来整个项目是用 ts-node 跑起来的，这样的目的就是在开发环境节去了编译 .ts 的过程（实际上是 ts-node 在背后做了这个事情）。我们只需要关注 `src/main.ts` 这个入口文件即可。
+从上面的命令行中可以看出来整个项目是用 ts-node 跑起来的，这样的目的就是在开发环境节去了编译 .ts 的过程（实际上是 ts-node 在背后做了这个事情）。我们只需要关注 `src/util.ts` 这个入口文件即可。
 
-整个 main.ts 文件就 8 行代码，使用 Nest 的工厂函数创建了一个应用实例，并且监听 3000 端口。注意，Nest 默认会使用 ES 的 async/await 语法，所以你再也不用怕嵌套回调函数了，以同步的编码方式获取异步的效率。
+整个 util.ts 文件就 8 行代码，使用 Nest 的工厂函数创建了一个应用实例，并且监听 3000 端口。注意，Nest 默认会使用 ES 的 async/await 语法，所以你再也不用怕嵌套回调函数了，以同步的编码方式获取异步的效率。

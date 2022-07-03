@@ -1,38 +1,23 @@
 /** @jsx h */
 import { h } from "preact";
-import { join } from "https://deno.land/std/path/mod.ts";
 import { walkSync } from "https://deno.land/std/fs/mod.ts";
-import { parseToml, TomlInfo } from "../utils/main.ts";
+import {getPosts, parseToml, TomlInfo} from "../utils/util.ts"
 import { Container } from "../component/Container.tsx";
 import { Layout } from "../component/Layout.tsx";
+import { POST_DIR } from "../main.ts";
 
-const dir = join(Deno.cwd(), "archives");
 
-function getArticles(dir: string) {
-  const items = walkSync(dir);
-  const articles: TomlInfo[] = [];
-
-  for (const item of items) {
-    if (item.isFile) {
-      const info = parseToml(item.path);
-      info && articles.push(info);
-    }
-  }
-
-  // @ts-ignore:
-  return articles.sort((a, b) => b.date - a.date);
-}
-
-const articles = getArticles(dir);
 
 export default function Home() {
+  const posts = getPosts(POST_DIR);
+
   return (
     <Layout title={"臨池不輟"}>
       <Container>
         <div class={"wysiwyg"}>
           <h2>文章</h2>
           <ul>
-            {articles.map((a) => (
+            {posts.map((a) => (
               <li>
                 <a href={a.url}>{a.title}</a>
               </li>
