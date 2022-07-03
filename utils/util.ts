@@ -8,6 +8,7 @@ export interface TomlInfo {
   categories: string[];
   tags: string[];
   math?: boolean;
+  draft?: boolean;
   date: Date;
   content: string;
 }
@@ -43,6 +44,9 @@ export function parseToml(path: string) {
   const [tomlContent, mdContent] = getTomlString(contents);
   try {
     const toml = parse(tomlContent) as any;
+
+    if (toml.draft) return null
+
     const date = new Date(Date.parse(toml.date));
     const datePrefix = new Intl.DateTimeFormat("zh-Hans-CN", {
       year: "numeric",
