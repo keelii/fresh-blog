@@ -32,7 +32,7 @@ export default function ArticleDetail(props: PageProps) {
         <header>
           <h1>{toml.title}</h1>
           <span className="meta">
-            {toDisplayDate(toml.date)}
+            {toDisplayDate(toml.date)}{"\u3000"}
             <a href="/">首页</a>
           </span>
         </header>

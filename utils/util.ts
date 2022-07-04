@@ -39,13 +39,13 @@ export function getTomlString(content: string) {
   return [toml.join("\n").trim(), lines.slice(i).join("\n").trim()];
 }
 
-export function parseToml(path: string) {
+export function parseToml(path: string, includeContent: boolean = true) {
   const contents = Deno.readTextFileSync(path);
   const [tomlContent, mdContent] = getTomlString(contents);
   try {
     const toml = parse(tomlContent) as any;
 
-    if (toml.draft) return null
+    if (toml.draft) return null;
 
     const date = new Date(Date.parse(toml.date));
     const datePrefix = new Intl.DateTimeFormat("zh-Hans-CN", {
@@ -63,7 +63,8 @@ export function parseToml(path: string) {
       categories: toml.categories,
       tags: toml.tags,
       math: toml.math,
-      content: mdContent,
+      draft: toml.draft,
+      content: includeContent ? mdContent : "",
     };
   } catch (e) {
     console.error(e);
@@ -71,13 +72,13 @@ export function parseToml(path: string) {
   }
 }
 
-export function getPosts(dir: string) {
+export function getPosts(dir: string, includeContent: boolean = true) {
   const items = walkSync(dir);
   const articles: TomlInfo[] = [];
 
   for (const item of items) {
     if (item.isFile) {
-      const info = parseToml(item.path);
+      const info = parseToml(item.path, includeContent);
       info && articles.push(info);
     }
   }

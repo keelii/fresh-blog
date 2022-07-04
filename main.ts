@@ -32,14 +32,14 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
   blockquote { font-family: "Crimson Text", STKaiti, KaiTi }
   pre,code { font-family: "Latin Modern Mono", "SF Mono", monaco, Consolas, "Noto Serif SC", "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif CN", "Source Han Serif", source-han-serif-sc; }
   .container {padding: 40px 20em; }
-  .anchor { display: none; margin-left: -26px; padding-right: 10px; }
+  .anchor { visibility: hidden; margin-left: -26px; padding-right: 10px; }
   .container .anchor:hover { border: none; }
   h2:hover>.anchor,
   h3:hover>.anchor,
   h4:hover>.anchor,
   h5:hover>.anchor,
-  h6:hover>.anchor { display: inline; }
-  .meta { color: #ccc; font-size: 0.5em; }
+  h6:hover>.anchor { visibility: visible; }
+  .meta { color: #999; font-size: 0.5em; }
   .highlight { margin-bottom: 1.4em; }
   .container .utterances { max-width: none; }
   .comment { margin-top: 40px; }

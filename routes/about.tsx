@@ -20,7 +20,7 @@ export default function About(props: PageProps) {
         <header>
           <h1>{toml.title}</h1>
           <span className="meta">
-            {toDisplayDate(toml.date)} <a href="/">首页</a>
+            {toDisplayDate(toml.date)}{"\u3000"}<a href="/">首页</a>
           </span>
         </header>
         <article className={"wysiwyg"}>
