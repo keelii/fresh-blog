@@ -17,7 +17,7 @@ export default function Home() {
         </header>
         <div class={"wysiwyg"}>
           {/*<h2>文章</h2>*/}
-          <ul>
+          <ul className="posts">
             {posts.map((a) => (
               <li>
                 <a href={a.url}>{a.title}</a>

@@ -68,7 +68,7 @@ export function parseToml(path: string, includeContent: boolean = true) {
     };
   } catch (e) {
     console.error(e);
-    return {} as TomlInfo;
+    return null;
   }
 }
 

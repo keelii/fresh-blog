@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "https://esm.sh/v86/preact@10.8.1/deno/preact.js";
+import { h } from "preact";
 
 export function Comment(props: any) {
   return (
@@ -7,7 +7,7 @@ export function Comment(props: any) {
       <script
         src="https://utteranc.es/client.js"
         // @ts-ignore:
-        repo="keelii/blog"
+        repo="keelii/fresh-blog"
         issue-term="title"
         label="评论"
         theme="github-light"

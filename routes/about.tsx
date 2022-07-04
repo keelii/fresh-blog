@@ -11,7 +11,10 @@ import { join } from "https://deno.land/std/path/mod.ts";
 
 export default function About(props: PageProps) {
   const file = join(CONTENT_DIR, "about.md");
-  const { content, ...toml } = parseToml(file);
+  const result = parseToml(file);
+  if (!result) return <div>Not Found.</div>
+
+  const { content, ...toml } = result;
   const html = render(content);
 
   return (

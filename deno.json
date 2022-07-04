@@ -3,6 +3,12 @@
     "start": "deno run -A --watch=content/,static/,routes/ dev.ts"
   },
   "importMap": "./import_map.json",
+  "lint": {
+    "files": {
+      "exclude": ["*.ts", "*.tsx", "utils/", "routes/", "static/", "content/"]
+    },
+    "rules": {}
+  },
   "fmt": {
     "files": {
       "include": ["component/", "routes/", "utils"]
