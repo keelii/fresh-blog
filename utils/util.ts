@@ -39,7 +39,7 @@ export function getTomlString(content: string) {
   return [toml.join("\n").trim(), lines.slice(i).join("\n").trim()];
 }
 
-export function parseToml(path: string) {
+export function parseToml(path: string, includeContent: boolean = true) {
   const contents = Deno.readTextFileSync(path);
   const [tomlContent, mdContent] = getTomlString(contents);
   try {
@@ -63,21 +63,22 @@ export function parseToml(path: string) {
       categories: toml.categories,
       tags: toml.tags,
       math: toml.math,
-      content: mdContent,
+      draft: toml.draft,
+      content: includeContent ? mdContent : "",
     };
   } catch (e) {
     console.error("解析出错：" + path, e);
-    return {} as TomlInfo;
+    return null;
   }
 }
 
-export function getPosts(dir: string) {
+export function getPosts(dir: string, includeContent: boolean = true) {
   const items = walkSync(dir);
   const articles: TomlInfo[] = [];
 
   for (const item of items) {
     if (item.isFile) {
-      const info = parseToml(item.path);
+      const info = parseToml(item.path, includeContent);
       info && articles.push(info);
     }
   }
