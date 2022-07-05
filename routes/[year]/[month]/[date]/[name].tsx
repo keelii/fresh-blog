@@ -29,7 +29,7 @@ export default function ArticleDetail(props: PageProps) {
   return (
     <Layout title={toml.title}>
       <Container>
-        <header>
+        <header className={"wysiwyg"}>
           <h1>{toml.title}</h1>
           <span className="meta">
             {toDisplayDate(toml.date)}{"\u3000"}

@@ -11,11 +11,11 @@ export default function Home() {
   return (
     <Layout title={"臨池不輟"}>
       <Container>
-        <header>
+        <header className={"wysiwyg"}>
           <h1>臨池不輟</h1>
           <a href="/about" className="meta">关于我</a>
         </header>
-        <div class={"wysiwyg"}>
+        <div className={"wysiwyg"}>
           {/*<h2>文章</h2>*/}
           <ul className="posts">
             {posts.map((a) => (

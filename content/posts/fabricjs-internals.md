@@ -139,28 +139,28 @@ fabric.js 在初始化的时候会将你指定的 Canvas 元素（叫做 lowerCa
 个方法：
 
 ```js
-  function createClass() {
-    var parent = null,
-        properties = slice.call(arguments, 0);
+function createClass() {
+  var parent = null,
+      properties = slice.call(arguments, 0);
 
-    if (typeof properties[0] === 'function') {
-      parent = properties.shift();
-    }
-    function klass() {
-      this.initialize.apply(this, arguments);
-    }
-
-    // 关联父子类之间的关系
-    klass.superclass = parent;
-    klass.subclasses = [];
-
-    if (parent) {
-      Subclass.prototype = parent.prototype;
-      klass.prototype = new Subclass();
-      parent.subclasses.push(klass);
-    }
-    // ...
+  if (typeof properties[0] === 'function') {
+    parent = properties.shift();
   }
+  function klass() {
+    this.initialize.apply(this, arguments);
+  }
+
+  // 关联父子类之间的关系
+  klass.superclass = parent;
+  klass.subclasses = [];
+
+  if (parent) {
+    Subclass.prototype = parent.prototype;
+    klass.prototype = new Subclass();
+    parent.subclasses.push(klass);
+  }
+  // ...
+}
 ```
 
 为什么不用 ES 6 的类写法呢？主要是因为这个库写的时候 ES 6 还没出来。作者沿用了
