@@ -4,7 +4,7 @@ import { PageProps } from "$fresh/server.ts";
 import { join } from "https://deno.land/std/path/mod.ts";
 
 import { render } from "https://deno.land/x/gfm@0.1.20/mod.ts";
-import { parseToml, toDisplayDate } from "../../../../utils/util.ts";
+import {parseYamlFile, toDisplayDate} from "../../../../utils/util.ts"
 import { Container } from "../../../../component/Container.tsx";
 import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
@@ -12,7 +12,7 @@ import { POST_DIR } from "../../../../main.ts";
 
 export default function ArticleDetail(props: PageProps) {
   const file = join(POST_DIR, props.params.name + ".md");
-  const { content, ...toml } = parseToml(file);
+  const { content, ...yaml } = parseYamlFile(file);
   const html = render(content);
 
   const initMath = `
@@ -27,12 +27,12 @@ export default function ArticleDetail(props: PageProps) {
   `;
 
   return (
-    <Layout title={toml.title}>
+    <Layout title={yaml.title}>
       <Container>
         <header className={"wysiwyg"}>
-          <h1>{toml.title}</h1>
+          <h1>{yaml.title}</h1>
           <span className="meta">
-            {toDisplayDate(toml.date)}{"\u3000"}
+            {toDisplayDate(yaml.date)}{"\u3000"}
             <a href="/">首页</a>
           </span>
         </header>
@@ -43,7 +43,7 @@ export default function ArticleDetail(props: PageProps) {
             dangerouslySetInnerHTML={{ __html: html }}
           >
           </div>
-          {toml.math && (
+          {yaml.math && (
             <Fragment>
               <script dangerouslySetInnerHTML={{ __html: initMath }} />
               <script

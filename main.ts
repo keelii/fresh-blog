@@ -4,7 +4,7 @@
 /// <reference lib="deno.ns" />
 /// <reference lib="deno.unstable" />
 
-export const CONTENT_DIR = join(Deno.cwd(), "content");
+export const CONTENT_DIR = join(Deno.cwd(), "blog");
 export const POST_DIR = join(CONTENT_DIR, "posts");
 
 import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
