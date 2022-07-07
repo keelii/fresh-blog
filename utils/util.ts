@@ -1,4 +1,5 @@
 import { parse } from "https://deno.land/std/encoding/toml.ts";
+import { stringify } from "https://deno.land/std/encoding/yaml.ts";
 import { basename } from "https://deno.land/std/path/mod.ts";
 import { walkSync } from "https://deno.land/std/fs/mod.ts";
 
@@ -60,10 +61,10 @@ export function parseToml(path: string, includeContent: boolean = true) {
       title: toml.title,
       url,
       date,
-      categories: toml.categories,
-      tags: toml.tags,
-      math: toml.math,
-      draft: toml.draft,
+      categories: toml.categories ? toml.categories : [],
+      tags: toml.tags ? toml.tags : [],
+      math: !!toml.math,
+      draft: !!toml.draft,
       content: includeContent ? mdContent : "",
     };
   } catch (e) {
@@ -80,6 +81,30 @@ export function getPosts(dir: string, includeContent: boolean = true) {
     if (item.isFile) {
       const info = parseToml(item.path, includeContent);
       info && articles.push(info);
+      if (info) {
+        const {title, date, url, content, ...rest} = info
+        try {
+          let matter = {title, date} as any
+          if (rest.categories && rest.categories.length) {
+            matter.categories = rest.categories
+          }
+          if (rest.tags && rest.tags.length) {
+            matter.tags = rest.tags
+          }
+          if (rest.math) matter.math = rest.math
+          if (rest.draft) matter.draft = rest.draft
+
+          if (item.path.includes("test-post")) {
+            // const cnt = `---\n${stringify(matter)}---\n\n${content}`
+            // console.log(cnt)
+            // Deno.writeTextFileSync(item.path, cnt)
+          }
+        } catch (e) {
+          console.log(rest)
+          console.log("ERROR: ", item.path, e.message)
+          break;
+        }
+      }
     }
   }
 
