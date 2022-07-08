@@ -31,7 +31,7 @@ tags:
 
 ExecutionContext 通过继承 ArgumentsHost，提供了更多的执行过种中的更多细节，它看起来长这样：
 
-```
+```ts
 export interface ExecutionContext extends ArgumentsHost {
   getClass<T = any>(): Type<T>;
   getHandler(): Function;
@@ -52,7 +52,7 @@ getHandler() 方法返回一个将会被调用的路由处理器的引用。getC
 
 我们将要研究的第一个例子就是用户登录的交互。下面展示了一个简单的日志拦截器：
 
-```
+```ts
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
@@ -74,7 +74,7 @@ export class LoggingInterceptor implements NestInterceptor {
 
 我们可以使用 @UseInterceptors() 装饰器来绑定一个拦截器，和管道、守卫一样，它即可以是控制器作用域的，也可以是方法作用域的，或者是全局的。
 
-```
+```ts
 @UseInterceptors(LoggingInterceptor)
 export class CatsController {}
 ```
@@ -94,7 +94,7 @@ After... 1ms
 
 让我们新建一个 TransformInterceptor，它可以修改每个响应。它将使用 map() 操作符来给响应对象符加 data 属性，并且将这个新的响应返回给客户端。
 
-```
+```ts
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -113,7 +113,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> 
 
 当有请求进入时，响应看起来将会是下面这样：
 
-```
+```json
 {
   "data": []
 }
@@ -121,7 +121,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> 
 
 拦截器对于创建整个应用层面的可复用方案有非常大的意义。比如说，我们需要将所有响应中出现的 null 值改成空字符串 ""。我们可以使用拦截器功能仅用下面一行代码就可以实现
 
-```
+```ts
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -140,7 +140,7 @@ export class ExcludeNullInterceptor implements NestInterceptor {
 
 另外一个有趣的用例是使用 RxJS 的 catchError() 操作符来重写异常捕获：
 
-```
+```ts
 import {
   Injectable,
   NestInterceptor,
@@ -167,7 +167,7 @@ export class ErrorsInterceptor implements NestInterceptor {
 
 有一些情况下我们希望完全阻止处理器的调用并返回一个不同的值。比如缓存的实现。让我们来试试使用缓存拦截器来实现它。当然真正的缓存实现还包含 TTL，缓存验证，缓存大小等问题，我们这个例子只是一个简单的示意。
 
-```
+```ts
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 
@@ -189,7 +189,7 @@ export class CacheInterceptor implements NestInterceptor {
 
 RxJS 的操作符有很多种能力，我们可以考虑下面这种用例。你需要处理路由请求的超时问题。当你的响应很久都没正常返回时，你会想把它关闭并返回一个错误的响应。
 
-```
+```ts
 import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';

@@ -19,7 +19,7 @@ Nest 的分层借鉴自 Spring，更细化。随着代码库的增长 MVC 模式
 
 我们可以自己实现一个名叫 `CatsService` 的 Service
 
-```
+```ts
 export interface Cat {
   name: string;
   age: number;
@@ -27,7 +27,7 @@ export interface Cat {
 }
 ```
 
-```
+```ts
 import { Injectable } from '@nestjs/common';
 import { Cat } from './interfaces/cat.interface';
 
@@ -49,7 +49,7 @@ export class CatsService {
 
 有了 Service 我们就可以在控制器中注入并引用到它了
 
-```
+```ts
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
@@ -77,7 +77,7 @@ export class CatsController {
 
 ### 依赖注入
 
-```
+```ts
 constructor(private readonly catsService: CatsService) {}
 ```
 
@@ -107,7 +107,7 @@ Nest 有一个内置的 IOC 容器，用来解析 Providers 之间的关系。�
 
 有时候，你可以会需要一个依赖，但是这个依赖并不需要一定被容器解析出来。比如我们通常会传入一个配置对象，但是如果不传会使用一个默认值代替。可以使用 `@Optional()` 来装饰一个非必选的参数。
 
-```
+```ts
 @Injectable()
 export class HttpService<T> {
   constructor(
@@ -124,7 +124,7 @@ export class HttpService<T> {
 
 比如一个顶层的类依赖一个或多个 Providers 时，通过在子类的构造函数中调用 super() 方法并不是很优雅，为了避免这种情况我们可以在属性上使用 @Inject() 装饰器。
 
-```
+```ts
 @Injectable()
 export class HttpService<T> {
   @Inject('HTTP_OPTIONS')
@@ -138,7 +138,7 @@ export class HttpService<T> {
 
 一般来讲控制器就是 Service 的消费（使用）者，我们需要将这些 Service 注册到 Nest 上，这样就可以让 Nest 帮你完成注入操作。通常我们会使用 @Module 装饰器来完成注册的过程。
 
-```
+```ts
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats/cats.controller';
 import { CatsService } from './cats/cats.service';

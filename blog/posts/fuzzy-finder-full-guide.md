@@ -53,6 +53,7 @@ vim $(fzf)
 ```bash
 cd $(find * -type d | fzf)
 ```
+
 这是个组合 (cd+find+fzf) 命令，完成切换到任意子目录的功能。可以看出来当 fzf 和其它命令组合使用时就能使得一些操作更方便：
 
 1. 使用 find 命令找出所有的子目录
@@ -98,6 +99,7 @@ export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,.sass-cache,node_mo
 ```bash
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
 ```
+
 界面配置参数加上后就漂亮多了
 [![fzf-with-preview](https://img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png)](https://img11.360buyimg.com/devfe/jfs/t24178/228/1983729650/93496/412c5c52/5b6fd697N0d686b66.png)
 
@@ -105,10 +107,11 @@ export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O 
 
 highlight 安装可能会有个小插曲。highlight 需要手动编译安装，默认安装目录在 `/usr/bin`, `/usr/share` 下面。然而在 macOS 中由于 <abbr title="System Integrity Protection">SIP</abbr> 保护，用户安装的程序不能在这几个目录下面「即使有 sudo 权限也不行」。我们可以手动更改下 highlight 源代码中 makefile 中的参数即可
 
-```make
+```makefile
 # PREFIX = /usr
 PREFIX = /usr/local
 ```
+
 将 `PREFIX = /usr` 改成 `PREFIX = /usr/local`，然后 `make`，`sudo make install` 就可以了
 
 ### 触发命令行补全 FZF_COMPLETION_TRIGGER

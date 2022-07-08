@@ -13,27 +13,27 @@ JavaScript 中有两个特殊的原始值：null（空）和 undefined（未定�
 除此之外的就是对象了。对象是属性（property）的集合，每个属性都由「名/值对」（值可以是原始值或者对象）构成。JavaScript 对象很多时候也是 JSON/map/hash/dict，只是在不同语言中叫法不一样
 <!--more-->
 
-普通对象是「命名值」的 __无序__ 集合。数组则是一种有序集合对象
+普通对象是「命名值」的  **无序** 集合。数组则是一种有序集合对象
 
-JavaScript 还定义了另一种特殊对象 —— 函数。如果用来初始化（使用 new 运算符）一个新建的对象，我们把这个函数称作 __构造函数__（constructor）。每个构造函数定义了一类（class）对象 —— 由构造函数初始化的对象组成的集合，常用的 JavaScript 核心类有 Array, Function, Date, RegExp, Error 等
+JavaScript 还定义了另一种特殊对象 —— 函数。如果用来初始化（使用 new 运算符）一个新建的对象，我们把这个函数称作  **构造函数**（constructor）。每个构造函数定义了一类（class）对象 —— 由构造函数初始化的对象组成的集合，常用的 JavaScript 核心类有 Array, Function, Date, RegExp, Error 等
 
-JavaScript 解释器（interpreter）有自己的内存管理机制，可以自动对内存进行垃圾回收 GC（garbage collection）。当 __不再有任何引用指向一个对象__，解释器就会自动释放它占用的内存资源
+JavaScript 解释器（interpreter）有自己的内存管理机制，可以自动对内存进行垃圾回收 GC（garbage collection）。当  **不再有任何引用指向一个对象**，解释器就会自动释放它占用的内存资源
 
 JavaScript 是一种面向对象的语言，几乎一切皆对象。数据类型本身可以定义方法（method）来使用
 
 从技术上讲，只有 JavaScript 对象才能拥有方法。然而数字、字符串和布尔值也可以拥有自己的方法。但是 null 和 undefined 是无法拥有方法的值
 
-JavaScript 数据类型还可以分为：可以拥有方法和不可以拥有方法类型、__可变__（nutable）类型和 __不可变__（imutable）类型
+JavaScript 数据类型还可以分为：可以拥有方法和不可以拥有方法类型、 **可变**（nutable）类型和  **不可变**（imutable）类型
 
 > JavaScript 程序可以更改对象属性值和数组元素的值。数字、布尔值、null 和 undefined 属于不可变类型 —— 比如，修改一个数值的内容本身就说不通。字符串可以看成由字符组成的数组，你可能会认为它是可变的。然而在 JavaScript 中，字符串是不可变的。可以访问字符串任意位置的文本，但不能修改其内容
 
 JavaScript 可以自由地进行数据类型转换。比如程序期望使用字符串的地方使用了数字， JavaScript 会自动将数字转换为字符串。期望使用布尔值的地方使用了非布尔值也会自动进行相应转换
 
-JavaScript 变量是无/弱类型的（untyped）,变量可以被赋予任何类型的值，也可以动态改变不同类型的值。JavaScript 采用 __词法作用域__（lexical scoping）。不在任何函数内声明的变量称做全局变量（global variable），函数内声明的变量具有函数作用域（function scope），且只在函数内可见
+JavaScript 变量是无/弱类型的（untyped）,变量可以被赋予任何类型的值，也可以动态改变不同类型的值。JavaScript 采用  **词法作用域**（lexical scoping）。不在任何函数内声明的变量称做全局变量（global variable），函数内声明的变量具有函数作用域（function scope），且只在函数内可见
 
 ## 数字
 
-JavaScript __不区分__ 整数和浮点数。所有的数字均用浮点数值表示。JavaScript 采用 [IEEE 754](https://zh.wikipedia.org/wiki/IEEE_754) 标准定义的 64 位浮点格式表示数字
+JavaScript  **不区分** 整数和浮点数。所有的数字均用浮点数值表示。JavaScript 采用 [IEEE 754](https://zh.wikipedia.org/wiki/IEEE_754) 标准定义的 64 位浮点格式表示数字
 
 当一个数字直接出现在 JavaScript 程序中，我们称为数字直接量（numberic literal）。JavaScript 支持多种格式的籽安直接量。注意，在任何数字直接量前添加负号（-）可以得到它们的负值。但负号是 __一元 [求反](https://zh.wikipedia.org/wiki/位操作)__ 运算符，并不是数字直接量语法组成部分
 
@@ -70,7 +70,7 @@ JavaScript __不区分__ 整数和浮点数。所有的数字均用浮点数值�
 */
 ```
 
-ECMAScript 标准 __不支持__ 八进制直接量，ECMAScript 6 严格模式下不能使用八进制
+ECMAScript 标准  **不支持** 八进制直接量，ECMAScript 6 严格模式下不能使用八进制
 
 ### 浮点型直接量
 
@@ -86,7 +86,7 @@ ECMAScript 标准 __不支持__ 八进制直接量，ECMAScript 6 严格模式�
 
 ### JavaScript 中的算术运算
 
-JavaScript 中的算术运算在 __溢出__（overflow）、__下溢__（underflow）或被零整除时不会报错，当数字运算结果超过了 JavaScript 所能表示的数字上限（溢出），结果为一个特殊的无穷大（infinity）值，相应的也有负无穷大（-infinity）值
+JavaScript 中的算术运算在  **溢出**（overflow）、 **下溢**（underflow）或被零整除时不会报错，当数字运算结果超过了 JavaScript 所能表示的数字上限（溢出），结果为一个特殊的无穷大（infinity）值，相应的也有负无穷大（-infinity）值
 
 下溢是当运算结果无限接近于零并比 JavaScript 能表示的最小值还小的时候发生的一种情况。这种情况下，JavaScript 将会返回 0。当一个负数发生下溢时，JavaScript 返回一个特殊的值「负零」，这个值几乎和正常的零完全一样
 
@@ -114,7 +114,7 @@ JavaScript 中的非数字值（NaN）和任何值都不相等，包括 NaN，`N
 
 IEEE-754 浮点表示法是一种二进制表示法，但是并不能精确表示十进制分数，在任何使用二进制浮点数的编程语言中都会有这个问题
 
-下面的代码中 x 和 y 的值非常 __接近__ 彼此和最终正确值。这种计算结果可以用途大多数的计算任务，__这个问题也只有在比较两个值是否相等的时候才会出现__
+下面的代码中 x 和 y 的值非常  **接近** 彼此和最终正确值。这种计算结果可以用途大多数的计算任务， **这个问题也只有在比较两个值是否相等的时候才会出现**
 
 ```javascript
 0.3 - 0.2           // => 0.09999999999999998
@@ -139,7 +139,7 @@ later.getMonth();                               // => 0 月份从 0 开始
 
 ## 文本
 
-__字符串__（string）是一组 16 位值组成的不可变的有序序列，每个字符通常来自于 Unicode 字符集。字符串的长度（length）是其所含 16 位值的个数。字符串索引从零开始
+ **字符串**（string）是一组 16 位值组成的不可变的有序序列，每个字符通常来自于 Unicode 字符集。字符串的长度（length）是其所含 16 位值的个数。字符串索引从零开始
 
 ```javascript
 ""  // 空字符串
@@ -188,7 +188,7 @@ s.replace("h", "H")         // => "Hello, world" 全文字替换
 s.toUpperCase()             // => "HELLO, WORLD"
 ```
 
-一定要记住，在 JavaScript 中字符串是固定不变的，类似 replace() 和 toUpperCase() 的方法都 __返回新字符串__，原字符串本身并没有发生改变。在 ECMAScript 5 中字符串可以当做只读数组，可以通过下标访问单位字符
+一定要记住，在 JavaScript 中字符串是固定不变的，类似 replace() 和 toUpperCase() 的方法都  **返回新字符串**，原字符串本身并没有发生改变。在 ECMAScript 5 中字符串可以当做只读数组，可以通过下标访问单位字符
 
 ### 模式匹配
 
@@ -227,9 +227,9 @@ null 是 JavaScript 语言的关键字，执行 typeof 运算返回 「object」
 
 undefined 是一种取值，表明变量没有初始化，如果要查询对象属性或者数组元素的值时返回 undefined 则说明这个属性或者元素不存在。如果函数没有返回任何值，则返回 undefined引用没有提供实参的函数形参的值也只会得到 undefined。
 
-undefined 不是关键字，是 JavaScript 预定义的全局变量，它的值就是「未定义」。ECMAScript 3 中，undefined 是 __可读/写的变量__，可以给它赋任意值。这个错误在 ECMAScript 5 中做了修正，变成了只读的。如果执行 typeof 运算得到 undefined 类型，则返回 "undefied"
+undefined 不是关键字，是 JavaScript 预定义的全局变量，它的值就是「未定义」。ECMAScript 3 中，undefined 是  **可读/写的变量**，可以给它赋任意值。这个错误在 ECMAScript 5 中做了修正，变成了只读的。如果执行 typeof 运算得到 undefined 类型，则返回 "undefied"
 
-null 和 undefined 都 __不包含任何属性和方法__
+null 和 undefined 都  **不包含任何属性和方法**
 
 ## 全局对象
 
@@ -240,7 +240,7 @@ null 和 undefined 都 __不包含任何属性和方法__
 构造函数，比如 Date(), RegExp(), String(), Object() 和 Array()
 全局对象，比如 Math 和 JSON
 
-全局对象的 __初始属性__ 并不是保留字（可以被污染/重写），但它们应该当做保留字来对待。对于客户端的 JavaScript 来讲，Window 对象定义了一些额外的全局属性
+全局对象的  **初始属性** 并不是保留字（可以被污染/重写），但它们应该当做保留字来对待。对于客户端的 JavaScript 来讲，Window 对象定义了一些额外的全局属性
 
 ## 包装对象
 
@@ -260,7 +260,7 @@ typeof S                // => "object"
 
 ## 不可变的原始值和可变的对象引用
 
-JavaScript 中原始值（undefined, null, 布尔值，数字和字符串）和对象（包括数组和函数）有着根本的区别，__原始值是不可更改的__，比如字符串的所有方法都是新返回一个值
+JavaScript 中原始值（undefined, null, 布尔值，数字和字符串）和对象（包括数组和函数）有着根本的区别， **原始值是不可更改的**，比如字符串的所有方法都是新返回一个值
 
 ```javascript
 var s = "hello";
@@ -268,7 +268,7 @@ s.toUpperCase();    // => "HELLO"
 s                   // => "hello"
 ```
 
-对象和原始值不同，首先，它他是 __可变的__ —— 值可以修改
+对象和原始值不同，首先，它他是  **可变的** —— 值可以修改
 
 ```javascript
 var o = { x: 1};
@@ -280,7 +280,7 @@ a[0] = 0;
 a[3] = 4;
 ```
 
-__对象的比较并非值的比较，即使两个对象包含同样的属性及相同的值__
+ **对象的比较并非值的比较，即使两个对象包含同样的属性及相同的值**
 
 ```javascript
 var o = {x:1}, p = {x:1};
@@ -289,7 +289,7 @@ var a = [], b = [];
 a === b                 // => false
 ```
 
-通常将对象𤠕引用类型（reference type）,以此来和 JavaScript 基本类型区分开。按术语的叫法，对象值都是引用（reference）,对象的比较均是引用的比较：__当且仅当它们引用同一个基本对象时，它们才相等__
+通常将对象𤠕引用类型（reference type）,以此来和 JavaScript 基本类型区分开。按术语的叫法，对象值都是引用（reference）,对象的比较均是引用的比较： **当且仅当它们引用同一个基本对象时，它们才相等**
 
 ```javascript
 var a = [];
@@ -310,7 +310,7 @@ var n = 1 - "x"         // => NaN 字符串 "x" 无法转换为数字
 n + " objects"          // => "NaN objects" NaN 转换为字符串 "NaN"
 ```
 
-__常用值转换成对应的类型结果__
+ **常用值转换成对应的类型结果**
 
 _表3-1_
 
@@ -357,7 +357,7 @@ Boolean([])     // => true
 Object(3)       // => new Number(3)
 ```
 
-除了 null 和 undefined 之外 __任何值__ 都具有 toString() 方法
+除了 null 和 undefined 之外  **任何值** 都具有 toString() 方法
 
 JavaScript 中的某些运算符会做隐式的类型转换。如果「+」运算符的一个操作数是字符串，它将会把另外一个操作数转换为字符串。一元「!」运算符将其操作数转换为布尔值并取反
 
@@ -376,7 +376,7 @@ octal_string = "0" + n.toString(8)  // 转换为 "021"
 hex_string = "0x" + n.toString(16)  // 转换为 "0x11"
 ```
 
-通过 Number() 转换函数传入一个字符串，它会试图将其转换为一个整数或浮点数直接量，这个方法只能基于十进制数进行转换，并且不能出现 __非法的尾随字符__。parseInt() 和 parseFloat() 函数（全局函数，不属于任何类的方法）更加灵活。如果字符前缀是「0x」或「0X」，parseInt() 将其解释为十六进制数，parseInt() 和 parseFloat() 都会跳过任意数量的前导空格，尽可能解析更多数值字符，并忽略 __后面的内容__
+通过 Number() 转换函数传入一个字符串，它会试图将其转换为一个整数或浮点数直接量，这个方法只能基于十进制数进行转换，并且不能出现  **非法的尾随字符**。parseInt() 和 parseFloat() 函数（全局函数，不属于任何类的方法）更加灵活。如果字符前缀是「0x」或「0X」，parseInt() 将其解释为十六进制数，parseInt() 和 parseFloat() 都会跳过任意数量的前导空格，尽可能解析更多数值字符，并忽略  **后面的内容**
 
 ```javascript
 parseInt("3 blind mice")        // => 3
@@ -391,7 +391,7 @@ parseFloat("$72.47")            // => NaN
 
 所有对象继承了两个转换方法 toString(), valueOf()
 
-__toString()__ 的作用是返回一个反映这个对象的字符串
+ **toString()** 的作用是返回一个反映这个对象的字符串
 
 ```javascript
 ({x:1, y:2}).toString()             // => "[object Object]"
@@ -401,7 +401,7 @@ __toString()__ 的作用是返回一个反映这个对象的字符串
 new Date(2010,0,1).toString()       // => "Fri Jan 01 2010 00:00:00 GMT+0800 (中国标准时间)"
 ```
 
-__valueOf()__ 这个方法的作答并未详细定义：如果存在任意原始值，它就默认将对象转换为表示它的原始值。复合值默认返回对象本身
+ **valueOf()** 这个方法的作答并未详细定义：如果存在任意原始值，它就默认将对象转换为表示它的原始值。复合值默认返回对象本身
 
 JavaScript 中对象到字符串的转换经过了如下这些步骤：
 
@@ -436,7 +436,7 @@ i = "ten";
 
 ## 变量作用域
 
-变量作用域（scope）是程序源代码中定义它的区域。在函数体内，局部变量的优先级高于 __同名__ 的全局变量，并且函数内部可以修改外部变量
+变量作用域（scope）是程序源代码中定义它的区域。在函数体内，局部变量的优先级高于  **同名** 的全局变量，并且函数内部可以修改外部变量
 
 ```javascript
 var scope = "global";
@@ -446,7 +446,7 @@ function checkScope() {
 }
 ```
 
-在声明全局变量时可以不使用 var 前缀，但在声明局部变量时 __一定__ 要使用 var
+在声明全局变量时可以不使用 var 前缀，但在声明局部变量时  **一定** 要使用 var
 
 ```javascript
 scope = "global";       // 定义一个全局变量
@@ -464,7 +464,7 @@ myscope                 // => "local"
 
 ### 函数作用域和声明提前（Hoisting）
 
-像一些类 C 的编程语言中，花括号（{}）内的每一段代码都具有各自的作用域，变量在声明它们的代码段之外是不可见的，我们称为 __块级作用域__（block scope），而 JavaScript 中没有块级作用域。JavaScript 中使用了 __函数作用域__（function scope）：
+像一些类 C 的编程语言中，花括号（{}）内的每一段代码都具有各自的作用域，变量在声明它们的代码段之外是不可见的，我们称为  **块级作用域**（block scope），而 JavaScript 中没有块级作用域。JavaScript 中使用了  **函数作用域**（function scope）：
 
 > 变量在声明它们的函数体以及这个函数体嵌套的任意函数体内都是可以被访问到的
 
@@ -500,7 +500,8 @@ function b() {
 }
 b();
 ```
-上面的代码中函数 f 的局部变量 scope 由于 __声明提前__，代码刚执行进入 f 内部的时候 scope 就被赋值 undefined，这时局部变量优先级高于同名全局变量，所以就返回了 undefined，只有代码执行到 var 的时候 scope 才真正被赋值。所以函数 f 等价于：
+
+上面的代码中函数 f 的局部变量 scope 由于  **声明提前**，代码刚执行进入 f 内部的时候 scope 就被赋值 undefined，这时局部变量优先级高于同名全局变量，所以就返回了 undefined，只有代码执行到 var 的时候 scope 才真正被赋值。所以函数 f 等价于：
 
 ```javascript
 function f() {
@@ -528,7 +529,7 @@ delete this.fakevar2        // => true
 
 ### 作用域链（scope chain）
 
-JavaScript 是基于 __词法作用域__（lexically scoped）的语言：通过阅读包含变量定义在内的源代码就能知道变量的作用域
+JavaScript 是基于  **词法作用域**（lexically scoped）的语言：通过阅读包含变量定义在内的源代码就能知道变量的作用域
 
 每一段 JavaScript 代码（全局代码或函数）都有一个与之关联的作用域链。这个作用域链是一个对象列表或者链表，这组对象定义了这段代码「作用域中」的变量。当 JavaScript 需要查找变量 x 值的时候（这个过程称做「变量解析」（valable resolution）），它会从链中的第一个对象开始查找，如果有则直接使用，如果没有 JavaScript 就会继续查找链上的下一个对象，以此类推。如果作用域名链上没有任何一个对象含有属性 x，那么就认为这段代码的作用域链接上不存在 x，并最终抛出一个引用错误（ReferenceError）异常
 

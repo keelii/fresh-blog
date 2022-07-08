@@ -52,7 +52,7 @@ tags:
 
 让我们举个简单的例子，比如有一个单例实现封装了一些业务逻辑：
 
-```
+```java
 public class SomeBusinessClass extends OtherBusinessClass {
     // 核心数据成员
     // 其它数据成员：比如日志，数据一致性标识
@@ -152,7 +152,7 @@ AOP 实现横切关注点的方法与 OOP 不一样。对于 AOP 来讲，每个
 
 考虑下面的信用卡处理模块：
 
-```
+```java
 public class CreditCardProcessor {
     public void debit(CreditCard card, Currency amount) 
        throws InvalidCardException, NotEnoughAmountException,
@@ -169,7 +169,7 @@ public class CreditCardProcessor {
 
 同样还有一个日志接口：
 
-```
+```java
 public interface Logger {
     public void log(String message);
 }
@@ -185,7 +185,7 @@ public interface Logger {
 
 编织器随后将使用这些规则，并关注每个实现以产生等价于以下代码的效果。
 
-```
+```java
 public class CreditCardProcessorWithLogging {
     Logger _logger;
     public void debit(CreditCard card, Money amount) 

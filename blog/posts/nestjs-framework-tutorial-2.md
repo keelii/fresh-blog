@@ -47,7 +47,7 @@ Nest 的目标是一个平台无关的框架。这个意思就是说 Nest 本身
 
 如下的代码会创建一个 app 对象，并且指定了使用 NestExpressApplication 平台：
 
-```
+```js
 const app = await NestFactory.create<NestExpressApplication>(ApplicationModule);
 ```
 

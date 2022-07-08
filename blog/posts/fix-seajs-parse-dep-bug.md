@@ -23,7 +23,7 @@ define('moduleName', function() {
 
 但是如果 cookie 模块加载失败，a 就会返回 null 这时候再调 a 上面的方法就会报错。当 seajs 内部解析依赖时发生了错误时就会出现这种情况，由于我们使用的是比较老的 seajs 版本（2.2.0），去查看源代码发现 parseDependencies 方法使用了一个正则表达式
 
-```
+```js
 var REQUIRE_RE = /"(?:\\"|[^"])*"|'(?:\\'|[^'])*'|\/\*[\S\s]*?\*\/|\/(?:\\\/|[^\/\r\n])+\/(?=[^\/])|\/\/.*|\.\s*require|(?:^|[^$])\brequire\s*\(\s*(["'])(.+?)\1\s*\)/g
 var SLASH_RE = /\\\\/g
 
@@ -43,7 +43,7 @@ function parseDependencies(code) {
 
 我们在控制台里面跑一下看看结果，上面的模块解析正确：
 
-![seajs-works-well](//img30.360buyimg.com/devfe/jfs/t11401/113/1005903134/64122/b08677b9/59fc23d6N998f2848.png)
+![seajs-works-well](https://img30.360buyimg.com/devfe/jfs/t11401/113/1005903134/64122/b08677b9/59fc23d6N998f2848.png)
 
 但是我自己的场景并没有这么简单，我贴上自己的代码时就异常了，由于源码比较多我就放到 jsbin 上了
 

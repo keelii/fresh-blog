@@ -29,7 +29,7 @@ tags:
 
 Nest 内置了两种管道：`ValidationPipe` 和 `ParseIntPipe`。
 
-```
+```ts
 import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
 
 @Injectable()
@@ -42,7 +42,7 @@ export class ValidationPipe implements PipeTransform {
 
 注意这里可能不太好理解，因为我们前面已经在控制器参数上使用了 @body 装饰器，并且使用 TypeScript 的类型声明它为 CreateCatDto，如下：
 
-```
+```ts
 async create(@Body() createCatDto: CreateCatDto) {
   this.catsService.create(createCatDto);
 }
@@ -54,7 +54,7 @@ Nest 官方文档在这一节中使用了 [joi](https://www.npmjs.com/package/@h
 
 首页在 ValidationPipe 管道中添加 joi 的验证功能。验证通过就返回，不通过直接抛出异常：
 
-```
+```ts
 @Injectable()
 export class JoiValidationPipe implements PipeTransform {
   constructor(private readonly schema: Object) {}
@@ -73,7 +73,7 @@ export class JoiValidationPipe implements PipeTransform {
 
 管道有了，我们还需要在控制器方法上绑定它。
 
-```
+```ts
 @Post()
 @UsePipes(new JoiValidationPipe(createCatSchema))
 async create(@Body() createCatDto: CreateCatDto) {
@@ -83,7 +83,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 使用 @UsePipes 修饰器即可，传入管道的实例，并构造 schema。此时我们的应用就可以在运行时通过 schema 去校验参数对象的开头了。createCatSchema 的写法可以参考[相关文档](https://github.com/hapijs/joi/blob/v15.1.0/API.md)。
 
-```
+```js
 const createCatSchema = {
   name: Joi.string().required(),
   age: Joi.number().required(),
@@ -93,7 +93,7 @@ const createCatSchema = {
 
 例如上面的 schema，如果客户端发送的 POST 请求中如果缺少任意参数 Nest 都会捕获到这个异常并返回信息：
 
-```
+```json
 {
     "statusCode": 400,
     "error": "Bad Request",
@@ -109,13 +109,13 @@ const createCatSchema = {
 
 首先，要使用类验证器，你需要先安装 [class-validator](https://github.com/pleerock/class-validator) 库。
 
-```
+```bash
 npm i --save class-validator class-transformer
 ```
 
 class-validator 可以让你使用给类变量加装饰器的写法给类添加额外的验证功能。这样以来我们就可以直接在原始的 CreateCatDto 类上添加验证装饰器了，这样看起来就整洁多了，而且还没有重复代码：
 
-```
+```ts
 import { IsString, IsInt } from 'class-validator';
 
 export class CreateCatDto {
@@ -132,7 +132,7 @@ export class CreateCatDto {
 
 不过管道验证器中的代码也需要适配一下：
 
-```
+```ts
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
@@ -163,7 +163,7 @@ export class ValidationPipe implements PipeTransform<any> {
 
 ++参数作用域++
 
-```
+```ts
 @Post()
 async create(
   @Body(new ValidationPipe()) createCatDto: CreateCatDto,
@@ -174,7 +174,7 @@ async create(
 
 ++方法作用域++
 
-```
+```ts
 @Post()
 @UsePipes(new ValidationPipe())
 async create(@Body() createCatDto: CreateCatDto) {
@@ -184,7 +184,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 管道修饰器入参可以是类而不必是管道实例：
 
-```
+```ts
 @Post()
 @UsePipes(ValidationPipe)
 async create(@Body() createCatDto: CreateCatDto) {
@@ -196,7 +196,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 由于 ValidationPipe 被尽可能的泛化，所以它可以直接使用在全局作用域上。
 
-```
+```ts
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
   app.useGlobalPipes(new ValidationPipe());
@@ -209,7 +209,7 @@ bootstrap();
 
 我们还可以用管道来进行数据转换，比如说上面的例子中 age 虽然声明的是 int 类型，但是我们知道 HTTP 请求传递的都是纯字符流，所以通常我们还要把期望传进行类型转换。
 
-```
+```ts
 import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
 
 @Injectable()
@@ -226,7 +226,7 @@ export class ParseIntPipe implements PipeTransform<string, number> {
 
 上面这个管道的功能就是强制转换成 Int 类型，如果转换不成功就抛出异常。我们可以针对性的对传入控制器的**某个**参数插入这个管道：
 
-```
+```ts
 @Get(':id')
 async findOne(@Param('id', new ParseIntPipe()) id) {
   return await this.catsService.findOne(id);
@@ -237,7 +237,7 @@ async findOne(@Param('id', new ParseIntPipe()) id) {
 
 比较贴心的是 Nest 已经内置了如上面的例子类似的一些通用验证器，你可以以参数的方式去实例化 ValidationPipe。
 
-```
+```ts
 @Post()
 @UsePipes(new ValidationPipe({ transform: true }))
 async create(@Body() createCatDto: CreateCatDto) {
@@ -247,7 +247,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 ValidationPipe 接收一个 ValidationPipeOptions 类型的参数，并且这个参数继承自 ValidatorOptions
 
-```
+```ts
 export interface ValidationPipeOptions extends ValidatorOptions {
   transform?: boolean;
   disableErrorMessages?: boolean;

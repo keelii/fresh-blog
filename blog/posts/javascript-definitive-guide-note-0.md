@@ -12,7 +12,7 @@ categories:
 
 <!--more-->
 
-JavaScript 是面向 web 的编程语言，是一门 __高阶的__（high-level）、__动态的__（dynamic）、__弱类型的__（untyped）__解释型__（interpreted）编程语言，适合面向对象（oop）和函数式的（functional）编程风格。JavaScript 语法源自 Java 和 C，一等函数（first-class function）来自于 Scheme，它的基于原型继承来自于 Self
+JavaScript 是面向 web 的编程语言，是一门  **高阶的**（high-level）、 **动态的**（dynamic）、 **弱类型的**（untyped） **解释型**（interpreted）编程语言，适合面向对象（oop）和函数式的（functional）编程风格。JavaScript 语法源自 Java 和 C，一等函数（first-class function）来自于 Scheme，它的基于原型继承来自于 Self
 
 ## JavaScript 的版本
 
@@ -93,7 +93,7 @@ var data = {
 
 ### 表达式/运算符
 
-通过方括号定义数组元素和通过花括号定义对象属性名和值的语法称为 __初始化表达式__（initializer expression），表达式是 JavaScript 中的一个短语，这个短语可以通过运算得出一个值。通过「.」和「[]」来引用对象属性或数组元素的值就构成一个表达式。上面的代码中注释中箭头（=>）后的值就是表达式的运算结果
+通过方括号定义数组元素和通过花括号定义对象属性名和值的语法称为  **初始化表达式**（initializer expression），表达式是 JavaScript 中的一个短语，这个短语可以通过运算得出一个值。通过「.」和「[]」来引用对象属性或数组元素的值就构成一个表达式。上面的代码中注释中箭头（=>）后的值就是表达式的运算结果
 
 JavaScript 中最常见的表达式写法就是像下面代码一样使用运算符（operator）,运算符作用于操作数，生成一个新的值
 
@@ -130,7 +130,7 @@ false == (x > y)          // => true
 !(x == y)                 // true
 ```
 
-如果 JavaScript 中的「短语」是表达式，那么整个句子就称做 __语句__（statement），以分号结束的行都是一条语句。语句和表达式有很多共同之处
+如果 JavaScript 中的「短语」是表达式，那么整个句子就称做  **语句**（statement），以分号结束的行都是一条语句。语句和表达式有很多共同之处
 
 > 粗略了讲，表达式仅仅计算出一个值并不进行其它操作，不会改变程序的运行状态，而语句并不包含一个值（或者说它包含的值我们并不关心），但它们改变了程序运行状态
 
@@ -286,7 +286,7 @@ Hello
 World
 ```
 
-另外一种方法是调用元素的 __添加事件处理函数__，通常是 addEventListener 或 attachEvent（IE专用）
+另外一种方法是调用元素的  **添加事件处理函数**，通常是 addEventListener 或 attachEvent（IE专用）
 
 ```javascript
 // 注册 onload 事件，效果和在 HTML 上写 onload 是一样的
@@ -305,6 +305,7 @@ window.onload = function() {
     function hide(event) { event.target.style.visibility = 'hidden'; }
 }
 ```
+
 ### 使用 jQuery 库
 
 使用 jQuery 类库会使 DOM 操作、事件绑定等操作非常方便，而且不用担心浏览器兼容问题（JavaScript api 层面的兼容）

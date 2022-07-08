@@ -25,11 +25,11 @@ tags:
 
 ---
 
-关注 [@chriscaleb](https://twitter.com/intent/follow?screen_name=chriscaleb)
+关注 [@chriscaleb](https://twitter.com/intent/follow?screen_name=chriscaleb)
 
-这个系列的教程已经更新到了 [PixiJS v4](http://www.pixijs.com/) 版本。
+这个系列的教程已经更新到了 [PixiJS v4](http://www.pixijs.com/) 版本。
 
-在这个系列教程中我们将探索如何构建一个类似 [Canabalt](http://www.adamatomic.com/canabalt/) 和 [Monster Dash](https://chrome.google.com/webstore/detail/monster-dash/cknghehebaconkajgiobncfleofebcog?hl=en) 的视差滚动地图游戏界面。第一篇介绍了 pixi.js 的渲染引擎并且涉及到了视差滚动的基础知识。现在我们将在上一篇的基础之上添加 **视口** 的概念。
+在这个系列教程中我们将探索如何构建一个类似 [Canabalt](http://www.adamatomic.com/canabalt/) 和 [Monster Dash](https://chrome.google.com/webstore/detail/monster-dash/cknghehebaconkajgiobncfleofebcog?hl=en) 的视差滚动地图游戏界面。第一篇介绍了 pixi.js 的渲染引擎并且涉及到了视差滚动的基础知识。现在我们将在上一篇的基础之上添加 **视口** 的概念。
 
 ### 你将学到什么…
 
@@ -58,21 +58,21 @@ tags:
 
 ## 扩展 pixi.js 的 **展示对象**
 
-正如我们之前发现的，pixi.js 提供了几种可使用的 **展示对象** 类型。如果你还记得的话，我们在使用 `PIXI.extras.TilingSprite` 来满足我们的需求之前，先简单地使用了 `PIXI.Sprite`。
+正如我们之前发现的，pixi.js 提供了几种可使用的 **展示对象** 类型。如果你还记得的话，我们在使用 `PIXI.extras.TilingSprite` 来满足我们的需求之前，先简单地使用了 `PIXI.Sprite`。
 
-这两个类共享许多公用的功能。例如，它们都为你提供位置（position），宽度（width），高度（height）和 alpha 属性。此外，两者都可以通过 `addChild()` 方法添加到容器中。事实上，`PIXI.Container` 类本身就是一个 **展示对象**，它还提供了许多 Sprite 和 TilingSprite 类都能使用的属性。
+这两个类共享许多公用的功能。例如，它们都为你提供位置（position），宽度（width），高度（height）和 alpha 属性。此外，两者都可以通过 `addChild()` 方法添加到容器中。事实上，`PIXI.Container` 类本身就是一个 **展示对象**，它还提供了许多 Sprite 和 TilingSprite 类都能使用的属性。
 
 所有这些公用的功能都来自于 **继承（inheritance）** 的魔力。它使得类可以继承和扩展功能到其它类上。为了让你能理解它，可以参考下面的示意图，它将为你展示 pixi.js 中提供的大多数展示对象
 
 ![ps-tut2-screenshot1](https://img14.360buyimg.com/devfe/jfs/t1/32241/35/6163/21482/5c8c93a6E0674998d/e778a3262a7f0f86.png)
 
-从上面的示意图中，我们可以看出最基础的类型是 PIXI.DisplayObject 类，所有其它类都从它继承而来。这个类是将对象呈现到屏幕所必须需的元素。
+从上面的示意图中，我们可以看出最基础的类型是 PIXI.DisplayObject 类，所有其它类都从它继承而来。这个类是将对象呈现到屏幕所必须需的元素。
 
-> 当我说 **展示对象** 时，并非指 `PIXI.DisplayObject` 这个类。而当使用 `PIXI.DisplayObject` 这个说法时，却表示所有继承自它的对象。本质上讲，当我使用 **展示对象** 这一术语时，我指的是可以通过 pixi.js 呈现给屏幕的 **任何对象**。
+> 当我说 **展示对象** 时，并非指 `PIXI.DisplayObject` 这个类。而当使用 `PIXI.DisplayObject` 这个说法时，却表示所有继承自它的对象。本质上讲，当我使用 **展示对象** 这一术语时，我指的是可以通过 pixi.js 呈现给屏幕的 **任何对象**。
 
-下一层是 `PIXI.Container`，它允许对象充当其他展示对象的 **容器**。我们在第一个教程中使用的 `addChild()` 方法是 `PIXI.Container` 这个类提供的实例方法，也可以通过 `PIXI.Sprite` 和 `PIXI.TilingSpite` 继承获得。
+下一层是 `PIXI.Container`，它允许对象充当其他展示对象的 **容器**。我们在第一个教程中使用的 `addChild()` 方法是 `PIXI.Container` 这个类提供的实例方法，也可以通过 `PIXI.Sprite` 和 `PIXI.TilingSpite` 继承获得。
 
-本质上讲，继承树中的每个类都是它继承的（父）类的 **更特殊** 版本（译者：面向对象的 **具体化** 与 **泛化** 概念）。好的一点是我们可以使用继承来创建我们自己的自定义的展示对象。换而言之，我们可以为每个视差滚动器中的元素编写专用的类，并让 pixi.js 处理它们就像是处理其它展示对象一样。这给使我们封装代码更简单，代码也更多漂亮、整洁。
+本质上讲，继承树中的每个类都是它继承的（父）类的 **更特殊** 版本（译者：面向对象的 **具体化** 与 **泛化** 概念）。好的一点是我们可以使用继承来创建我们自己的自定义的展示对象。换而言之，我们可以为每个视差滚动器中的元素编写专用的类，并让 pixi.js 处理它们就像是处理其它展示对象一样。这给使我们封装代码更简单，代码也更多漂亮、整洁。
 
 ### 制作远景层展示对象
 
@@ -80,7 +80,7 @@ tags:
 
 打开index.html文件，在 `init()` 函数中查找创建和设置图层的代码。这是你要找的东西：
 
-```
+```js
 var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");	
 far = new PIXI.extras.TilingSprite(farTexture, 512, 256);
 far.position.x = 0;
@@ -92,7 +92,7 @@ stage.addChild(far);
 
 理想的情况是，我们可以创建一个代表远景层的类，并把大部分实现细节隐藏在类中。因此，我们希望找到以下代码，而不是上面的代码：
 
-```
+```js
 far = new Far();
 stage.addChild(far);
 ```
@@ -105,7 +105,7 @@ stage.addChild(far);
 
 （译者：原作者使用了 ES 5 和 prototype 来实现 JavaScript 中的继承，看起来可能没那么直观，可以参考我自己实现的 [ES 6 版](https://github.com/keelii/parallax-scroller-cn)的代码）
 
-```
+```js
 function Far(texture, width, height) {
   PIXI.extras.TilingSprite.call(this, texture, width, height);
 }
@@ -113,7 +113,7 @@ function Far(texture, width, height) {
 
 在构造函数下面添加以下行，然后保存文件：
 
-```
+```js
 Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 ```
 
@@ -123,9 +123,9 @@ Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 那么为什么 Far 类继承自 `PIXI.TilingSprite` 呢？好吧，如果你还记得第一个教程，我们使用 `TilingSprite` 实例来表示每个视差层。因此，在更具体化的类中使用这些功能是有必要的。本质上讲，我们所说的是：Far 类是 `PIXI.extras.TilingSprite` 的一个更特殊的版本。
 
-因为 Far 类继承自 `PIXI.extras.TilingSprite`，所以我们要记得去初始化`TilingSprite` 类的功能。这是通过从构造函数中调用 `TilingSprite` 的构造函数来完成的。我高亮显示了以下代码行：
+因为 Far 类继承自 `PIXI.extras.TilingSprite`，所以我们要记得去初始化`TilingSprite` 类的功能。这是通过从构造函数中调用 `TilingSprite` 的构造函数来完成的。我高亮显示了以下代码行：
 
-```
+```js
 function Far(texture, width, height) {
   PIXI.extras.TilingSprite.call(this, texture, width, height); // 这一行
 }
@@ -135,7 +135,7 @@ Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 这样做是因为我们希望 Far 类继承 `TilingSprite` 的所有功能。由于 `TilingSprite` 需要将三个参数传递给它的构造函数，我们需要确保我们自己的类也接受这些参数并使用它们初始化瓦片精灵。以下是高亮显示参数的类：
 
-```
+```js
 // 注意 texture, width, height 三个参数
 function Far(texture, width, height) {
   PIXI.extras.TilingSprite.call(this, texture, width, height);
@@ -152,7 +152,7 @@ Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 要使用 Far 类，你需要引用它的源文件。在页面正文顶部附近添加以下行：
 
-```
+```html
 <body onload="init();">
   <div align="center">
     <canvas id="game-canvas" width="512" height="384"></canvas>
@@ -163,7 +163,7 @@ Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 现在向下滚动并删除以下行：
 
-```
+```js
 var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");
 far = new PIXI.extras.TilingSprite(farTexture, 512, 256);  // 删除此行
 far.position.x = 0;
@@ -175,7 +175,7 @@ stage.addChild(far);
 
 替换成这样：
 
-```
+```js
 var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");
 far = new Far(farTexture, 512, 256);  // 新行
 far.position.x = 0;
@@ -191,7 +191,7 @@ stage.addChild(far);
 
 在 `index.html` 中，我们当前设置了 far 层的 `position` 和 `tilePosition` 属性。让我们删除它，并将其封装在我们的 Far 类中。
 
-```
+```js
 var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");
 far = new Far(farTexture, 512, 256);
 far.position.x = 0;  // 删除
@@ -203,7 +203,7 @@ stage.addChild(far);
 
 保存更改并打开 Far.js 文件。现在直接在类的构造函数中设置图层的位置和tilePosition 属性：
 
-```
+```js
 function Far(texture, width, height) {
   PIXI.extras.TilingSprite.call(this, texture, width, height);
 	
@@ -218,7 +218,7 @@ function Far(texture, width, height) {
 
 因为 Far 类继承自 `PIXI.extras.TilingSprite`，它还具有 `TilingSprite` 的所有 **属性** 和 **方法**，包括 `position` 和 `tilePosition`。要访问这些属性，我们只需使用`this` 关键字。这是再次设置图层 x 位置的代码：
 
-```
+```js
 this.position.x = 0;
 ```
 
@@ -230,7 +230,7 @@ this.position.x = 0;
 
 好的，我们应该从哪里开始呢。如果你回顾一下 index.html 页面，你应该看到代码好像开始变得更加简洁了：
 
-```
+```js
 var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");	
 far = new Far(farTexture, 512, 256);
 stage.addChild(far);
@@ -240,7 +240,7 @@ stage.addChild(far);
 
 切换到 `Far.js` 文件并在构造函数的开头添加一行以创建图层的纹理：
 
-```
+```js
 function Far(texture, width, height) {
   var texture = PIXI.Texture.fromImage("resources/bg-far.png"); // 添加
   PIXI.extras.TilingSprite.call(this, texture, width, height);
@@ -248,7 +248,7 @@ function Far(texture, width, height) {
 
 现在显式地将纹理的宽度和高度传递给 `TilingSprite` 的构造函数：
 
-```
+```js
 function Far(texture, width, height) {
   var texture = PIXI.Texture.fromImage("resources/bg-far.png");
   PIXI.extras.TilingSprite.call(this, texture, 512, 256); // 512, 256
@@ -256,13 +256,13 @@ function Far(texture, width, height) {
 
 由于我们现在直接在类中处理纹理，因此实际上不需要将纹理，宽度和高度参数传递给构造函数。删除所有三个参数并保存你的代码：
 
-```
+```js
 function Far(texture, width, height) { // 删除 texture, width, height
 ```
 
 你的构造函数现在应该是这样：
 
-```
+```js
 function Far() {
   var texture = PIXI.Texture.fromImage("resources/bg-far.png");
   PIXI.extras.TilingSprite.call(this, texture, 512, 256);
@@ -276,7 +276,7 @@ function Far() {
 
 剩下要做的就是返回到你的 index.html 文件并删除我们之前创建的纹理并传递给 far的构造函数：
 
-```
+```js
 var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");
 far = new Far(farTexture, 512, 256);
 stage.addChild(far);
@@ -372,7 +372,7 @@ function update() {
 }
 ```
 
-update 方法中的前两行通过更新其 tilePosition 属性来滚动我们的图层。但是，我们的代码目前存在一些问题：通过直接更改 `tilePosition` 属性，我们将暴露 Mid 和 Far 类的内部 **实现**（译者：类的外部不应该知道类的具体实现细节，只需要控制类的行为）。这违背了面向对象的封装原则。
+update 方法中的前两行通过更新其 tilePosition 属性来滚动我们的图层。但是，我们的代码目前存在一些问题：通过直接更改 `tilePosition` 属性，我们将暴露 Mid 和 Far 类的内部 **实现**（译者：类的外部不应该知道类的具体实现细节，只需要控制类的行为）。这违背了面向对象的封装原则。
 
 理想情况下，我们希望在类中隐藏具体细节。如果两个类只有一个实际为我们执行滚动的 `update()` 方法，那么我们的代码会更易读。换句话说，对于我们的主循环来说，这样似乎更合适：
 
@@ -387,7 +387,7 @@ function update() {
 }
 ```
 
-值得庆幸的是，这样的改变是微不足道的。我们将向 Far 类和 Mid 类添加一个 `update()` 方法，每个类都会一点点的滚动。
+值得庆幸的是，这样的改变是微不足道的。我们将向 Far 类和 Mid 类添加一个 `update()` 方法，每个类都会一点点的滚动。
 
 从 Far 类开始，打开 Far.js 并向其添加以下方法：
 
@@ -602,7 +602,7 @@ function update() {
 
 你可能会问「我们不是已经有一个视口了吗？」是的，毕竟，当你在浏览器中运行代码时，我们只能看到在舞台边界内可以看到的内容。这是似乎就是一个视口了，但是我们还没有办法知道我们在游戏世界中 **滚动了多远**（译者：需要实现视口是因为后续会涉及到地图的概念，地图中游戏场景是有长度、距离的概念的，这就方便我们实现一些特殊场景，比如落箱子，障碍物等。因为不引用视口的概念游戏将是无限循环滚动的。这会导致计算距离变得很复杂，而且无法将地图设计成一种具体的抽象）。另外，如果我们可以简单地跳到某个位置并确切地看到我们的图层应该如何看起来，那不是很好吗？一旦我们添加了视口的概念并提供了设置其当前位置的方法，那么一切都将成为可能。
 
-### 给 Scroller 类添加 setViewportX 方法
+### 给 Scroller 类添加 setViewportX 方法
 
 目前我们有一个 `update()` 方法，我们用它来连续滚动我们的视差层。可以使用一个名为 `setViewportX()` 的新方法替换它，我们可以用它来设置视口的水平位置。调用此方法将让我们随意定位我们的游戏地图。
 
@@ -627,7 +627,7 @@ Scroller.prototype.update = function() { // 删除
 
 我们的 `setViewportX()` 方法非常简单。它期望将一个数字作为方法的 viewportX 参数传递，然后将该值传递给我们的每个层。显然，我们的图层都需要实现自己的 `setViewportX()` 方法。让我们继续吧，现在就去做吧。
 
-### 给 Far 类添加 setViewportX 方法
+### 给 Far 类添加 setViewportX 方法
 
 我们首先删除类中的现有 `update()` 方法。打开 Far.js 并删除以下行：
 
@@ -687,7 +687,7 @@ Far.prototype.setViewportX = function(newViewportX) {
 };
 ```
 
-上面的代码并不难理解。首先，我们计算自从上次调用 `setViewportX()` 以来的滚动的距离。然后视口的新水平位置存储在我们的 `viewportX` 成员变量中。最后，我们乘以 DELTA_X 常数，以确定将图层的瓦片移动了多远。
+上面的代码并不难理解。首先，我们计算自从上次调用 `setViewportX()` 以来的滚动的距离。然后视口的新水平位置存储在我们的 `viewportX` 成员变量中。最后，我们乘以 DELTA_X 常数，以确定将图层的瓦片移动了多远。
 
 > 应该注意，我们的 x 位置代表视口窗口的左侧。在其他实现中，x 位置代表视口的中心也很常见。
 
@@ -695,11 +695,11 @@ Far.prototype.setViewportX = function(newViewportX) {
 
 现在我们需要对 `Mid` 类进行相同的更改。
 
-### 给 Mid 类添加 setViewportX 方法
+### 给 Mid 类添加 setViewportX 方法
 
 Mid 类的代码几乎与 Far 类相同，所以我们能快速写出来。
 
-打开 Mid.js 并删除其 `update()` 方法、并添加 `setViewportX` 方法：
+打开 Mid.js 并删除其 `update()` 方法、并添加 `setViewportX` 方法：
 
 ```
 function Mid() {
@@ -749,7 +749,7 @@ function update() {
 scroller.setViewportX(50); /// 控制台中调用
 ```
 
-> JavaScript 控制台可以访问程序中的任何全局变量。因此，我们可以通过全局 `scroller` 变量访问滚动条并调用其 `setViewportX()` 方法。
+> JavaScript 控制台可以访问程序中的任何全局变量。因此，我们可以通过全局 `scroller` 变量访问滚动条并调用其 `setViewportX()` 方法。
 
 你应该看到视差图层向左移动，这表示我们已成功重新定位了视口。
 

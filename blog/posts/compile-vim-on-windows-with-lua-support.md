@@ -56,9 +56,9 @@ vim 一些插件需要其它编程语言支持，比如 neocomplete 自动补全
 make -f Make_ming.mak GUI=yes FEATURES=HUGE MBYTE=yes IME=yes GIME=yes DYNAMIC_IME=yes OLE=yes PYTHON="C:\Python27" DYNAMIC_PYTHON=yes PYTHON_VER=27 CSCOPE=yes DEBUG=no LUA="C:\Lua" DYNAMIC_LUA=yes LUA_VER=52 USERNAME=keelii USERDOMAIN=keeliizhou@gmail.com ARCH=x86-64 gvim.exe
 ```
 
-注意：我系统之前安装过 python27 到 C 盘，你可以根据自己的情况选择。关于 lua 的两个参数要写对：lua 安装目录 __LUA="C:\Lua"__ 和 lua 版本 __LUA_VER=52__，其它编译语言也大同小异
+注意：我系统之前安装过 python27 到 C 盘，你可以根据自己的情况选择。关于 lua 的两个参数要写对：lua 安装目录  **LUA="C:\Lua"** 和 lua 版本 __LUA_VER=52__，其它编译语言也大同小异
 
-如果编译成功的话不会有错误提示，并在当前目录生成 gvim.exe, 这个 exe 就是我们需要的带有 lua 支持的 vim 可执行文件，把这个文件和 __C:\lua\lua.dll__ 复制到你的 vim runtime文件夹，这时候就可以把 runtime 重命名一个放到其它你想要的目录，点击 gvim.exe 就可以了
+如果编译成功的话不会有错误提示，并在当前目录生成 gvim.exe, 这个 exe 就是我们需要的带有 lua 支持的 vim 可执行文件，把这个文件和  **C:\lua\lua.dll** 复制到你的 vim runtime文件夹，这时候就可以把 runtime 重命名一个放到其它你想要的目录，点击 gvim.exe 就可以了
 
 第一次执行 vim 需要先注册一下，出现弹窗口点确定就行了。
 

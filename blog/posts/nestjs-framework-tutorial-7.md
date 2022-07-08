@@ -13,7 +13,7 @@ Nest 框架内部实现了一个异常处理层，专门用来负责应用程序
 
 默认情况未处理的异常会被全局过滤异常器 HttpException 或者它的子类处理。如果一个未识别的异常（非 HttpException 或未继承自 HttpException）被抛出，下面的信息将被返回给客户端：
 
-```
+```json
 {
   "statusCode": 500,
   "message": "Internal server error"
@@ -24,7 +24,7 @@ Nest 框架内部实现了一个异常处理层，专门用来负责应用程序
 
 我们可以从控制器的方法中手动抛出一个异常：
 
-```
+```ts
 @Get()
 async findAll() {
   throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -33,7 +33,7 @@ async findAll() {
 
 客户端将收到如下信息：
 
-```
+```json
 {
   "statusCode": 403,
   "message": "Forbidden"
@@ -42,7 +42,7 @@ async findAll() {
 
 当然你也可以自定义返回状态值和错误信息：
 
-```
+```ts
 @Get()
 async findAll() {
   throw new HttpException({
@@ -56,7 +56,7 @@ async findAll() {
 
 比较好的做法是实现你自己想要的异常类。
 
-```
+```ts
 export class ForbiddenException extends HttpException {
   constructor() {
     super('Forbidden', HttpStatus.FORBIDDEN);
@@ -66,7 +66,7 @@ export class ForbiddenException extends HttpException {
 
 然后你就可以手动在需要的地方抛出它。
 
-```
+```ts
 @Get()
 async findAll() {
   throw new ForbiddenException();
@@ -113,7 +113,7 @@ Nest 内置了以下集成自 HttpException 的异常类：
 
 如果你想给异常返回值加一些动态的参数，可以使用异常过滤器来实现。例如下面的异常过滤器将会给 HttpException 添加额外的时间缀和路径参数：
 
-```
+```ts
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
 import { Request, Response } from 'express';
 
@@ -142,7 +142,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
 上面代码中的 host 参数是一个类型为 ArgumentsHost 的原生请求处理器包装对象。根据应用程序的不同它具有不同的接口。
 
-```
+```ts
 export interface ArgumentsHost {
   getArgs<T extends Array<any> = any[]>(): T;
   getArgByIndex<T = any>(index: number): T;
@@ -156,7 +156,7 @@ export interface ArgumentsHost {
 
 可以使用 @UseFilters 装饰器让一个控制器方法具有过滤器处理逻辑。
 
-```
+```ts
 @Post()
 @UseFilters(HttpExceptionFilter)
 async create(@Body() createCatDto: CreateCatDto) {
@@ -166,14 +166,14 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 当然过滤器可以被使用在不同的作用域上：**方法作用域、控制器作用域、全局作用域**。比如应用一个控制器作用域的过滤器，可以这么写：
 
-```
+```ts
 @UseFilters(new HttpExceptionFilter())
 export class CatsController {}
 ```
 
 全局过滤器可以通过如下代码实现：
 
-```
+```ts
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
   app.useGlobalFilters(new HttpExceptionFilter());
@@ -184,7 +184,7 @@ bootstrap();
 
 不过这样注册的全局过滤器无法进入依赖注入，因为它在模块作用域之外。为了解决这个问题，你可以在根模块上面注册一个全局作用域的过滤器。
 
-```
+```ts
 import { Module } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 
@@ -203,7 +203,7 @@ export class ApplicationModule {}
 
 @Catch() 装饰器不传入参数就默认捕获所有的异常：
 
-```
+```ts
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus } from '@nestjs/common';
 
 @Catch()
@@ -230,7 +230,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
 通常你可能并不需要自己实现完全定制化的异常过滤器，可以继承自 BaseExceptionFilter 即可复用内置的过滤器逻辑。
 
-```
+```ts
 import { Catch, ArgumentsHost } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 
@@ -241,5 +241,3 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
   }
 }
 ```
-
-##

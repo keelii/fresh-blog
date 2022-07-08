@@ -4,7 +4,7 @@
 
 Start the project:
 
-```
+```bash
 deno task start
 ```
 

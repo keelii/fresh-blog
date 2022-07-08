@@ -26,7 +26,7 @@ tags:
 
 使用下面的代码可以将相关的控制器和 Service 包装成一个模块：
 
-```
+```ts
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
@@ -50,7 +50,7 @@ export class CatsModule {}
 
 模块都是共享的，我们可以通过导出当前模块的指定 Service 来实现其它模块对 Service 的复用。
 
-```
+```ts
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
@@ -60,14 +60,14 @@ import { CatsService } from './cats.service';
   providers: [CatsService],
   exports: [CatsService] // 导出
 })
-export class CatsModule {} 
+export class CatsModule {} 
 ```
 
 ## 模块的重复导出
 
 给模块包装一层即可实现：
 
-```
+```ts
 @Module({
   imports: [CommonModule],
   exports: [CommonModule],
@@ -79,7 +79,7 @@ export class CoreModule {}
 
 模块的构造函数中也可以注入指定的 providers，通常用在一些配置参数场景。
 
-```
+```ts
 @Module({
   controllers: [CatsController],
   providers: [CatsService],
@@ -97,7 +97,7 @@ export class CatsModule {
 
 如果你想让一个模块随处可见，那就使用 @Global() 装饰器来装饰这个模块。
 
-```
+```ts
 @Global()
 @Module({
   controllers: [CatsController],
@@ -113,7 +113,7 @@ export class CatsModule {}
 
 Nest 模块系统支持**动态模块**的功能，这将让自定义模块的开发变得容易。
 
-```
+```ts
 import { Module, DynamicModule } from '@nestjs/common';
 import { createDatabaseProviders } from './database.providers';
 import { Connection } from './connection.provider';

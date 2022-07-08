@@ -86,7 +86,7 @@ CDATA 部分用来告诉模板引擎不用做任何解析渲染，直接输出�
 
 **minify blocks** 用来压缩内容中的换行符，比如压缩 HTML 属性
 
-```
+```html
 <div id="commentPanel" style="{minify}
       display:none;
       margin: 1em;
@@ -109,17 +109,17 @@ ${name|default:"noname"|capitalize}
 
 ### 内置修饰符
 
-* __capitalize__ 返回大写内容
-* __default:valueWhenNull__ 如果内容为 null，返回 valueWhenNull
-* __eat__ 返回空内容，一般用于表达式求值后又不想展示输出的内容
-* __escape__ 转换 HTML 字符实体，比如： & 转换成 \&amp;
-* __h__ 和 escape 效果一样
+*  **capitalize** 返回大写内容
+*  **default:valueWhenNull** 如果内容为 null，返回 valueWhenNull
+*  **eat** 返回空内容，一般用于表达式求值后又不想展示输出的内容
+*  **escape** 转换 HTML 字符实体，比如： & 转换成 \&amp;
+*  **h** 和 escape 效果一样
 
 ### 自定义修饰符
 
 自定义修饰符可以挂载到 contextObject 上的 `_MODIFIERS` 属性上
 
-```
+```js
 var Modifiers = {
   toFixed: function(value, num) {
     return value.toFixed(num)

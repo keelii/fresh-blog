@@ -19,7 +19,7 @@ tags:
 
 ## 授权守卫
 
-```
+```ts
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
@@ -40,7 +40,7 @@ canActivate 返回 true，控制器正常执行，false 请求会被 deny
 
 ExecutionContext 不但继承了 ArgumentsHost，还有两个额外方法：
 
-```
+```ts
 export interface ExecutionContext extends ArgumentsHost {
   getClass<T = any>(): Type<T>;
   getHandler(): Function;
@@ -55,7 +55,7 @@ getHandler() 方法会返回一个将被调用的方法处理器，getClass() �
 
 创建一个守卫，先让它返回 true，后面再改：
 
-```
+```ts
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
@@ -73,7 +73,7 @@ export class RolesGuard implements CanActivate {
 
 就像过滤器一样，守卫可以是控制器作用域的，也可以是方法作用域或者全局作用域。我们使用 @UseGuards 来引用一个控制器作用域的守卫。
 
-```
+```ts
 @Controller('cats')
 @UseGuards(RolesGuard)
 export class CatsController {}
@@ -81,14 +81,14 @@ export class CatsController {}
 
 如果想引用到全局作用域可以调用 useGlobalGuards 方法。
 
-```
+```ts
 const app = await NestFactory.create(ApplicationModule);
 app.useGlobalGuards(new RolesGuard());
 ```
 
 由于我们在根模块外层引用了全局守卫，这时守卫无法注入依赖。所以我们还需要在要模块上引入。
 
-```
+```ts
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 
@@ -109,7 +109,7 @@ export class ApplicationModule {}
 
 这时我们需要对控制器（或方法）添加一些**元数据**，用来标记这个控制器的权限类型。在 Nest 中我们通常使用 @SetMetadata() 装饰器来完成这个工作。
 
-```
+```ts
 @Post()
 @SetMetadata('roles', ['admin'])
 async create(@Body() createCatDto: CreateCatDto) {
@@ -121,7 +121,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 如果你觉得 SetMetadata 这个装饰器看着不是那么见名知意，也可以实现一个自定义的装饰器。
 
-```
+```ts
 import { SetMetadata } from '@nestjs/common';
 
 export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
@@ -129,7 +129,7 @@ export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
 
 这样就可以用更简洁的方式来声明角色权限关系了：
 
-```
+```ts
 @Post()
 @Roles('admin')
 async create(@Body() createCatDto: CreateCatDto) {
@@ -141,7 +141,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 我们将使用反射机制来获取控制器上的元数据。
 
-```
+```ts
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core';
@@ -165,6 +165,6 @@ export class RolesGuard implements CanActivate {
 
 当 canActivate 方法返回 false 时，Nest 将会抛出一个 ForbiddenException 异常。你也可以手动抛出别的异常：
 
-```
+```js
 throw new UnauthorizedException();
 ```

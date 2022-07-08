@@ -55,13 +55,13 @@ param 方法内部会再调用 `buildParams` 来把 data 对象键值对添加�
 
 外事不决问 Google，搜索 `why jquery ajax convert %20 to +` 结果发现有一条 jQuery 官方的 github issue: [Only change %20 to + for application/x-www-form-urlencoded](https://github.com/jquery/jquery/issues/2658)
 
-![google-why-jquery-convert-space-to-plus](//img11.360buyimg.com/devfe/jfs/t20344/242/259059096/183424/9e8e0f30/5b078bbdN06c75a01.png)
+![google-why-jquery-convert-space-to-plus](https://img11.360buyimg.com/devfe/jfs/t20344/242/259059096/183424/9e8e0f30/5b078bbdN06c75a01.png)
 
 根据 issue 的描述大意是说 `convert %20 to +` 这个逻辑只应该在 POST 请求的时候做转换，而不是所有请求。我们的示例中的 jsonp 刚好是 get 请求
 
 继续往下看找到了一个 [commit(60453ce)](https://github.com/dmethvin/jquery/commit/60453ce299a0c84550e70010ceea12d538226bf5) 修复了这个问题
 
-![jquery-param-encode-bug](//img14.360buyimg.com/devfe/jfs/t20692/166/263146843/79735/7f45adb2/5b078b49N8f97629d.png)
+![jquery-param-encode-bug](https://img14.360buyimg.com/devfe/jfs/t20692/166/263146843/79735/7f45adb2/5b078b49N8f97629d.png)
 
 注意一点，我们并不能简单的在 data 对象传入的时候手动添加 `encodeURIComponent`：
 

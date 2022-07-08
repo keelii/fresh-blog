@@ -18,9 +18,9 @@ draft: true
 
 ---
 
-关注 [@chriscaleb](https://twitter.com/intent/follow?screen_name=chriscaleb)
+关注 [@chriscaleb](https://twitter.com/intent/follow?screen_name=chriscaleb)
 
-这个系列的教程已经更新到了 [PixiJS v4](http://www.pixijs.com/) 版本。
+这个系列的教程已经更新到了 [PixiJS v4](http://www.pixijs.com/) 版本。
 
 欢迎阅读本系列教程的第四篇也是最后一篇教程，本节教程将详细介绍如何使用 JavaScript 和 pixi.js 构建视差滚动地图。上一个教程中，我们实现一个 **对象池** 并学习如何使用精灵表来编写滚动器的前景层。今天我们将构建前景层并编写实码以现代在视口中滚动游戏地图。
 
@@ -69,7 +69,7 @@ draft: true
 
 打开文本编辑器并创建一个新文件。添加以下内容：
 
-```
+```js
 function SliceType() {}
 
 SliceType.FRONT      = 0;
@@ -80,7 +80,7 @@ SliceType.WINDOW     = 4;
 SliceType.GAP        = 5;
 ```
 
-保存并命名为 SliceType.js。
+保存并命名为 SliceType.js。
 
 每个常量都有一个分配给它的整数，从零开始。这很重要，因为它可以让我们在代码中使用这些常量来创建和访问查找表（lookupTable）。
 
@@ -88,7 +88,7 @@ SliceType.GAP        = 5;
 
 不要忘记在项目中引用类源文件。转到 index.html 文件并添加以下行：
 
-```
+```html
 <script src="WallSpritesPool.js"></script>
 <script src="SliceType.js"></script><!-- 添加 -->
 <script src="Main.js"></script>
@@ -100,7 +100,7 @@ SliceType.GAP        = 5;
 
 现在让我们来创建滚动器的前景层类。
 
-就像远景层一样，我们的前景层将继承 Pixi  **展示对象** 功能。前两层是 `PIXI.extras.TilingSprite` 的特殊版本，而前景层将继承自 `PIXI.Container`。它不需要 Pixi 的瓦片（平铺）精灵的功能，所以我们选择了 PIXI.Container。
+就像远景层一样，我们的前景层将继承 Pixi  **展示对象** 功能。前两层是 `PIXI.extras.TilingSprite` 的特殊版本，而前景层将继承自 `PIXI.Container`。它不需要 Pixi 的瓦片（平铺）精灵的功能，所以我们选择了 PIXI.Container。
 
 `PIXI.Container` 类为我们提供了足够的功能，允许我们将前景类添加到 Pixi 的展示列表中，就像任何其他显示对象一样。
 
@@ -110,7 +110,7 @@ SliceType.GAP        = 5;
 
 好的，让我们首先创建一个新文件并添加以下内容：
 
-```
+```js
 function Walls() {
   PIXI.Container.call(this);
 }
@@ -118,13 +118,13 @@ function Walls() {
 Walls.prototype = Object.create(PIXI.Container.prototype);
 ```
 
-保存文件命名为 `Walls.js`
+保存文件命名为 `Walls.js`
 
 除了从 `PIXI.Container` 继承之外，目前我们的类并没有做别的事情。在我们开始之前，首先将它引用到项目中，并将它连接到我们的远景层和中间层所在的 Scroller 类。
 
 打开 index.html 文件，添加如下行：
 
-```
+```html
 <script src="SliceType.js"></script>
 <script src="Walls.js"></script> <!-- 添加 -->
 <script src="Main.js"></script>
@@ -134,7 +134,7 @@ Walls.prototype = Object.create(PIXI.Container.prototype);
 
 现在打开 `Scroller.js` 并在其构造函数中实例化 `Walls` 类。然后，将实例添加到展示列表：
 
-```
+```js
 function Scroller(stage) {
   this.far = new Far();
   stage.addChild(this.far);
@@ -157,7 +157,7 @@ Walls类将大量使用您的对象池。请记住，您的对象池允许您借
 
 在 `Walls` 类中创建一个对象池的实例。打开 Walls.js 并添加以下行：
 
-```
+```js
 function Walls() {
   PIXI.Container.call(this);
 
@@ -175,7 +175,7 @@ function Walls() {
 
 让我们编写一个简单的方法来设置两个查找表。将以下内容添加到 Walls.js：
 
-```
+```js
 Walls.prototype = Object.create(PIXI.Container.prototype);
 // 添加
 Walls.prototype.createLookupTables = function() {
@@ -197,15 +197,15 @@ Walls.prototype.createLookupTables = function() {
 
 在上面的方法中，我们创建了两个成员变量。第一个，`borrowWallSpriteLookup` 是一个数组，它保存对每个对象池的「借用」方法。第二个，`returnWallSpriteLookup` 也是一个数组，它保存对每个对象池的「返还」方法的引用。
 
-请注意我们使用 `SliceType` 类的常量来索引每个对象池的方法。例如，我们使用 `SliceType.FRONT` 在查找表的数组中的索引位置 `0` 对对象池的 `borrowFrontEdge()` 方法进行引用：
+请注意我们使用 `SliceType` 类的常量来索引每个对象池的方法。例如，我们使用 `SliceType.FRONT` 在查找表的数组中的索引位置 `0` 对对象池的 `borrowFrontEdge()` 方法进行引用：
 
-```
+```js
 this.borrowWallSpriteLookup[SliceType.FRONT] = this.pool.borrowFrontEdge;
 ```
 
 我们将在本教程后面使用 `SliceType` 类的常量来访问并在渲染前景层的内容时调用正确的「借用」和「返回」方法。事实上，我们会用少量时间编写两种方法来帮助我们做到这一点。但首先，让我们确保通过从类的构造函数中调用 `createLookupTables()` 来创建查找表。
 
-```
+```js
 function Walls() {
   PIXI.Container.call(this);
 
@@ -220,7 +220,7 @@ function Walls() {
 
 在 Walls.js 类的末尾添加以下两个方法：
 
-```
+```js
 Walls.prototype.borrowWallSprite = function(sliceType) {
   return this.borrowWallSpriteLookup[sliceType].call(this.pool);
 };

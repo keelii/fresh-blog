@@ -25,9 +25,9 @@ tags:
 
 ---
 
-关注 [@chriscaleb](https://twitter.com/intent/follow?screen_name=chriscaleb)
+关注 [@chriscaleb](https://twitter.com/intent/follow?screen_name=chriscaleb)
 
-这个系列的教程已经更新到了 [PixiJS v4](http://www.pixijs.com/) 版本。
+这个系列的教程已经更新到了 [PixiJS v4](http://www.pixijs.com/) 版本。
 
 欢迎再次来到这个系列教程的第三部分，这一节将会涉及到如何使用 pixi.js 制作视差滚动游戏的地图。整个教程到目前为止已经涵盖了很多内容。在第一个教程中，我们学习了一些 pixi.js 基础知识，并将视差滚动应用于几个层上。在第二部分，通过代码重构将一些面向对象的概念应用到实践中。这一节我们将把重点放在第三个更复杂的视差层上，它将代表玩家角色在游戏时将会穿越的地图。
 
@@ -44,7 +44,7 @@ tags:
 
 我们将继续从上一个教程结束的地方开始。你可以使用前两个教程编写的代码，也可以从 [GitHub](https://github.com/ccaleb/pixi-parallax-scroller/tree/master/tutorial-2) 下载第二个教程的源代码。也可以在 GitHub上 找到第三节完整教程的 [源代码](https://github.com/ccaleb/pixi-parallax-scroller/tree/master/tutorial-3)，即使你遇到了问题，我也鼓励你完成本教程，有疑问可以请仅参考源代码。
 
-这个系列的教程非常受到 [Canabalt](http://www.adamatomic.com/canabalt/) 和 [Monster Dash](https://chrome.google.com/webstore/detail/monster-dash/cknghehebaconkajgiobncfleofebcog?hl=en) 游戏的启发，当玩家的英雄在平台之间奔跑和跳跃时，这些游戏都能很好地利用视差滚动来提供花哨的视觉效果。
+这个系列的教程非常受到 [Canabalt](http://www.adamatomic.com/canabalt/) 和 [Monster Dash](https://chrome.google.com/webstore/detail/monster-dash/cknghehebaconkajgiobncfleofebcog?hl=en) 游戏的启发，当玩家的英雄在平台之间奔跑和跳跃时，这些游戏都能很好地利用视差滚动来提供花哨的视觉效果。
 
 在接下来的两节教程中，我们将构建一个非常类似于 Monster Dash 中的滚动游戏地图。 Monster Dash 的游戏地图是由一系列不同宽度和高度的砖块儿构建而成。游戏的目的是通过在砖块儿之间跳跃来尽可能长地生存。游戏地图的滚动速度随着时间的推移而增加。
 
@@ -58,7 +58,7 @@ tags:
 
 在本节教程中，我们将使用一些新的图片素材。可以直接从 [这里](www.yeahbutisitflash.com/pixi-parallax-scroller/tutorial-3/resources.zip) 下载，并将其内容解压缩到项目的 resource 文件夹中。
 
-下面就是你的 `resource` 文件夹的样子（Windows）：
+下面就是你的 `resource` 文件夹的样子（Windows）：
 
 ![ps-tut3-screenshot1](https://img11.360buyimg.com/devfe/jfs/t1/31697/16/6353/53328/5c8e01e2E14bc1c7b/d5701c262078bc35.png)
 
@@ -139,7 +139,7 @@ window, decoration, window, decoration, window, decoration, window
 
 如上所述，我们的砖块墙由八种不同类型的砖块构成。表示这些切片的最简单方法是为每个切片提供单独的 PNG文件。虽然这是一种办法，但我们实际上会将所有切片添加到一个称为 **精灵表** 的大型 PNG 文件中。
 
-> 精灵表通常也称为 **纹理图集（texture atlas**） 。我们将在本教程中使用 **精灵表** 这个术语。
+> 精灵表通常也称为 **纹理图集（texture atlas**） 。我们将在本教程中使用 **精灵表** 这个术语。
 
 我在本教程的 resources.zip 文件中提供了精灵表。这是一个名为 `wall.png` 的文件，如下所示。所有八个切片都已打包到一个位图上。
 
@@ -217,9 +217,9 @@ Main.prototype.loadSpriteSheet = function() {
 };
 ```
 
-我们使用了 `PIXI.loaders.Loader` 类，它可用于加载图像，精灵表和位图字体文件。我们直接从 `PIXI.loader` 属性获取加载器的预定义的实例来使用加载器，所有资源都可以人这里加载。所以，只需把 `wall.json` 文件也添加进去。我们传递一个与文件关联的唯一 ID 作为第一个参数，并将资源的实际相对路径作为第二个参数传递。
+我们使用了 `PIXI.loaders.Loader` 类，它可用于加载图像，精灵表和位图字体文件。我们直接从 `PIXI.loader` 属性获取加载器的预定义的实例来使用加载器，所有资源都可以人这里加载。所以，只需把 `wall.json` 文件也添加进去。我们传递一个与文件关联的唯一 ID 作为第一个参数，并将资源的实际相对路径作为第二个参数传递。
 
-加载精灵表后，PIXI.loaders.Loader 类会触发一个 `complete` 事件。为了响应该事件，我们只需要绑定 complete 方法到自定义函数 `spriteSheetLoaded()` 中，这个函数我们稍后实现。
+加载精灵表后，PIXI.loaders.Loader 类会触发一个 `complete` 事件。为了响应该事件，我们只需要绑定 complete 方法到自定义函数 `spriteSheetLoaded()` 中，这个函数我们稍后实现。
 
 最后，调用我们的 PIXI.loaders.Loader 实例的 `load()` 方法来真正加载我们的精灵表。加载完后，Pixi 将提取所有帧并将其存储在内部的纹理缓存中以便后续使用。
 
@@ -231,9 +231,9 @@ loader.add("bg-mid", "resources/bg-mid.png"); // 添加
 loader.add("bg-far", "resources/bg-far.png"); // 添加
 ```
 
-> 无需对 Far 或 Mid 类进行任何更改，因为在尝试从文件系统加载纹理之前，对  `PIXI.Texture.fromImage()` 的调用将优先查询内部纹理缓存。
+> 无需对 Far 或 Mid 类进行任何更改，因为在尝试从文件系统加载纹理之前，对  `PIXI.Texture.fromImage()` 的调用将优先查询内部纹理缓存。
 
-现在让我们编写 `spriteSheetLoaded()` 方法。在文件末尾添加以下内容：
+现在让我们编写 `spriteSheetLoaded()` 方法。在文件末尾添加以下内容：
 
 ```
 Main.prototype.spriteSheetLoaded = function() {
@@ -347,7 +347,7 @@ Main.prototype.spriteSheetLoaded = function() {
 
 GPU 更擅长一次处理大数据量的场景。 Pixi 会迎合 GPU 的这个特点，把数据对象批量发送给 GPU。但是，它只能批量处理具有相似状态的展示对象。当遇到具有不同状态的显示对象时，表示已经发生状态改变并且 GPU 会停止以绘制当前批次。程序中发生的状态更改越少，GPU 需要执行的绘制操作就越少，以便呈现展示列表。 GPU 执行的绘制操作越少，渲染性能就越快。
 
-> 刚刚提到的 **绘制**（draw） 操作和我们平常绘画意思差不多。
+> 刚刚提到的 **绘制**（draw） 操作和我们平常绘画意思差不多。
 
 不幸的是，每当遇到具有不同纹理的展示对象时，状态就会发生改变。精灵表可以帮助避免状态更改，因为所有图像都存储在单个纹理中。 GPU 可以非常愉快地从精灵表中绘制每个帧（或子纹理），而无需单独的调用绘制。
 
@@ -577,9 +577,9 @@ function WallSpritesPool() {
 * `borrowWindow()`
 * `returnWindow()`
 
-`borrowWindow()` 方法将从 windows 池中删除一个窗口精灵，并返回对它的引用供你使用。完成后，可以通过调用 `returnWindow()` 将精灵作为参数传递回游戏池。
+`borrowWindow()` 方法将从 windows 池中删除一个窗口精灵，并返回对它的引用供你使用。完成后，可以通过调用 `returnWindow()` 将精灵作为参数传递回游戏池。
 
-好的，我们在类的构造函数之后添加 `borrowWindow()` 方法：
+好的，我们在类的构造函数之后添加 `borrowWindow()` 方法：
 
 ```
 function WallSpritesPool() {
@@ -801,7 +801,7 @@ function WallSpritesPool() {
 }
 ```
 
-现在真正来实现 `createDecorations()` 方法：
+现在真正来实现 `createDecorations()` 方法：
 
 ```
 WallSpritesPool.prototype.createWindows = function() {
@@ -1272,7 +1272,7 @@ WallSpritesPool.prototype.createSteps = function() {
 };
 ```
 
-并且添加一个 `addStepSprites()` 方法：
+并且添加一个 `addStepSprites()` 方法：
 
 ```
 WallSpritesPool.prototype.addStepSprites = function(amount, frameId) {

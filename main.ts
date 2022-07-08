@@ -38,11 +38,18 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
     .container header h1 { font-size: 1.8em; font-weight: 600; margin-bottom: 0; }
     .container .anchor:hover { border: none; }
     .container .utterances { max-width: none; }
+    .wysiwyg pre>code { padding: 0; }
     h2:hover>.anchor,
     h3:hover>.anchor,
     h4:hover>.anchor,
     h5:hover>.anchor,
     h6:hover>.anchor { visibility: visible; }
+    .eof {
+      margin: 2.4em 0;
+      border: none;
+      height: 2.8em;
+      background: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='5' width='1' height='1' fill='%23D9D9D9'/%3E%3Crect x='4' y='1' width='1' height='1' fill='%23D9D9D9'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%23D9D9D9'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%23D9D9D9'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%23D9D9D9'/%3E%3Crect y='5' width='1' height='1' fill='%23D9D9D9'/%3E%3C/svg%3E") repeat-x center left;
+    }
   `
   const codeCSS = `
     .token.comment, .token.prolog, .token.doctype, .token.cdata { color: slategray; }

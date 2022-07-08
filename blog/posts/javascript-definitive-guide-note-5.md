@@ -156,7 +156,7 @@ q.x + q.y               // => 3
 
 ## 删除属性
 
-使用 delete 运算符可以删除对象的属性，delete 运算符只能删除 __自有属性__，不能删除继承属性（要删除继承属性必须从定义这个属性的原型对象上删除它，而且这会影响到所有继承自这个原型的对象）
+使用 delete 运算符可以删除对象的属性，delete 运算符只能删除  **自有属性**，不能删除继承属性（要删除继承属性必须从定义这个属性的原型对象上删除它，而且这会影响到所有继承自这个原型的对象）
 
 如果删除成功或者删除了一个没有影响的值（不存在的属性），delete 表达式返回 true。当 delete 运算符的操作数不是一个对象的属性的时候也返回 true
 
@@ -359,7 +359,7 @@ Object.defineProperty(Object.prototype, "extend", {
 
 **getter 和 setter 的老式 API**
 
-在ECMAScript 5标准被采纳之前，大多数 JavaScript 的实现（IE 除外）已经可以支持对象直接量语法中的 get 和 set 写法。这些实现提供了非标准的老式 API 用来查询和设置 getter 和 setter。这些 API 由 4 个方法组成，所有对象都拥有这些方法。`__lookupGetter__()` 和 `__lookupSetter__()` 用以返回一个命名属性的 getter 和 setter 方法，`__defineSetter__()` 和 `__defineGetter__()` 用以定义 getter 和 setter
+在ECMAScript 5标准被采纳之前，大多数 JavaScript 的实现（IE 除外）已经可以支持对象直接量语法中的 get 和 set 写法。这些实现提供了非标准的老式 API 用来查询和设置 getter 和 setter。这些 API 由 4 个方法组成，所有对象都拥有这些方法。` **lookupGetter**()` 和 ` **lookupSetter**()` 用以返回一个命名属性的 getter 和 setter 方法，` **defineSetter**()` 和 ` **defineGetter**()` 用以定义 getter 和 setter
 
 ## 对象的三个属性
 

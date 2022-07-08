@@ -131,18 +131,18 @@ p[lang="fr"]  // 所有属性 lang 为 fr 的 <p> 元素
 
 Document 对象、它的 Element 对象和文档中表示文本的 Text 对象都是 Node 对象。Node 对象有以下属性：
 
-* __parentNode__ 该节点的父节点，Document 对象没有父节点，它的 parentNode 返回 null
-* __childNodes__ 只读的类数组对象（NodeList 对象），表示该节点的所有子节点
-* __firstChild、lastChild__ 该节点的子节点中的第一个或最后一个
-* __nextSibling、previoursSibling__ 该节点的兄弟节点中的前一个或下一个
-* __nodeType__ 该节点的类型
-  * __11__ - DocumentFragment 节点
-  * __9__ - Document 节点
-  * __8__ - Comment 节点
-  * __3__ - Text 节点
-  * __1__ - Element 节点
-* __nodeVlaue__ Text 节点或 Comment 节点的文本内容
-* __nodeName__ 元素标签名，以大写形式表示
+*  **parentNode** 该节点的父节点，Document 对象没有父节点，它的 parentNode 返回 null
+*  **childNodes** 只读的类数组对象（NodeList 对象），表示该节点的所有子节点
+*  **firstChild、lastChild** 该节点的子节点中的第一个或最后一个
+*  **nextSibling、previoursSibling** 该节点的兄弟节点中的前一个或下一个
+*  **nodeType** 该节点的类型
+  *  **11** - DocumentFragment 节点
+  *  **9** - Document 节点
+  *  **8** - Comment 节点
+  *  **3** - Text 节点
+  *  **1** - Element 节点
+*  **nodeVlaue** Text 节点或 Comment 节点的文本内容
+*  **nodeName** 元素标签名，以大写形式表示
 
 ```javascript
 // 注意删除了空格和换行
@@ -372,13 +372,13 @@ Select 元素表示用户可以做出选择的一组选项（用 Option 元素�
 
 ### Document 的属性
 
-* __cookie__ 允许 JavaScript 读、写 HTTP cookie 的属性
-* __domain__ 允许当 Web 页面交互时，相同域名下互相信任的 Web 服务器之间协作放宽同源策略安全限制
-* __lastModified__ 包含文档修改时间的字符串
-* __location__ 与 Window 对象的 location 属性引用同一个 Location 对象
-* __referrer__ 如果有，它表示浏览器来到当前页面的上一个页面。与 HTTP 的 Referer 头信息内容相同
-* __title__ 文档中 title 标签的内容
-* __URL__ 文档的 URL，只读字符串而不是 Location 对象。该属性值与 location.href 的 __初始值__相同，不会发生变化
+*  **cookie** 允许 JavaScript 读、写 HTTP cookie 的属性
+*  **domain** 允许当 Web 页面交互时，相同域名下互相信任的 Web 服务器之间协作放宽同源策略安全限制
+*  **lastModified** 包含文档修改时间的字符串
+*  **location** 与 Window 对象的 location 属性引用同一个 Location 对象
+*  **referrer** 如果有，它表示浏览器来到当前页面的上一个页面。与 HTTP 的 Referer 头信息内容相同
+*  **title** 文档中 title 标签的内容
+*  **URL** 文档的 URL，只读字符串而不是 Location 对象。该属性值与 location.href 的  **初始值**相同，不会发生变化
 
 ### document.write() 方法
 

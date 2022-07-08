@@ -27,7 +27,7 @@ Nest 中间件实际上和 Express 的中间件是一样的，Express 文档中�
 
 Nest 允许你使用函数或者类来实现自己的中间件。如果用类实现，则需要使用 `@Injectable()` 装饰，并且实现 `NestMiddleware` 接口。
 
-```
+```ts
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response } from 'express';
 
@@ -48,7 +48,7 @@ export class LoggerMiddleware implements NestMiddleware {
 
 @Module() 装饰器中并不能指定中间件参数，我们可以在模块类的构 configure() 方法中应用中间件，下面的代码会应用一个 ApplicationModule级别的日志中间件 LoggerMiddleware
 
-```
+```ts
 @Module({
   imports: [CatsModule],
 })
@@ -63,14 +63,14 @@ export class ApplicationModule implements NestModule {
 
 上面的代码 forRoutes 方法表示只将中间件应用在 cats 路由上，还可以是指定的 HTTP 方法，甚至是路由通配符：
 
-```
+```js
 .forRoutes({ path: 'cats', method: RequestMethod.GET });
 .forRoutes({ path: 'ab*cd', method: RequestMethod.ALL });
 ```
 
 当然，你也可以指定不包括某些路由规则：
 
-```
+```js
 consumer
   .apply(LoggerMiddleware)
   .exclude(
@@ -86,7 +86,7 @@ consumer
 
 函数式的中间件可以用一个简单无依赖函数来实现：
 
-```
+```ts
 export function logger(req, res, next) {
   console.log(`Request...`);
   next();
@@ -97,7 +97,7 @@ export function logger(req, res, next) {
 
 apply 方法传入多个中间件参数即可：
 
-```
+```js
 consumer.apply(cors(), helmet(), logger)
 .forRoutes(CatsController);
 ```
@@ -106,7 +106,7 @@ consumer.apply(cors(), helmet(), logger)
 
 在实现了 INestApplication 接口的实例上调用 use() 方法即可：
 
-```
+```js
 const app = await NestFactory.create(ApplicationModule);
 app.use(logger);
 await app.listen(3000);

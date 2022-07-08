@@ -642,6 +642,7 @@ HTTPie 默认只输出最终响应信息并且打印（header, body同样），�
 ```bash
 http --verbose PUT httpbin.org/put hello=world
 ```
+
 ```http
 PUT /put HTTP/1.1
 Accept: application/json, */*
@@ -884,6 +885,7 @@ HTTPie 具有下载模式，这和 `wget` 命令类似
 ```bash
 http --download https://github.com/jkbrzt/httpie/archive/master.tar.gz
 ```
+
 ```http
 HTTP/1.1 200 OK
 Content-Disposition: attachment; filename=httpie-master.tar.gz
@@ -1038,7 +1040,7 @@ JSON 配置文件包含以下的键：
 这会让 HTTPie 总是使用会话（名称为default）。也可以使用 `--form` 改变默认 **不严
 格的** JSON 类型为 form 类型
 
-`__meta__`
+` **meta**`
 
 HTTPie 自动存储了一些它自己的元数据，不要动它
 
@@ -1090,7 +1092,7 @@ HTTPie 开始读取它，希望请求体将被传递。由于没有数据也没�
 易记忆和阅读。有时你甚至可以把原生的 HTTP 请求串连到一行就很自然的形成了 HTTPie
 的命令行参数。例如 对比下面这个原生 HTTP 请求：
 
-```bash
+```http
 POST /collection HTTP/1.1
 X-API-Key: 123
 User-Agent: Bacon/1.0

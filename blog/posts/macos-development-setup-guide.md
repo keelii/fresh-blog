@@ -73,11 +73,13 @@ git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
 cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
 git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
 ```
+
 由于 brew 安装下载源码包有时是用 curl 的，所以可以配置下 curl 来走 _番习习墙_ 代理，我一般在配置文件中设置 `vim ~/.curlrc`
 
 ```bash
 socks5 = "127.0.0.1:1080"
 ```
+
 ### 安装 Zsh & oh-my-zsh
 
 Zsh 是一种 [shell](https://zh.wikipedia.org/wiki/Unix_shell)，功能和 bash, csh 一样，用来和操作系统交互
@@ -90,6 +92,7 @@ brew install zsh
 chsh -s /bin/zsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
+
 安装成功的话会有下面的提示
 
 [![ohmyzsh](https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png)](https://img13.360buyimg.com/devfe/jfs/t10303/164/828630186/232717/e8624f08/59d8e4d7N2c9b44f6.png)
@@ -132,13 +135,13 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 .
 ├── config.toml
 ├── content
-│   ├── about
-│   └── archives
+│   ├── about
+│   └── archives
 ├── deploy.sh
 ├── public
-│   ├── 2016
+│   ├── 2016
 ...
-│   └── tags
+│   └── tags
 └── themes
     └── octo-enhance
 
@@ -169,7 +172,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 
 方便在命令行中快速跳转目录，安装后程序会读取你 cd 过的目录并存起来，方便后面用快捷方式调用，支持模糊匹配。**注意: autojump 只会记录安装后使用 cd 命令进入过的目录**
 
-[![autojump](//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif)](//img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif)
+[![autojump](https://img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif)](https://img10.360buyimg.com/devfe/jfs/t10066/212/961703883/22512/ed0565/59dae741N3fcc655c.gif)
 
 #### yarn
 

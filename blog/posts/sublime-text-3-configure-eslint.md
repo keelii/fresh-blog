@@ -25,6 +25,7 @@ ESLint 默认的 parser 是 esprima，如果你需要检查 Babel 转义的 JSX 
 yarn init -y
 yarn global add eslint
 ```
+
 使用 sublime text 3 配置 eslint 来做代码检查
 
 ## 安装 Sublime text 3 插件

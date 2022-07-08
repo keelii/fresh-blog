@@ -296,8 +296,8 @@ test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out (3ms)
 ```bash
 ├── package.json
 ├── src
-│   ├── index.ts
-│   └── request.ts
+│   ├── index.ts
+│   └── request.ts
 └── tests
     └── request.test.ts
 ```

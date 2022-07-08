@@ -78,6 +78,7 @@ server {
     }
 }
 ```
+
 ### 443 端口配置
 
 首先你得有个免费的 HTTPS 证书，这个可以参考我之前的文章：[免费 Https 证书（Let'S Encrypt）申请与配置](/2016/06/12/free-https-cert-lets-encrypt-apply-install/)

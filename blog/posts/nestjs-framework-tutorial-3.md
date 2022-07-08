@@ -17,7 +17,7 @@ tags:
 
 比如下面的代码：
 
-```
+```ts
 import { Controller, Get } from '@nestjs/common';
 
 @Controller('cats')
@@ -53,7 +53,7 @@ export class CatsController {
 | `@Headers(name?: string)` | `req.headers` / `req.headers[name]` |
 举个例子：比如我们只需要处理请求的查询字符串（query string），就可以使用 @Query 来装饰入参，这样取到的值就自然是一个 query string 的字典了。
 
-```
+```ts
 @Get()
 getHello(@Query() q: String): string {
     console.log(q)
@@ -75,7 +75,7 @@ getHello(@Query() q: String): string {
 
 Nest 支持基于模式的路由规则匹配，比如：星号（\*）表示匹配任意的字母组合。
 
-```
+```ts
 @Get('ab*cd')
 ```
 
@@ -92,7 +92,7 @@ The `'ab*cd'` 路由将匹配 `abcd`, `ab_cd`, `abecd` 等规则。同时：`?`,
 
 响应的默认状态码是 200，POST 则是 201，我们可以使用装饰器 `@HttpCode(204)` 来指定**处理器**级别的 默认 HttpCode 为 204
 
-```
+```ts
 @Post()
 @HttpCode(204)
 create() {
@@ -106,7 +106,7 @@ create() {
 
 同样的我们可以使用 `@Header()` 来设置自定义的请求头，也可以使用 `response.header()` 设置
 
-```
+```ts
 @Post()
 @Header('Cache-Control', 'none')
 create() {
@@ -118,7 +118,7 @@ create() {
 
 通常我们需要设置一些动态的路由来接收一些客户端的查询参数，通过指定路由参数可以很方便的捕获到 URL 上的动态参数到控制器中。
 
-```
+```ts
 @Get(':id')
 findOne(@Param() params): string {
   console.log(params.id);
@@ -130,7 +130,7 @@ findOne(@Param() params): string {
 
 当然，就像前面学到的参数装饰器也可以指定到具体的某个参数值：
 
-```
+```ts
 @Get(':id')
 findOne(@Param('id') id): string {
   return `This action returns a #${id} cat`;

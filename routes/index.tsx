@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from "preact";
-import { getPosts } from "../utils/util.ts";
+import {getPosts, toDisplayDate} from "../utils/util.ts"
 import { Container } from "../component/Container.tsx";
 import { Layout } from "../component/Layout.tsx";
 import { POST_DIR } from "../main.ts";
@@ -24,6 +24,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          <hr/>
         </div>
       </Container>
     </Layout>

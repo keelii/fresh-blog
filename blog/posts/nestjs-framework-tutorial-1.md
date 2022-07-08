@@ -53,14 +53,14 @@ Angular 的很多模式又来自于 Java 中的 Spring 框架，依赖注入、�
 
 安装 Nest 最方便的方法就是使用它额外提供的一个 CLI 工具（需要安装 Node.js > 8.9 版本），使用下面的命令它可以帮你自己生成项目的目录结构和预定义的最小模块：
 
-```
+```bash
 npm i -g @nestjs/cli
 nest new project-name
 ```
 
 执行后命令行可以看见它自动生成的文件：
 
-```
+```bash
 ➜  github.com nest new project-name
 ⚡  We will scaffold your app in a few seconds..
 
@@ -92,7 +92,7 @@ $ yarn run start
 
 这时可以按提示，进入到 `project-name` 运行项目。如果看到下面的输出就表示成功了：
 
-```
+```bash
 ➜  github.com cd project-name
 ➜  project-name git:(master) ✗ yarn run start
 yarn run v1.10.1

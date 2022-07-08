@@ -28,7 +28,7 @@ cd certbot
 ./certbot-auto certonly --webroot --agree-tos -v -t --email keeliizhou@gmail.com -w /path/to/your/web/root -d note.crazy4code.com
 ```
 
-__注意__ 这里 默认会自动生成到 /__网站根目录__/.well-known/acme-challenge 文件夹，然后 shell 脚本会对应的访问 __网站域名__/.well-known/acme-challenge 是否存在来确定你对网站的所属权
+ **注意** 这里 默认会自动生成到 / **网站根目录**/.well-known/acme-challenge 文件夹，然后 shell 脚本会对应的访问  **网站域名**/.well-known/acme-challenge 是否存在来确定你对网站的所属权
 
 比如：我的域名是 **note.crazy4code.com** 那我就得保证域名下面的 **.well-known/acme-challenge/** 目录是可访问的
 
@@ -38,7 +38,7 @@ __注意__ 这里 默认会自动生成到 /__网站根目录__/.well-known/acme
 
 如果上面的步骤正常 shell 脚本会展示如下信息：
 
-```
+```bash
 - Congratulations! Your certificate and chain have been saved at
 /etc/letsencrypt/live/网站域名/fullchain.pem
 ...
@@ -80,6 +80,7 @@ server {
     return 301 https://$server_name$request_uri;
 }
 ```
+
 ## 7. 证书更新
 
 免费证书只有 90 天的有效期，到时需要手动更新 renew。刚好 Let's encrypt 旗下还有一个 [Let's monitor](https://letsmonitor.org/) 免费服务，注册账号添加需要监控的域名，系统会在证书马上到期时发出提醒邮件，非常方便。收到邮件后去后台执行 renew 即可，如果提示成功就表示 renew 成功
