@@ -201,7 +201,7 @@ conn, addr = s.accept()
 
 如果你的服务器需要同时接收很多连接请求，增加 backlog 参数的值可以加大等待链接请求队列的长度，最大长度取决于操作系统。比如在 Linux 下，参考 [/proc/sys/net/core/somaxconn](https://serverfault.com/questions/518862/will-increasing-net-core-somaxconn-make-a-difference/519152)
 
-`accept()` 方法阻塞并等待传入连接。当一个客户端连接时，它将返回一个新的 socket 对象，对象中有表示当前连接的 conn 和一个由主机、端口号组成的 IPv4/v6 连接的元组，更多关于元组值的内容可以查看 [socket 地址族](#socket 地址族) 一节中的详情
+`accept()` 方法阻塞并等待传入连接。当一个客户端连接时，它将返回一个新的 socket 对象，对象中有表示当前连接的 conn 和一个由主机、端口号组成的 IPv4/v6 连接的元组，更多关于元组值的内容可以查看 [socket地址族](#socket地址族) 一节中的详情
 
 这里必须要明白我们通过调用 `accept()` 方法拥有了一个新的 socket 对象。这非常重要，因为你将用这个 socket 对象和客户端进行通信。和监听一个 socket 不同的是后者只用来授受新的连接请求
 
@@ -277,7 +277,7 @@ Connected by ('127.0.0.1', 64623)
 
 上面的输出中，服务端打印出了 `s.accept()` 返回的 addr 元组，这就是客户端的 IP 地址和 TCP 端口号。示例中的端口号是 64623 这很可能是和你机器上运行的结果不同
 
-### 查看 socket 状态
+### 查看socket状态
 
 想查找你主机上 socket 的当前状态，可以使用 `netstat` 命令。这个命令在 macOS, Window, Linux 系统上默认可用
 
@@ -1296,7 +1296,7 @@ ICMP 类型 | ICMP 代码 | 说明
 
 ### netstat
 
-在 [查看 socket 状态](#查看 socket 状态) 一节中我们已经知道如何使用 netstat 来查看 socket 及其状态的信息。这个命令在 macOS, Linux, Windows 上都可以使用
+在 [查看socket状态](#查看socket状态) 一节中我们已经知道如何使用 netstat 来查看 socket 及其状态的信息。这个命令在 macOS, Linux, Windows 上都可以使用
 
 在之前的示例中我并没有提及 `Recv-Q` 和 `Send-Q` 列。这些列表示发送或者接收队列中网络缓冲区数据的字节数，但是由于某些原因这些字节还没被远程或者本地应用读写
 
@@ -1416,7 +1416,7 @@ ConnectionResetError   | ECONNRESET   | 连接被重置，远端的进程崩溃�
 TimeoutError           | ETIMEDOUT    | 操作超时，对方没有响应
 ConnectionRefusedError | ECONNREFUSED | 连接被拒绝，没有程序监听指定的端口
 
-### socket 地址族
+### socket地址族
 
 `socket.AF_INET` 和 `socket.AF_INET6` 是 `socket.socket()` 方法调用的第一个参数
 ，表示地址协议族，API 使用了一个期望传入指定格式参数的地址，这取决于是

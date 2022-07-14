@@ -88,8 +88,7 @@ pip install --upgrade https://github.com/jkbrzt/httpie/archive/master.tar.gz
 ### Python 版本
 
 虽然兼容 Python 2.6, 2.7 版本的，但是如果可以的话还是建议使用最新版的 Python 3.x
-来安装 HTTPie。这将保证一些比较新的功能（比如：[SNI](#服务器名称指示
--sni-server-name-indication) ）可以开箱即用。Python 3 在 Homebrew 0.9.4 版本以上
+来安装 HTTPie。这将保证一些比较新的功能（比如：[SNI](#服务器名称指示sniserver-name-indication) ）可以开箱即用。Python 3 在 Homebrew 0.9.4 版本以上
 已经成为了默认的 Python 版本。可以使用 `http --debug` 来查看 HTTPie 使用的
 python 版本
 
@@ -335,8 +334,7 @@ Host: api.example.com
 }
 ```
 
-不过请注意，当发送复杂数据的时候，这个例子使用的语法会显得很笨重。在这种情况下 [
-重定向输入](#重定向输入) 将会更合适：
+不过请注意，当发送复杂数据的时候，这个例子使用的语法会显得很笨重。在这种情况下[重定向输入](#重定向输入) 将会更合适：
 
 ```bash
 http POST api.example.com/person/1 < person.json
@@ -611,7 +609,7 @@ http --cert=client.crt --cert-key=client.key https://example.org
 http --ssl=ssl3 https://vulnerable.example.org
 ```
 
-### 服务器名称指示 SNI(Server Name Indication)
+### 服务器名称指示SNI(Server Name Indication)
 
 如果你的 HTTPie 版本（可以使用 `http --debug` 查看版本）小于 2.7.9，又需要使用
 SNI 与服务器会话。那么你需要安装额外的依赖
