@@ -1,7 +1,10 @@
 // import { parse as parseTomlString } from "https://deno.land/std/encoding/toml.ts";
-import { stringify, parse as parseYamlString } from "https://deno.land/std/encoding/yaml.ts";
+import {
+  parse as parseYamlString,
+  stringify,
+} from "https://deno.land/std/encoding/yaml.ts";
 import { basename } from "https://deno.land/std/path/mod.ts";
-import { walkSync } from "https://deno.land/std/fs/mod.ts";
+import { walk } from "https://deno.land/std/fs/mod.ts";
 
 export interface MetaInfo {
   title: string;
@@ -62,14 +65,16 @@ export function getYamlString(content: string) {
 //   return [toml.join("\n").trim(), lines.slice(i).join("\n").trim()];
 // }
 //
-export function parseYamlFile(path: string, includeContent: boolean = true) {
-  const contents = Deno.readTextFileSync(path);
+export async function parseYamlFile(
+  path: string,
+  includeContent: boolean = true,
+) {
+  const contents = await Deno.readTextFile(path);
   const [yamlContent, mdContent] = getYamlString(contents);
   try {
     const toml = parseYamlString(yamlContent) as any;
 
     if (toml.draft) return null;
-
 
     const date = new Date(Date.parse(toml.date));
     const datePrefix = new Intl.DateTimeFormat("zh-Hans-CN", {
@@ -128,13 +133,13 @@ export function parseYamlFile(path: string, includeContent: boolean = true) {
 //   }
 // }
 //
-export function getPosts(dir: string, includeContent: boolean = true) {
-  const items = walkSync(dir);
+export async function getPosts(dir: string, includeContent: boolean = true) {
+  const items = await walk(dir);
   const articles: MetaInfo[] = [];
 
-  for (const item of items) {
+  for await (const item of items) {
     if (item.isFile) {
-      let info = parseYamlFile(item.path, includeContent);
+      let info = await parseYamlFile(item.path, includeContent);
 
       info && articles.push(info);
 

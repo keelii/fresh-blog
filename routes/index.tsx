@@ -1,12 +1,26 @@
 /** @jsx h */
 import { h } from "preact";
-import {getPosts, toDisplayDate} from "../utils/util.ts"
+import {
+  getPosts,
+  MetaInfo,
+  parseYamlFile,
+  toDisplayDate,
+} from "../utils/util.ts";
 import { Container } from "../component/Container.tsx";
 import { Layout } from "../component/Layout.tsx";
-import { POST_DIR } from "../main.ts";
+import { CONTENT_DIR, POST_DIR } from "../main.ts";
+import { Handlers, PageProps } from "$fresh/src/server/types.ts";
+import { join } from "https://deno.land/std/path/mod.ts";
 
-export default function Home() {
-  const posts = getPosts(POST_DIR);
+export const handler: Handlers<MetaInfo[] | null> = {
+  async GET(_, ctx) {
+    const posts = await getPosts(POST_DIR);
+    return ctx.render(posts);
+  },
+};
+
+export default function Home(props: PageProps<MetaInfo[]>) {
+  const posts = props.data;
 
   return (
     <Layout title={"臨池不輟"}>
@@ -24,7 +38,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <hr/>
+          <hr />
         </div>
       </Container>
     </Layout>

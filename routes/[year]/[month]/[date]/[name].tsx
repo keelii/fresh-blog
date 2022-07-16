@@ -1,14 +1,18 @@
 /** @jsx h */
 import { Fragment, h } from "preact";
-import { PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import { join } from "https://deno.land/std/path/mod.ts";
 
 import { render } from "https://deno.land/x/gfm@0.1.20/mod.ts";
-import {parseYamlFile, toDisplayDate} from "../../../../utils/util.ts"
+import {
+  MetaInfo,
+  parseYamlFile,
+  toDisplayDate,
+} from "../../../../utils/util.ts";
 import { Container } from "../../../../component/Container.tsx";
 import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
-import { POST_DIR } from "../../../../main.ts";
+import { CONTENT_DIR, POST_DIR } from "../../../../main.ts";
 
 import "https://esm.sh/prismjs@1.25.0/components/prism-bash?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-typescript?no-check&pin=v57";
@@ -17,13 +21,17 @@ import "https://esm.sh/prismjs@1.25.0/components/prism-http?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-java?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-json?no-check&pin=v57";
 
+export const handler: Handlers<MetaInfo | null> = {
+  async GET(_, ctx) {
+    const file = join(POST_DIR, ctx.params.name + ".md");
+    const result = await parseYamlFile(file);
+    return ctx.render(result);
+  },
+};
 
-export default function ArticleDetail(props: PageProps) {
-  const file = join(POST_DIR, props.params.name + ".md");
-  const { content, ...yaml } = parseYamlFile(file);
-  const html = render(content, {
-
-  });
+export default function ArticleDetail(props: PageProps<MetaInfo>) {
+  const { content, ...yaml } = props.data;
+  const html = render(content, {});
 
   const initMath = `
     window.MathJax = {
@@ -42,7 +50,8 @@ export default function ArticleDetail(props: PageProps) {
         <header className={"wysiwyg"}>
           <h1>{yaml.title}</h1>
           <span className="meta">
-            {toDisplayDate(yaml.date)}{"\u3000"}
+            {toDisplayDate(yaml.date)}
+            {"\u3000"}
             <a href="/">首页</a>
           </span>
         </header>
