@@ -4,7 +4,7 @@ import { getCachedPosts, MetaInfo } from "../utils/util.ts";
 import { Container } from "../component/Container.tsx";
 import { Layout } from "../component/Layout.tsx";
 import { Handlers, PageProps } from "$fresh/src/server/types.ts";
-import {BLOG_CONFIG, POST_DIR} from "../config.ts"
+import { BLOG_CONFIG, POST_DIR } from "../config.ts";
 
 export const handler: Handlers<MetaInfo[] | null> = {
   async GET(_, ctx) {
@@ -32,7 +32,7 @@ export default function Home(props: PageProps<MetaInfo[]>) {
               </li>
             ))}
           </ul>
-          <hr style={{marginTop: 40}} />
+          <hr style={{ marginTop: 40 }} />
         </div>
         <footer>
           <p>

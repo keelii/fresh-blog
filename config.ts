@@ -1,4 +1,5 @@
 import {join} from "https://deno.land/std/path/mod.ts"
+import * as log from "https://deno.land/std/log/mod.ts"
 
 export const CONTENT_DIR = join(Deno.cwd(), "blog")
 export const POST_DIR = join(CONTENT_DIR, "posts")
@@ -7,7 +8,7 @@ export type AppEnv = "prd" | "dev"
 
 const APP_ENV = Deno.env.get("APP_ENV") || "dev"
 
-console.log("APP_ENV: ", APP_ENV)
+log.info("APP_ENV: ", APP_ENV)
 
 const url = APP_ENV === "prd"
   ? "https://keelii.com"

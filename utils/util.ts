@@ -1,11 +1,10 @@
 // import { parse as parseTomlString } from "https://deno.land/std/encoding/toml.ts";
 import {
   parse as parseYamlString,
-  stringify,
 } from "https://deno.land/std/encoding/yaml.ts";
 import { basename } from "https://deno.land/std/path/mod.ts";
+import * as log from "https://deno.land/std/log/mod.ts";
 import { walk } from "https://deno.land/std/fs/mod.ts";
-import { inc } from "https://deno.land/x/semver@v1.4.0/mod.ts";
 
 interface ICache {
   posts: MetaInfo[] | null;
@@ -119,7 +118,7 @@ export async function parseYamlFile(
       content: includeContent ? mdContent : "",
     };
   } catch (e) {
-    console.error("解析出错：" + path, e);
+    log.error("解析出错：" + path, e);
   }
   return null;
 }

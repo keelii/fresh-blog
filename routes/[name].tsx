@@ -1,18 +1,18 @@
 /** @jsx h */
 import { Fragment, h } from "preact";
-import {Feed, Item} from "https://esm.sh/feed@4.2.2"
-import {Handlers, PageProps} from "$fresh/src/server/types.ts"
-import {getCachedPosts, MetaInfo} from "../utils/util.ts"
-import {BLOG_CONFIG, POST_DIR} from "../config.ts"
+import { Feed, Item } from "https://esm.sh/feed@4.2.2";
+import { Handlers, PageProps } from "$fresh/src/server/types.ts";
+import { getCachedPosts, MetaInfo } from "../utils/util.ts";
+import { BLOG_CONFIG, POST_DIR } from "../config.ts";
 
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
-    const {name} = ctx.params;
+    const { name } = ctx.params;
 
     if (name === "atom.xml") {
       return await generateRSS();
     } else {
-      return ctx.render(name)
+      return ctx.render(name);
     }
   },
 };
@@ -33,7 +33,7 @@ async function generateRSS() {
     },
   });
 
-  const posts = await getCachedPosts(POST_DIR)
+  const posts = await getCachedPosts(POST_DIR);
   for (const post of posts) {
     const item: Item = {
       id: BLOG_CONFIG.url + post.url,
@@ -58,5 +58,5 @@ async function generateRSS() {
 }
 
 export default function NotFound(props: PageProps<string>) {
-  return <center style={{padding: 20 }}>[{props.data}] Not found.</center>
+  return <center style={{ padding: 20 }}>[{props.data}] Not found.</center>;
 }

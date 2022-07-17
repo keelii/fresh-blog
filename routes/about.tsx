@@ -7,7 +7,7 @@ import { Container } from "../component/Container.tsx";
 import { Comment } from "../component/Comment.tsx";
 import { MetaInfo, parseCachedYamlFile, toDisplayDate } from "../utils/util.ts";
 import { join } from "https://deno.land/std/path/mod.ts";
-import {CONTENT_DIR} from "../config.ts"
+import { CONTENT_DIR } from "../config.ts";
 
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
