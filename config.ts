@@ -9,5 +9,5 @@ export const BLOG_CONFIG = {
   description: "__ you don&#39;t know yet",
   author: "keelii",
   keywords: "前端开发,编程,javascript,typescript,css,html,nodejs,python,java",
-  rss: "/atom.xml"
+  rss: "atom.xml"
 }
