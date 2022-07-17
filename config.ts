@@ -7,6 +7,8 @@ export type AppEnv = "prd" | "dev"
 
 const APP_ENV = Deno.env.get("APP_ENV") || "dev"
 
+console.log("APP_ENV: ", APP_ENV)
+
 const url = APP_ENV === "prd"
   ? "https://keelii.com"
   : "http://localhost:8000"
