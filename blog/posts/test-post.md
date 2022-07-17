@@ -1,6 +1,7 @@
 ---
 title: 测试文章
 date: 2016-06-10T10:04:47.000Z
+math: true
 ---
 
 # 标题一
@@ -40,5 +41,9 @@ var MD5 = function(str) {
 * HTML 超文本传输协议
 * CSS 层叠样式表
 * JavaScript 脚本
+
+<div>
+$$R∪S=\{t|t∈R∨t∈S\}$$
+</div>
 
 [1] 《念奴娇·赤壁怀古》 苏轼

@@ -38,7 +38,7 @@ export default function ArticleDetail(props: PageProps<MetaInfo>) {
       options: {},
       tex: {
         inlineMath: [ ['$','$'] ],
-        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        displayMath: [ ['$$','$$'] ],
         processEscapes: false
       }
     }
