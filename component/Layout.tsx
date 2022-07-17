@@ -13,7 +13,7 @@ const gaScript = `
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'UA-79264835-1');
-`
+`;
 
 export function Layout(props: LayoutProps) {
   return (
@@ -35,7 +35,11 @@ export function Layout(props: LayoutProps) {
         <meta name="sogou_site_verification" content="O1Cfr1TQve" />
         <meta name="baidu-site-verification" content="eLbyQls8CF" />
 
-        <script async={true} src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
+        <script
+          async={true}
+          src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"
+        >
+        </script>
         <script dangerouslySetInnerHTML={{ __html: gaScript }}>
         </script>
       </Head>

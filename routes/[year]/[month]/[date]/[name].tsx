@@ -6,13 +6,13 @@ import { join } from "https://deno.land/std/path/mod.ts";
 import { render } from "https://deno.land/x/gfm@0.1.20/mod.ts";
 import {
   MetaInfo,
-  parseYamlFile,
+  parseCachedYamlFile,
   toDisplayDate,
 } from "../../../../utils/util.ts";
 import { Container } from "../../../../component/Container.tsx";
 import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
-import { CONTENT_DIR, POST_DIR } from "../../../../main.ts";
+import { POST_DIR } from "../../../../main.ts";
 
 import "https://esm.sh/prismjs@1.25.0/components/prism-bash?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-typescript?no-check&pin=v57";
@@ -24,7 +24,7 @@ import "https://esm.sh/prismjs@1.25.0/components/prism-json?no-check&pin=v57";
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
     const file = join(POST_DIR, ctx.params.name + ".md");
-    const result = await parseYamlFile(file);
+    const result = await parseCachedYamlFile(file);
     return ctx.render(result);
   },
 };

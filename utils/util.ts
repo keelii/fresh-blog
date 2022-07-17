@@ -5,6 +5,16 @@ import {
 } from "https://deno.land/std/encoding/yaml.ts";
 import { basename } from "https://deno.land/std/path/mod.ts";
 import { walk } from "https://deno.land/std/fs/mod.ts";
+import { inc } from "https://deno.land/x/semver@v1.4.0/mod.ts";
+
+interface ICache {
+  posts: MetaInfo[] | null;
+  post: Record<string, MetaInfo>;
+}
+let CACHE: ICache = {
+  posts: null,
+  post: {},
+};
 
 export interface MetaInfo {
   title: string;
@@ -65,6 +75,19 @@ export function getYamlString(content: string) {
 //   return [toml.join("\n").trim(), lines.slice(i).join("\n").trim()];
 // }
 //
+export async function parseCachedYamlFile(
+  path: string,
+  includeContent: boolean = true,
+) {
+  if (!CACHE.post[path]) {
+    const result = await parseYamlFile(path, includeContent);
+    if (result) {
+      CACHE.post[path] = result;
+    }
+  }
+  return CACHE.post[path];
+}
+
 export async function parseYamlFile(
   path: string,
   includeContent: boolean = true,
@@ -133,6 +156,17 @@ export async function parseYamlFile(
 //   }
 // }
 //
+
+export async function getCachedPosts(
+  dir: string,
+  includeContent: boolean = true,
+) {
+  if (!CACHE.posts) {
+    CACHE.posts = await getPosts(dir, includeContent);
+  }
+  return CACHE.posts;
+}
+
 export async function getPosts(dir: string, includeContent: boolean = true) {
   const items = await walk(dir);
   const articles: MetaInfo[] = [];

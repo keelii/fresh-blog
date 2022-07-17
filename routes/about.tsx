@@ -6,13 +6,13 @@ import { render } from "https://deno.land/x/gfm@0.1.20/mod.ts";
 import { Layout } from "../component/Layout.tsx";
 import { Container } from "../component/Container.tsx";
 import { Comment } from "../component/Comment.tsx";
-import { MetaInfo, parseYamlFile, toDisplayDate } from "../utils/util.ts";
+import { MetaInfo, parseCachedYamlFile, toDisplayDate } from "../utils/util.ts";
 import { join } from "https://deno.land/std/path/mod.ts";
 
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
     const file = join(CONTENT_DIR, "about.md");
-    const result = await parseYamlFile(file);
+    const result = await parseCachedYamlFile(file);
     return ctx.render(result);
   },
 };

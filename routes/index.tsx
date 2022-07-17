@@ -1,20 +1,14 @@
 /** @jsx h */
 import { h } from "preact";
-import {
-  getPosts,
-  MetaInfo,
-  parseYamlFile,
-  toDisplayDate,
-} from "../utils/util.ts";
+import { getCachedPosts, MetaInfo } from "../utils/util.ts";
 import { Container } from "../component/Container.tsx";
 import { Layout } from "../component/Layout.tsx";
-import { CONTENT_DIR, POST_DIR } from "../main.ts";
+import { POST_DIR } from "../main.ts";
 import { Handlers, PageProps } from "$fresh/src/server/types.ts";
-import { join } from "https://deno.land/std/path/mod.ts";
 
 export const handler: Handlers<MetaInfo[] | null> = {
   async GET(_, ctx) {
-    const posts = await getPosts(POST_DIR);
+    const posts = await getCachedPosts(POST_DIR);
     return ctx.render(posts);
   },
 };
