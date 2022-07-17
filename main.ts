@@ -21,12 +21,14 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
   `
   const customCSS = `
     header { margin-bottom: 40px; }
+    .wysiwyg a:hover { border: none }
+    .container article a:hover, .container .posts a:hover { border-bottom: 1px solid; }
     .meta { color: #999; font-size: 0.75em; }
     .highlight { margin-bottom: 1.4em; }
     .comment { margin-top: 40px; }
-    .anchor { visibility: hidden; margin-left: -26px; padding-right: 10px; }
-    .container { max-width: 52em; margin: 0 auto; padding: 40px 0; }
-    @media screen and (max-width: 768px) { .container { width: 100%; padding: 40px 2em; } }
+    .container .anchor { visibility: hidden; margin-left: -26px; padding-right: 10px; }
+    .container { max-width: 42em; margin: 0 auto; padding: 40px 0; word-break: break-word; }
+    @media screen and (max-width: 768px) { .container { width: 100%; padding: 40px 2em; font-size: 16px } }
     .container header h1 { font-size: 1.8em; font-weight: 600; margin-bottom: 0; }
     .container .anchor:hover { border: none; }
     .container .utterances { max-width: none; }
