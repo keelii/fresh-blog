@@ -8,7 +8,7 @@ export type AppEnv = "prd" | "dev"
 
 const APP_ENV = Deno.env.get("APP_ENV") || "dev"
 
-log.info("APP_ENV: ", APP_ENV)
+log.info("APP_ENV: " + APP_ENV)
 
 const url = APP_ENV === "prd"
   ? "https://keelii.com"
