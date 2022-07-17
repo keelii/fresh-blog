@@ -1,17 +1,8 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="dom" />
-/// <reference lib="dom.asynciterable" />
-/// <reference lib="deno.ns" />
-/// <reference lib="deno.unstable" />
-export const CONTENT_DIR = join(Deno.cwd(), "blog");
-export const POST_DIR = join(CONTENT_DIR, "posts");
+import {InnerRenderFunction, RenderContext, start} from "$fresh/server.ts"
+import manifest from "./fresh.gen.ts"
 
-import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
-import manifest from "./fresh.gen.ts";
-
-import { config, setup } from "@twind";
-import { virtualSheet } from "twind/sheets";
-import {join} from "https://deno.land/std/path/mod.ts"
+import {config, setup} from "@twind"
+import {virtualSheet} from "twind/sheets"
 
 
 // IP: 199.19.111.44

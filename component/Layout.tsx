@@ -2,6 +2,7 @@
 import { Fragment, h } from "preact";
 import { Head } from "$fresh/runtime.ts";
 import type { ComponentChildren } from "preact";
+import {BLOG_CONFIG} from "../config.ts"
 
 interface LayoutProps {
   title: string;
@@ -21,12 +22,9 @@ export function Layout(props: LayoutProps) {
       <Head>
         <title>{props.title}</title>
 
-        <meta name="description" content="__ you don&#39;t know yet" />
-        <meta
-          name="keywords"
-          content="前端开发,编程,javascript,typescript,css,html,nodejs,python,java"
-        />
-        <meta name="author" content="keelii" />
+        <meta name="description" content={BLOG_CONFIG.description} />
+        <meta name="keywords" content={BLOG_CONFIG.keywords} />
+        <meta name="author" content={BLOG_CONFIG.author} />
         <meta name="msvalidate.01" content="5A15ECDE419A3094963BBE769402AFF3" />
         <meta
           name="360-site-verification"
