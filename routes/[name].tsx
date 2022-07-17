@@ -18,6 +18,7 @@ export const handler: Handlers<MetaInfo | null> = {
 };
 
 async function generateRSS() {
+  const copyright = `Copyright ${new Date().getFullYear()} ${BLOG_CONFIG.url}`;
   const feed = new Feed({
     title: BLOG_CONFIG.title,
     description: BLOG_CONFIG.description,
@@ -25,7 +26,7 @@ async function generateRSS() {
     link: BLOG_CONFIG.url,
     language: "zh_CN",
     favicon: `${BLOG_CONFIG.url}/favicon.ico`,
-    copyright: `Copyright ${new Date().getFullYear()} ${BLOG_CONFIG.url}`,
+    copyright: copyright,
     generator: "Feed (https://github.com/jpmonette/feed) for Deno",
     feedLinks: {
       atom: `${BLOG_CONFIG}/${BLOG_CONFIG.rss}`,
