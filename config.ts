@@ -3,8 +3,16 @@ import {join} from "https://deno.land/std/path/mod.ts"
 export const CONTENT_DIR = join(Deno.cwd(), "blog")
 export const POST_DIR = join(CONTENT_DIR, "posts")
 
+export type AppEnv = "prd" | "dev"
+
+const APP_ENV = Deno.env.get("APP_ENV") || "dev"
+
+const url = APP_ENV === "prd"
+  ? "https://keelii.com"
+  : "http://localhost:8000"
+
 export const BLOG_CONFIG = {
-  url: "https://keelii.com",
+  url: url,
   title: "臨池不輟",
   description: "__ you don&#39;t know yet",
   author: "keelii",

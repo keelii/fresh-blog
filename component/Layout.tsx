@@ -6,6 +6,7 @@ import {BLOG_CONFIG} from "../config.ts"
 
 interface LayoutProps {
   title: string;
+  canonical: string
   children: ComponentChildren;
 }
 
@@ -25,6 +26,8 @@ export function Layout(props: LayoutProps) {
         <meta name="description" content={BLOG_CONFIG.description} />
         <meta name="keywords" content={BLOG_CONFIG.keywords} />
         <meta name="author" content={BLOG_CONFIG.author} />
+        <link rel="canonical" href={BLOG_CONFIG.url + (props.canonical || "")} />
+
         <meta name="msvalidate.01" content="5A15ECDE419A3094963BBE769402AFF3" />
         <meta
           name="360-site-verification"

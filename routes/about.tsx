@@ -22,7 +22,7 @@ export default function About(props: PageProps<MetaInfo>) {
   const html = render(content);
 
   return (
-    <Layout title={toml.title}>
+    <Layout title={toml.title} canonical="/about">
       <Container>
         <header className={"wysiwyg"}>
           <h1>{toml.title}</h1>

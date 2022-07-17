@@ -36,11 +36,11 @@ async function generateRSS() {
   const posts = await getCachedPosts(POST_DIR)
   for (const post of posts) {
     const item: Item = {
-      id: post.url,
+      id: BLOG_CONFIG.url + post.url,
+      link: BLOG_CONFIG.url + post.url,
       title: post.title,
       description: "",
       date: post.date,
-      link: post.url,
       author: [{ name: BLOG_CONFIG.author }],
       // image: post.ogImage,
       copyright,

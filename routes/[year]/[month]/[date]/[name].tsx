@@ -45,7 +45,7 @@ export default function ArticleDetail(props: PageProps<MetaInfo>) {
   `;
 
   return (
-    <Layout title={yaml.title}>
+    <Layout title={yaml.title} canonical={yaml.url}>
       <Container>
         <header className={"wysiwyg"}>
           <h1>{yaml.title}</h1>
