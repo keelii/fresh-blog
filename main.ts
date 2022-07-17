@@ -38,6 +38,8 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
     h4:hover>.anchor,
     h5:hover>.anchor,
     h6:hover>.anchor { visibility: visible; }
+    footer p { color: #999; font-size: 12px; display: flex; align-items: center }
+    footer a { margin: 0 5px; text-decoration: none; }
     .eof {
       margin: 2.4em 0;
       border: none;
