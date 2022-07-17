@@ -9,7 +9,7 @@ export function Container(props: any) {
       {props.children}
       <footer id="footer">
         <p style={{ color: "#999", fontSize: 12 }}>
-          Copyright &copy; 2022 keelii
+          Copyright &copy; 2022 keelii, Powered by <a href="https://deno.com/deploy">Deno Deploy</a>
         </p>
       </footer>
       {/*<script dangerouslySetInnerHTML={{ __html: site360Script }} />*/}
