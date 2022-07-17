@@ -29,7 +29,7 @@ async function generateRSS() {
     copyright: copyright,
     generator: "Feed (https://github.com/jpmonette/feed) for Deno",
     feedLinks: {
-      atom: `${url}/${BLOG_CONFIG.rss}`,
+      atom: `${BLOG_CONFIG}/${BLOG_CONFIG.rss}`,
     },
   });
 
