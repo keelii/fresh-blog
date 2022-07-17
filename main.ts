@@ -33,7 +33,10 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
     .highlight { margin-bottom: 1.4em; }
     .comment { margin-top: 40px; }
     .anchor { visibility: hidden; margin-left: -26px; padding-right: 10px; }
-    .container { width: 52em; margin: 0 auto; padding: 40px 0; }
+    .container { max-width: 52em; margin: 0 auto; padding: 40px 0; }
+    @media screen and (max-width: 768px) {
+      .container { width: 100%; padding: 40px 2em; }
+    }
     .container header h1 { font-size: 1.8em; font-weight: 600; margin-bottom: 0; }
     .container .anchor:hover { border: none; }
     .container .utterances { max-width: none; }
