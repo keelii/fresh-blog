@@ -3,6 +3,8 @@ import manifest from "./fresh.gen.ts"
 
 import {config, setup} from "@twind"
 import {virtualSheet} from "twind/sheets"
+import {getCachedPosts} from "./utils/util.ts"
+import {POST_DIR} from "./config.ts"
 
 
 // IP: 199.19.111.44
@@ -71,4 +73,5 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
   ctx.state.set("twind", newSnapshot);
 }
 
+await getCachedPosts(POST_DIR, true)
 await start(manifest, { render });
