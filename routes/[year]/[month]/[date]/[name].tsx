@@ -2,8 +2,6 @@
 import { Fragment, h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { join } from "https://deno.land/std/path/mod.ts";
-
-import { render } from "https://deno.land/x/gfm@0.1.20/mod.ts";
 import {
   MetaInfo,
   parseCachedYamlFile,

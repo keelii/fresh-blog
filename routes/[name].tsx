@@ -1,5 +1,5 @@
 /** @jsx h */
-import { Fragment, h } from "preact";
+import { h } from "preact";
 import { Feed, Item } from "https://esm.sh/feed@4.2.2";
 import { Handlers, PageProps } from "$fresh/src/server/types.ts";
 import { getCachedPosts, MetaInfo } from "../utils/util.ts";
