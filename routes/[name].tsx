@@ -47,7 +47,6 @@ async function generateRSS() {
         .replace(/<a class="anchor" aria-hidden="true" tabindex="-1" href="[^"]+"><\/a>/g, ""),
       date: post.date,
       author: [{ name: BLOG_CONFIG.author }],
-      // image: post.ogImage,
       copyright,
       published: post.date,
     };
