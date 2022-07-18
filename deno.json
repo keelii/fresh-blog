@@ -11,7 +11,10 @@
   },
   "fmt": {
     "files": {
-      "include": ["component/", "routes/", "utils"]
+      "include": ["component/", "routes/", "utils"],
+    },
+    "options": {
+      "lineWidth": 120
     }
   }
 }

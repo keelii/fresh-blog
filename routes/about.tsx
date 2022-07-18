@@ -12,7 +12,7 @@ import { CONTENT_DIR } from "../config.ts";
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
     const file = join(CONTENT_DIR, "about.md");
-    const result = await parseCachedYamlFile(file);
+    const result = await parseCachedYamlFile(file, true);
     return ctx.render(result);
   },
 };

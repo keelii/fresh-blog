@@ -39,7 +39,9 @@ export default function Home(props: PageProps<MetaInfo[]>) {
             Copyright &copy; {new Date().getFullYear()} keelii, Powered by
             <a href="https://deno.com/deploy" target="_blank">Deno Deploy</a>
             |
-            <a href={`${BLOG_CONFIG.url}/${BLOG_CONFIG.rss}`}><abbr title="RDF Site Summary">RSS</abbr></a>
+            <a href={`${BLOG_CONFIG.url}/${BLOG_CONFIG.rss}`}>
+              <abbr title="RDF Site Summary">RSS</abbr>
+            </a>
           </p>
         </footer>
       </Container>

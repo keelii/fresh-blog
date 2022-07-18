@@ -2,11 +2,7 @@
 import { Fragment, h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { join } from "https://deno.land/std/path/mod.ts";
-import {
-  MetaInfo,
-  parseCachedYamlFile,
-  toDisplayDate,
-} from "../../../../utils/util.ts";
+import { MetaInfo, parseCachedYamlFile, toDisplayDate } from "../../../../utils/util.ts";
 import { Container } from "../../../../component/Container.tsx";
 import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
@@ -22,7 +18,7 @@ import { POST_DIR } from "../../../../config.ts";
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
     const file = join(POST_DIR, ctx.params.name + ".md");
-    const result = await parseCachedYamlFile(file);
+    const result = await parseCachedYamlFile(file, true);
     return ctx.render(result);
   },
 };
