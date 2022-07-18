@@ -31,7 +31,6 @@ export const handler: Handlers<MetaInfo | null> = {
 
 export default function ArticleDetail(props: PageProps<MetaInfo>) {
   const { content, ...yaml } = props.data;
-  const html = render(content, {});
 
   const initMath = `
     window.MathJax = {
@@ -59,7 +58,7 @@ export default function ArticleDetail(props: PageProps<MetaInfo>) {
           <div
             className="markdown-body"
             data-light-theme="light"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: content }}
           >
           </div>
           {yaml.math && (

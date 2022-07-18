@@ -1,10 +1,10 @@
-// import { parse as parseTomlString } from "https://deno.land/std/encoding/toml.ts";
 import {
   parse as parseYamlString,
 } from "https://deno.land/std/encoding/yaml.ts";
 import { basename } from "https://deno.land/std/path/mod.ts";
 import * as log from "https://deno.land/std/log/mod.ts";
 import { walk } from "https://deno.land/std/fs/mod.ts";
+import {render} from "https://deno.land/x/gfm@0.1.20/mod.ts"
 
 interface ICache {
   posts: MetaInfo[] | null;
@@ -93,8 +93,10 @@ export async function parseYamlFile(
 ) {
   const contents = await Deno.readTextFile(path);
   const [yamlContent, mdContent] = getYamlString(contents);
+
   try {
     const toml = parseYamlString(yamlContent) as any;
+    const html = render(mdContent, {});
 
     if (toml.draft) return null;
 
@@ -115,7 +117,7 @@ export async function parseYamlFile(
       tags: toml.tags ? toml.tags : [],
       math: !!toml.math,
       draft: !!toml.draft,
-      content: includeContent ? mdContent : "",
+      content: includeContent ? html : "",
     };
   } catch (e) {
     log.error("解析出错：" + path, e);
