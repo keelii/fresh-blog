@@ -15,7 +15,10 @@ export const handler: Handlers<MetaInfo | null> = {
     if (name === "atom.xml") {
       return await generateRSS();
     } else {
-      return ctx.render(name);
+      return new Response(`[/${name}] Not found.`, {
+        status: 404,
+        headers: { "content-type": "text/plain" }
+      });
     }
   },
 };
@@ -61,6 +64,6 @@ async function generateRSS() {
   });
 }
 
-export default function NotFound(props: PageProps<string>) {
-  return <center style={{ padding: 20 }}>[{props.data}] Not found.</center>;
-}
+// export default function NotFound(props: PageProps<string>) {
+//   return <center style={{ padding: 20 }}>[{props.data}] Not found.</center>;
+// }
