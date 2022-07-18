@@ -28,7 +28,10 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
     .comment { margin-top: 40px; }
     .container .anchor { visibility: hidden; margin-left: -26px; padding-right: 10px; }
     .container { max-width: 42em; margin: 0 auto; padding: 40px 0; word-break: break-word; }
-    @media screen and (max-width: 768px) { .container { width: 100%; padding: 40px 2em; font-size: 16px } }
+    @media screen and (max-width: 768px) { 
+      .container { width: 100%; padding: 40px 2em; font-size: 16px } 
+      .posts li { padding: 0.2em 0; }
+    }
     .container header h1 { font-size: 1.8em; font-weight: 600; margin-bottom: 0; }
     .container .anchor:hover { border: none; }
     .container .utterances { max-width: none; }
