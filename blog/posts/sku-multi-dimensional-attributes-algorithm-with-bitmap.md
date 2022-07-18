@@ -30,7 +30,7 @@ draft: true
 
 按属性分组后，默认会有一个选中的 sku (**3158054**)
 
-![](https://img13.360buyimg.com/devfe/jfs/t3100/104/4921509103/3867/ea2bdd9b/585b9636Nc5d3efd4.png)
+![sku-attr](https://img13.360buyimg.com/devfe/jfs/t3100/104/4921509103/3867/ea2bdd9b/585b9636Nc5d3efd4.png)
 
 接下来需要遍历所有非选中属性，依次检测他们是否可选。逻辑如上篇所述。如果要确认「白」属性是否可选，上篇文章的做法可以简描述为：
 

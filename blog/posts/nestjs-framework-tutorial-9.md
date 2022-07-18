@@ -9,7 +9,7 @@ tags:
 
 **守卫**（Guards）是一个使用 @Injectable() 装饰的类，它必须实现 CanActivate 接口。
 
-![](https://i.loli.net/2019/07/05/5d1ec2a0e2ae056395.png)
+![nestjs-guards](https://i.loli.net/2019/07/05/5d1ec2a0e2ae056395.png)
 
 **守卫**只有**一个**职责，就是决定请求是否需要被控制器处理。一般用在权限、角色的场景中。
 

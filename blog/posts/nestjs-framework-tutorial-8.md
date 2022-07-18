@@ -7,7 +7,7 @@ tags:
   - nestjs
 ---
 
-![](https://i.loli.net/2019/07/04/5d1dc90b3606425009.png)
+![nestjs-pipe](https://i.loli.net/2019/07/04/5d1dc90b3606425009.png)
 
 **管道**（Pipes）是一个用 @Injectable() 装饰过的类，它必须实现 PipeTransform 接口。
 

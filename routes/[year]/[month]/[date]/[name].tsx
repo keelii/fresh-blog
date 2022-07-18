@@ -44,8 +44,7 @@ export default function ArticleDetail(props: PageProps<MetaInfo>) {
           <h1>{yaml.title}</h1>
           <span className="meta">
             {toDisplayDate(yaml.date)}
-            {"\u3000"}
-            <a href="/">首页</a>
+            <a style={{marginLeft: 5}} href="/">首页</a>
           </span>
         </header>
         <article className={"wysiwyg"}>

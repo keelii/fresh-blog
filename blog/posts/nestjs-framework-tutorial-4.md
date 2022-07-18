@@ -11,7 +11,7 @@ tags:
 
 到这里我们应该要了解整个 Nest 框架的三层结构，Nest 和传统的 MVC 框架的区别在于它更注重于后端部分（控制器、服务与数据）的架构，视图层相对比较独立，完全可以由用户自定义配置。
 
-![](https://i.loli.net/2019/07/01/5d19aa5c9532744345.png)
+![nestjs-framework-compare](https://i.loli.net/2019/07/01/5d19aa5c9532744345.png)
 
 Nest 的分层借鉴自 Spring，更细化。随着代码库的增长 MVC 模式中 Modal 和 Controller 会变得含糊不清，导致难于维护。
 
@@ -85,15 +85,15 @@ constructor(private readonly catsService: CatsService) {}
 
 通常我们在没有依赖注入的时候如果 A 依赖于 B，那么在 A 初始化或者执行中的某个过程需要先创建 B，这时我们就认为 A 对 B 的依赖是**正向**的。但是这样解决依赖的办法会得得 A 与 B 的逻辑耦合在一起，依赖越来越多代码就会变的越来越糟糕。如下图所示，齿轮之间是相互依赖的，一损俱损。
 
-![](https://i.loli.net/2019/07/01/5d19b545530fe73281.jpg)
+![DI](https://i.loli.net/2019/07/01/5d19b545530fe73281.jpg)
 
 控制反转（IOC）模式就是要解决这个问题，它会多引入一个容器（Container）的概念，让一个 IOC 容器去管理 A、B 的依赖并初始化。
 
-![](https://i.loli.net/2019/07/01/5d19b570db26721361.png)
+![DI-IOC](https://i.loli.net/2019/07/01/5d19b570db26721361.png)
 
 当我们去掉容器时，剩下的齿轮成了一个个独立的功能模块。
 
-![](https://i.loli.net/2019/07/01/5d19b5db066fa32957.png)
+![DI_IOC](https://i.loli.net/2019/07/01/5d19b5db066fa32957.png)
 
 ### 注入作用域
 

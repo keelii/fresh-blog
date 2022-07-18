@@ -19,7 +19,6 @@ export const handler: Handlers<MetaInfo | null> = {
 
 export default function About(props: PageProps<MetaInfo>) {
   const { content, ...toml } = props.data;
-  const html = render(content);
 
   return (
     <Layout title={toml.title} canonical="/about">
@@ -28,15 +27,14 @@ export default function About(props: PageProps<MetaInfo>) {
           <h1>{toml.title}</h1>
           <span className="meta">
             {toDisplayDate(toml.date)}
-            {"\u3000"}
-            <a href="/">首页</a>
+            <a style={{marginLeft: 5}} href="/">首页</a>
           </span>
         </header>
         <article className={"wysiwyg"}>
           <div
             className="markdown-body"
             data-light-theme="light"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: content }}
           >
           </div>
         </article>

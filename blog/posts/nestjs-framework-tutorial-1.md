@@ -7,7 +7,7 @@ tags:
   - nestjs
 ---
 
-![](https://i.loli.net/2019/06/30/5d185dfb87f5e21948.png)
+![nest.js](https://i.loli.net/2019/06/30/5d185dfb87f5e21948.png)
 
 ## 教程目录
 
@@ -106,7 +106,7 @@ $ ts-node -r tsconfig-paths/register src/util.ts
 
 然后我们访问 `http://localhost:3000` 就可以看到 `Hello World!` 了。用编辑器打开目录结构如下图所示
 
-![](https://i.loli.net/2019/06/30/5d18b3033825c45837.png)
+![nest.js-demo](https://i.loli.net/2019/06/30/5d18b3033825c45837.png)
 
 自动生成的配置文件还是挺多的，我们现在暂不用关注这些，只需要知道大概是做什么的就行了。
 

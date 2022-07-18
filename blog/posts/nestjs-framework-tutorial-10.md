@@ -7,7 +7,7 @@ tags:
   - nestjs
 ---
 
-![](https://i.loli.net/2019/07/05/5d1edebfa26f771380.png)
+![nestjs-inteceptors](https://i.loli.net/2019/07/05/5d1edebfa26f771380.png)
 
 **拦截器**（Interceptors）是一个使用 @Injectable() 装饰的类，它必须实现 NestInterceptor 接口。
 

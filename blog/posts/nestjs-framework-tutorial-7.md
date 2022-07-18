@@ -9,7 +9,7 @@ tags:
 
 Nest 框架内部实现了一个异常处理层，专门用来负责应用程序中**未处理**的异常。
 
-![](https://i.loli.net/2019/07/02/5d1b66de9370734231.png)
+![nestjs-filter](https://i.loli.net/2019/07/02/5d1b66de9370734231.png)
 
 默认情况未处理的异常会被全局过滤异常器 HttpException 或者它的子类处理。如果一个未识别的异常（非 HttpException 或未继承自 HttpException）被抛出，下面的信息将被返回给客户端：
 

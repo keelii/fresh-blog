@@ -23,7 +23,7 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
     header { margin-bottom: 40px; }
     .wysiwyg a:hover { border: none }
     .container article a:hover, .container .posts a:hover { border-bottom: 1px solid; }
-    .meta { color: #666; font-size: 0.75em; }
+    .meta { color: #666; font-size: 0.875em; }
     .highlight { margin-bottom: 1.4em; }
     .comment { margin-top: 40px; }
     .container .anchor { visibility: hidden; margin-left: -26px; padding-right: 10px; }
@@ -38,7 +38,7 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
     h4:hover>.anchor,
     h5:hover>.anchor,
     h6:hover>.anchor { visibility: visible; }
-    footer p { color: #666; font-size: 12px; display: flex; align-items: center }
+    footer p { color: #666; font-size: 0.875em; display: flex; align-items: center }
     footer a { margin: 0 5px; text-decoration: none; }
     .eof {
       margin: 2.4em 0;
