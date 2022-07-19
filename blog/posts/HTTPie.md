@@ -8,6 +8,8 @@ tags:
   - python
 ---
 
+{{toc}}
+
 HTTPie 是一个命令行 HTTP 客户端。目标是让 CLI 与 Web services 的交互尽可能的更友
 好。它提供了一个简单的 `http` 命令，可以让我们用简单自然的表述发送任意 HTTP 请求
 ，并且可以输出带代码高亮的结果。HTTPie 可以使用在测试、调试以及通用的与 HTTP 交

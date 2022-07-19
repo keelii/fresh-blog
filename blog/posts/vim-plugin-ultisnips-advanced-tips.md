@@ -5,6 +5,8 @@ categories:
   - vim
 ---
 
+{{TOC}}
+
 ## 安装
 
 [Ultisnips](https://github.com/SirVer/ultisnips) 插件安装分两部分，一个是 ultisnips 插件本身，另外一个是代码片段仓库。一般来说把默认的代码片段仓库下载下来按需修改后上传到自己的 github 即可。如果你和我一样也使用 vim-plug 来管理插件的话，添加下面的代码到你的 vimrc 中保存刷新即可

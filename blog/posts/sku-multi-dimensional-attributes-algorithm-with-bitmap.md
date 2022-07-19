@@ -11,6 +11,8 @@ tags:
 draft: true
 ---
 
+{{TOC}}
+
 ## 回顾问题
 
 这是 [sku 多维属性状态判断算法](/2016/12/22/sku-multi-dimensional-attributes-state-algorithm/) 的姊妹篇，上篇文章中主要运用了集合的幂集算法来解决 sku 属性组合时是否可选的问题，但是这个算法过于暴力，算法复杂度也特别高。不适合大量使用，尤其是在客户端单线程的 JavaScript 环境中，这种方法可以说是最低效的一种
