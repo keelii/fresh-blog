@@ -8,6 +8,8 @@ tags:
   - vim
 ---
 
+{{TOC}}
+
 ## 简介
 
 [Fuzzy finder](https://github.com/junegunn/fzf) 是一款使用 GO 语言编写的交互式的 Unix 命令行工具。可以用来查找任何 **列表** 内容，文件、Git 分支、进程等。所有的命令行工具可以生成列表输出的都可以再通过管道 pipe 到 fzf 上进行搜索和查找

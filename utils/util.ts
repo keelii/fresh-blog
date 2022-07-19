@@ -2,7 +2,80 @@ import { parse } from "https://deno.land/std/encoding/yaml.ts";
 import { basename } from "https://deno.land/std/path/mod.ts";
 import * as log from "https://deno.land/std/log/mod.ts";
 import { walk } from "https://deno.land/std/fs/mod.ts";
-import { render } from "https://deno.land/x/gfm@0.1.20/mod.ts";
+import Prism from "https://esm.sh/prismjs@1.27.0";
+
+(window as any).Prism = Prism
+
+import MarkdownIt from "https://esm.sh/markdown-it@13.0.1"
+import MarkdownItAnchor from "https://esm.sh/markdown-it-anchor@8.6.4"
+import MarkdownItToc from "https://esm.sh/v87/markdown-it-toc-done-right@4.2.0/es2022/markdown-it-toc-done-right.js"
+
+import "https://esm.sh/prismjs@1.25.0/components/prism-bash?no-check&pin=v57";
+import "https://esm.sh/prismjs@1.25.0/components/prism-typescript?no-check&pin=v57";
+import "https://esm.sh/prismjs@1.25.0/components/prism-makefile?no-check&pin=v57";
+import "https://esm.sh/prismjs@1.25.0/components/prism-http?no-check&pin=v57";
+import "https://esm.sh/prismjs@1.25.0/components/prism-python?no-check&pin=v57";
+import "https://esm.sh/prismjs@1.25.0/components/prism-java?no-check&pin=v57";
+import "https://esm.sh/prismjs@1.25.0/components/prism-json?no-check&pin=v57";
+
+const md = new MarkdownIt({
+  html: true,
+  highlight: function (str: string, lang: string) {
+    if (lang && Prism.languages[lang]) {
+      return Prism.highlight(str, Prism.languages[lang], lang);
+    }
+    return str;
+  }
+})
+const slugify = function(s: string) {
+  return String(s).trim().toLowerCase().replace(/\s+/g, '-')
+}
+md.use(MarkdownItAnchor, {
+  permalink: true,
+  permalinkClass: "anchor",
+  permalinkBefore: true,
+  permalinkSpace: false,
+  slugify
+})
+
+const tocOptions = {
+  placeholder: '{{TOC}}',
+  slugify,
+  uniqueSlugStartIndex: 1,
+  containerClass: 'table-of-contents',
+  containerId: undefined,
+  listClass: undefined,
+  itemClass: undefined,
+  linkClass: undefined,
+  level: 1,
+  listType: 'ol',
+  format: undefined,
+  callback: undefined/* function(html, ast) {} */
+}
+
+md.use(MarkdownItToc, tocOptions)
+
+function htmlencode (x: string) {
+  return String(x)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+}
+
+md.renderer.rules.tocOpen = function (tokens: any[], idx: number) {
+  let _options = Object.assign({}, tocOptions)
+  if (tokens && idx >= 0) {
+    const token = tokens[idx]
+    _options = Object.assign(_options, token.inlineOptions)
+  }
+  const id = _options.containerId ? ` id="${htmlencode(_options.containerId)}"` : ''
+  return `<!--<details><summary>Table of content</summary>--><div id="toc"><div onclick="this.parentNode.classList.toggle('show')" class="toggle">§</div><nav${id} class="${htmlencode(_options.containerClass)}">`
+}
+md.renderer.rules.tocClose = function () {
+  return '</nav><!--</details>--></div>'
+}
 
 interface ICache {
   posts: MetaInfo[] | null;
@@ -66,7 +139,9 @@ export async function parseYamlFile(path: string, includeContent: boolean = fals
 
   try {
     const toml = parse(yamlContent) as any;
-    const html = render(mdContent, {});
+
+    const html = md.render(mdContent)
+    // const html = render(mdContent, {});
 
     if (toml.draft) return null;
 

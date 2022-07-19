@@ -8,6 +8,8 @@ tags:
   - canvas
 ---
 
+{{TOC}}
+
 ## Fabric.js 简介
 
 我们先来看看官方的定义：

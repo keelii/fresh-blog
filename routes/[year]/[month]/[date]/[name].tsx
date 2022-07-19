@@ -7,12 +7,6 @@ import { Container } from "../../../../component/Container.tsx";
 import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
 
-import "https://esm.sh/prismjs@1.25.0/components/prism-bash?no-check&pin=v57";
-import "https://esm.sh/prismjs@1.25.0/components/prism-typescript?no-check&pin=v57";
-import "https://esm.sh/prismjs@1.25.0/components/prism-makefile?no-check&pin=v57";
-import "https://esm.sh/prismjs@1.25.0/components/prism-http?no-check&pin=v57";
-import "https://esm.sh/prismjs@1.25.0/components/prism-java?no-check&pin=v57";
-import "https://esm.sh/prismjs@1.25.0/components/prism-json?no-check&pin=v57";
 import { POST_DIR } from "../../../../config.ts";
 
 export const handler: Handlers<MetaInfo | null> = {

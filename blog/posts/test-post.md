@@ -46,4 +46,6 @@ var MD5 = function(str) {
 $$R∪S=\{t|t∈R∨t∈S\}$$
 </div>
 
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/mchiGHfKcsWLRG" width="100%" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; max-width: 100%;" allowfullscreen></iframe> 
+
 [1] 《念奴娇·赤壁怀古》 苏轼

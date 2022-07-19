@@ -5,6 +5,8 @@ categories:
   - java
 ---
 
+{{TOC}}
+
 > 注：此文翻译自 [Java Concurrency and Multithreading Tutorial](http://tutorials.jenkov.com/java-concurrency/index.html)，本文只是首篇翻译
 
 Java 中的**并发**是一个术语，涉及 Java 平台中的多线程、并发、并行等概念。包括 Java 并发工具，问题和解决方案。这个教程涵盖了多线程的核心概念、并发组成结构、并发的问题、成本与收益以及与 Java 多线程相关的问题。

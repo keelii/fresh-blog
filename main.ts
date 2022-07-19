@@ -3,8 +3,6 @@ import manifest from "./fresh.gen.ts"
 
 import {config, setup} from "@twind"
 import {virtualSheet} from "twind/sheets"
-import {getCachedPosts} from "./utils/util.ts"
-import {POST_DIR} from "./config.ts"
 
 
 // IP: 199.19.111.44
@@ -23,16 +21,48 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
   `
   const customCSS = `
     header { margin-bottom: 40px; }
+    .wysiwyg iframe { margin-bottom: 1.4em; aspect-ratio: 4/3; }
+    #toc .toggle {
+      position: absolute;
+      width: 1em;
+      height: 2em;
+      line-height: 2em;
+      cursor: pointer;
+      background: rgba(230, 230, 230, 0.5);
+      left: -1em;
+      top: 50%;
+      margin-top: -1em;
+      text-align: center;
+    }
+    #toc.show { right: 0; }
+    #toc {
+        position: fixed;
+        right: -19.5em;
+        top: 0;
+        height: 100%;
+        width: 20em;
+        background: rgba(230, 230, 230, 0.5);
+    }
+    #toc nav { height: 100%; overflow-x: hidden; overflow-y: auto; }
+    #toc nav>ol { padding: 1em; }
     .wysiwyg a:hover { border: none }
     .container article a:hover, .container .posts a:hover { border-bottom: 1px solid; }
     .meta { color: #666; font-size: 0.875em; }
     .highlight { margin-bottom: 1.4em; }
     .comment { margin-top: 40px; }
-    .container .anchor { visibility: hidden; margin-left: -26px; padding-right: 10px; }
+    .container .anchor { 
+      user-select: none;
+      color: #666;
+      display: inline-block;
+      width: 26px;
+      text-align: center;
+      margin-left: -26px;
+      visibility: hidden;  
+    }
     .container { max-width: 42em; margin: 0 auto; padding: 40px 0; word-break: break-word; }
     @media screen and (max-width: 768px) { 
       .container { width: 100%; padding: 40px 2em; font-size: 16px } 
-      .posts li { padding: 0.2em 0; }
+      .posts li { padding: 0.2em 0; margin-left: -1.4em; }
     }
     .container header h1 { font-size: 1.8em; font-weight: 600; margin-bottom: 0; }
     .container .anchor:hover { border: none; }
@@ -73,5 +103,5 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
   ctx.state.set("twind", newSnapshot);
 }
 
-await getCachedPosts(POST_DIR, true)
+// await getCachedPosts(POST_DIR, true)
 await start(manifest, { render });
