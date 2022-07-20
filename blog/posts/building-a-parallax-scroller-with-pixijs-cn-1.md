@@ -282,7 +282,7 @@ function init() {
 
 最后一步是将精灵添加到舞台上。这是使用 `PIXI.Stage` 类的（实例方法） `addChild()` 方法完成的。来看看怎么做吧：
 
-```
+```js
   var farTexture = PIXI.Texture.fromImage("resources/bg-far.png");
   far = new PIXI.Sprite(farTexture);
   far.position.x = 0;
@@ -511,7 +511,7 @@ function init() {
 
 现在继续对 `update()` 函数进行以下重构：
 
-```
+```js
 function update() {
   far.tilePosition.x -= 0.128;
   mid.tilePosition.x -= 0.64;

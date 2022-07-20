@@ -71,10 +71,10 @@ md.renderer.rules.tocOpen = function (tokens: any[], idx: number) {
     _options = Object.assign(_options, token.inlineOptions)
   }
   const id = _options.containerId ? ` id="${htmlencode(_options.containerId)}"` : ''
-  return `<!--<details><summary>Table of content</summary>--><div id="toc"><div onclick="this.parentNode.classList.toggle('show')" class="toggle">§</div><nav${id} class="${htmlencode(_options.containerClass)}">`
+  return `<div id="toc"><div onclick="this.parentNode.classList.toggle('show')" class="toggle">§</div><nav${id} class="${htmlencode(_options.containerClass)}">`
 }
 md.renderer.rules.tocClose = function () {
-  return '</nav><!--</details>--></div>'
+  return '</nav></div>'
 }
 
 interface ICache {

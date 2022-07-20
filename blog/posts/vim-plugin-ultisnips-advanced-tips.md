@@ -36,7 +36,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 ultisnips 插件需要你的 vim 支持 python，可以在 vim 命令模式下使用下面的检测你的 vim 版本是否支持 python
 
-```
+```vim
 # 1 表示支持
 :echo has("python")
 :echo has("python3")
@@ -54,7 +54,7 @@ endsnippet
 
 ### 最小化的一个代码片段
 
-```
+```vim
 snippet if "if (condition) { ... }"
 if (${1:true}) {
     $0
@@ -68,7 +68,7 @@ endsnippet
 
 ## 可视选择区的内容为占位符
 
-```
+```vim
 snippet if "if (...)"
 if (${1:true}) {
     ${VISUAL}
@@ -163,7 +163,7 @@ UltiSnips 支持使用快捷键切换占位符，我使用 `<tab>` 和 `<shift-t
 
 比如我们定义一个 **只有** 在上一行以 `if (DEVELOPMENT) {` 开头才可以展开的代码片段
 
-```
+```vim
 snippet dbg "if (DEVELOPMENT) dbg" "re.match('^if \(DEVELOPMENT\) \{', snip.buffer[snip.line-1])" be
 debugger;
 endsnippet

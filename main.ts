@@ -28,12 +28,13 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
       height: 2em;
       line-height: 2em;
       cursor: pointer;
-      background: rgba(230, 230, 230, 0.5);
+      background: #f1f1f1;
       left: -1em;
       top: 50%;
       margin-top: -1em;
       text-align: center;
     }
+    #toc a { color: #5f4b32; }
     #toc.show { right: 0; }
     #toc {
         position: fixed;
@@ -41,7 +42,7 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
         top: 0;
         height: 100%;
         width: 20em;
-        background: rgba(230, 230, 230, 0.5);
+        background: #f1f1f1;
     }
     #toc nav { height: 100%; overflow-x: hidden; overflow-y: auto; }
     #toc nav>ol { padding: 1em; }

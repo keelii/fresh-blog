@@ -284,7 +284,7 @@ stage.addChild(far);
 
 改成这样：
 
-```
+```js
 far = new Far();
 stage.addChild(far);
 ```
@@ -299,7 +299,7 @@ stage.addChild(far);
 
 创建一个名为 `Mid.js` 的新文件，并开始向其添加以下代码：
 
-```
+```js
 function Mid() {
 }
 
@@ -308,7 +308,7 @@ Mid.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 同样在构造函数中，创建中间层的纹理并设置其定位属性：
 
-```
+```js
 function Mid() {
   var texture = PIXI.Texture.fromImage("resources/bg-mid.png");
   PIXI.extras.TilingSprite.call(this, texture, 512, 256);
@@ -324,7 +324,7 @@ Mid.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 保存 Mid.js 文件，然后转到 index.html 并引用 Mid 类的源文件：
 
-```
+```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.0.0/pixi.min.js"></script>
 <script src="Far.js"></script>
 <script src="Mid.js"></script> <!--添加-->
@@ -332,7 +332,7 @@ Mid.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 完成后，向下滚动到 `init()` 函数并删除以下行：
 
-```
+```js
 far = new Far();
 stage.addChild(far);
 
@@ -347,7 +347,7 @@ stage.addChild(mid);
 
 用这一行代码替换它们：
 
-```
+```js
 far = new Far();
 stage.addChild(far);
 
@@ -361,7 +361,7 @@ stage.addChild(mid);
 
 我们已经对代码库进行了大量的重构，但仍然有一些事情可以做。返回 index.html 文件，查看动画主更新逻辑。它应该如下所示：
 
-```
+```js
 function update() {
   far.tilePosition.x -= 0.128;
   mid.tilePosition.x -= 0.64;
@@ -376,7 +376,7 @@ update 方法中的前两行通过更新其 tilePosition 属性来滚动我们�
 
 理想情况下，我们希望在类中隐藏具体细节。如果两个类只有一个实际为我们执行滚动的 `update()` 方法，那么我们的代码会更易读。换句话说，对于我们的主循环来说，这样似乎更合适：
 
-```
+```js
 function update() {
   far.update();
   mid.update();
@@ -391,7 +391,7 @@ function update() {
 
 从 Far 类开始，打开 Far.js 并向其添加以下方法：
 
-```
+```js
 Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 Far.prototype.update = function() {
@@ -403,7 +403,7 @@ Far.prototype.update = function() {
 
 好的，保存更改并向Mid.js添加类似的方法：
 
-```
+```js
 Mid.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 Mid.prototype.update = function() {
@@ -415,7 +415,7 @@ Mid.prototype.update = function() {
 
 保存更改并返回 index.html。现在我们需要做的就是从主循环中调用每个层的 `update()` 方法。删除以下两行代码：
 
-```
+```js
 function update() {
   far.tilePosition.x -= 0.128; // 删除
   mid.tilePosition.x -= 0.64; // 删除
@@ -428,7 +428,7 @@ function update() {
 
 替换成：
 
-```
+```js
 function update() {
   far.update();
   mid.update();
@@ -459,7 +459,7 @@ function update() {
 
 让我们写一个能够实现我们想法的类。创建一个名为 Scroller.js 的新 JavaScript 文件，并通过向其添加以下代码来定义名为 Scroller 的类：
 
-```
+```js
 function Scroller(stage) {
 }
 ```
@@ -470,7 +470,7 @@ function Scroller(stage) {
 
 让我们先在类中添加远景层的实例：
 
-```
+```js
 function Scroller(stage) {
   this.far = new Far();
   stage.addChild(this.far);
@@ -485,7 +485,7 @@ function Scroller(stage) {
 
 现在让我们为中间层做同样的事情。将以下两行添加到构造函数中：
 
-```
+```js
 function Scroller(stage) {
   this.far = new Far();
   stage.addChild(this.far);
@@ -497,7 +497,7 @@ function Scroller(stage) {
 
 现在 Scroller 类中有两个成员变量：`far` 和 `mid`。这是很有用，因为它允许我们从类中的任何其他方法中访问我们的视差层。这也很方便，因为我们确实需要添加一个额外的方法。它将用于更新两个层的位置。我们现在继续添加此方法（update）：
 
-```
+```js
 function Scroller(stage) {
   this.far = new Far();
   stage.addChild(this.far);
@@ -520,7 +520,7 @@ Scroller.prototype.update = function() {
 
 打开 index.html 并引用 Scroller.js：
 
-```
+```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.0.0/pixi.min.js"></script>
 <script src="Far.js"></script>
 <script src="Mid.js"></script>
@@ -529,7 +529,7 @@ Scroller.prototype.update = function() {
 
 现在向下移动到 `init()` 函数并删除以下代码行：
 
-```
+```js
 function init() {
   stage = new PIXI.Stage(0x66FF99);
   renderer = PIXI.autoDetectRenderer(
@@ -550,7 +550,7 @@ function init() {
 
 请记住，远景层和中间层现在都由 Scroller 类处理。因此，我们需要创建一个Scroller 实例来替换我们刚删除的行：
 
-```
+```js
 function init() {
   stage = new PIXI.Stage(0x66FF99);
   renderer = PIXI.autoDetectRenderer(
@@ -569,7 +569,7 @@ function init() {
 
 现在需要做的就是在主循环中调用 scroller 的 `update()` 方法。首先，从主循环中删除以下两行：
 
-```
+```js
 function update() {
   far.update(); // 删除
   mid.update(); // 删除
@@ -582,7 +582,7 @@ function update() {
 
 现在添加以下行来更新滚动器：
 
-```
+```js
 function update() {
   scroller.update(); // 添加
 
@@ -610,7 +610,7 @@ function update() {
 
 打开 Scroller.js 并删除现有的 `update()` 方法：
 
-```
+```js
 function Scroller(stage) {
   this.far = new Far();
   stage.addChild(this.far);
@@ -631,7 +631,7 @@ Scroller.prototype.update = function() { // 删除
 
 我们首先删除类中的现有 `update()` 方法。打开 Far.js 并删除以下行：
 
-```
+```js
 function Far() {
   var texture = PIXI.Texture.fromImage("resources/bg-far.png");
   PIXI.extras.TilingSprite.call(this, texture, 512, 256);
@@ -651,7 +651,7 @@ Far.prototype.update = function() { // 删除
 
 我们需要能够跟踪视口的水平位置。为此，我们在类的构造函数中定义新的成员变量：
 
-```
+```js
 function Far() {
   var texture = PIXI.Texture.fromImage("resources/bg-far.png");
   PIXI.extras.TilingSprite.call(this, texture, 512, 256);
@@ -667,7 +667,7 @@ function Far() {
 
 再添加一个类的 **静态常量**（`DELTA_X`）：
 
-```
+```js
 Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 Far.DELTA_X = 0.128;
@@ -675,7 +675,7 @@ Far.DELTA_X = 0.128;
 
 DELTA_X 常量的值看起来应该很熟悉。它是我们之前在每次调用 `update()` 时移动图层的 tilePosition 的像素数。显然，使用常量会使我们的代码更具可读性和可维护性，这就是我们选择使用常量的原因。基本上，每当我们的视口移动一个单元时，我们将使用常量将远景层移动 0.128 像素。所以现在让我们编写一个 `setViewportX()` 方法，添加以下内容：
 
-```
+```js
 Far.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 Far.DELTA_X = 0.128;
@@ -701,7 +701,7 @@ Mid 类的代码几乎与 Far 类相同，所以我们能快速写出来。
 
 打开 Mid.js 并删除其 `update()` 方法、并添加 `setViewportX` 方法：
 
-```
+```js
 function Mid() {
   var texture = PIXI.Texture.fromImage("resources/bg-mid.png");
   PIXI.extras.TilingSprite.call(this, texture, 512, 256);
@@ -731,7 +731,7 @@ Mid.prototype.setViewportX = function(newViewportX) {
 
 我们应该测试视口并确保设置其位置反映在我们的视差层中。首先，我们需要打开 index.html 并删除 scrolller  的 `update()` 方法：
 
-```
+```js
 function update() {
   scroller.update(); // 删除
 
@@ -745,7 +745,7 @@ function update() {
 
 在我们添加代码之前，我们可以在 Chrome 的 JavaScript 控制台中测试一下我们的滚动条的 `setViewportX()` 实际上是有效的。
 
-```
+```js
 scroller.setViewportX(50); /// 控制台中调用
 ```
 
@@ -755,7 +755,7 @@ scroller.setViewportX(50); /// 控制台中调用
 
 尝试将视口移动到 x = 7000 的位置 ：
 
-```
+```js
 scroller.setViewportX(7000);
 ```
 
@@ -769,7 +769,7 @@ scroller.setViewportX(7000);
 
 打开 Scroller.js 并在构造函数中定义以下成员变量：
 
-```
+```js
 function Scroller(stage) {
   this.far = new Far();
   stage.addChild(this.far);
@@ -783,7 +783,7 @@ function Scroller(stage) {
 
 并在 `setViewportX()` 方法中更新 `viewportX` 成员变量的值：
 
-```
+```js
 Scroller.prototype.setViewportX = function(viewportX) {
   this.viewportX = viewportX; // 更新
   this.far.setViewportX(viewportX);
@@ -793,7 +793,7 @@ Scroller.prototype.setViewportX = function(viewportX) {
 
 完成后，我们可以编写一个 `getViewportX()` 方法，该方法将返回视口的当前位置：
 
-```
+```js
 Scroller.prototype.setViewportX = function(viewportX) {
   this.viewportX = viewportX;
   this.far.setViewportX(viewportX);
@@ -813,7 +813,7 @@ Scroller.prototype.getViewportX = function() {
 
 打开 index.html，只需添加以下两行代码：
 
-```
+```js
 function update() {
   var newViewportX = scroller.getViewportX() + 5; // 添加
   scroller.setViewportX(newViewportX); // 添加
@@ -834,7 +834,7 @@ function update() {
 
 在保存更改之前，打开 Scroller.js 并添加以下方法：
 
-```
+```js
 Scroller.prototype.getViewportX = function() {
   return this.viewportX;
 };
@@ -849,7 +849,7 @@ Scroller.prototype.moveViewportXBy = function(units) {
 
 移回 index.html 并删除以下行：
 
-```
+```js
 function update() {
   var newViewportX = scroller.getViewportX() + 5; // 删除
   scroller.setViewportX(newViewportX); // 删除
@@ -862,7 +862,7 @@ function update() {
 
 用 `moveViewportXBy()` 方法的单行替换它们：
 
-```
+```js
 function update() {
   scroller.moveViewportXBy(5); // 调用新的方法
 
@@ -884,7 +884,7 @@ function update() {
 
 为类创建构造函数，并将HTML页面的 `init()` 函数中的代码放入其中：
 
-```
+```js
 function Main() {
   this.stage = new PIXI.Container();
   this.renderer = PIXI.autoDetectRenderer(
@@ -903,7 +903,7 @@ function Main() {
 
 `this` 关键字也用于调用 JavaScript 函数 `requestAnimationFrame()`。代码大概是这样：
 
-```
+```js
 requestAnimationFrame(this.update.bind(this));
 ```
 
@@ -911,7 +911,7 @@ requestAnimationFrame(this.update.bind(this));
 
 好吧，让我们实际编写我们的类的 `update()` 方法。它将只包含我们原来 HTML 页面的 `update()` 函数中的代码：
 
-```
+```js
 Main.prototype.update = function() {
   this.scroller.moveViewportXBy(Main.SCROLL_SPEED);
   this.renderer.render(this.stage);
@@ -923,7 +923,7 @@ Main.prototype.update = function() {
 
 另外，请注意上面的代码在调用 scrolller 的 `moveViewportXBy()` 方法时使用了一个名为 `SCROLL_SPEED` 的常量。以前我们刚刚传递了一个硬编码值。我们实际可以将该常量添加到 Main 类中做为静态常量。在构造函数后面直接添加以下行：
 
-```
+```js
   requestAnimationFrame(this.update.bind(this));
 }
 
@@ -938,7 +938,7 @@ Main.prototype.update = function() {
 
 删除以下行：
 
-```
+```html
 <!-- 全部删除 -->
 <script>
   function init() {
@@ -966,7 +966,7 @@ Main.prototype.update = function() {
 
 用一个简单的实例化 Main 类的新 `init()` 函数代替：
 
-```
+```html
 <script>
   function init() {
     main = new Main();
@@ -976,7 +976,7 @@ Main.prototype.update = function() {
 
 最后，通过添加以下行来引用到类 ：
 
-```
+```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.0.0/pixi.min.js"></script>
 <script src="Far.js"></script>
 <script src="Mid.js"></script>

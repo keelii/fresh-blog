@@ -151,7 +151,7 @@ window, decoration, window, decoration, window, decoration, window
 
 并不需要完全理解 JSON 文件，因为 Pixi 将处理它。但是，我们可以探索一下正在使用的这个文件。下面这段是来自 JSON 数据中的一段，表示第一个墙边切片的框架。我已经为高亮了一些代码行：
 
-```
+```js
 "edge_01": // 高亮
 {
   "frame": {"x":128,"y":0,"w":64,"h":256},// 高亮
@@ -174,7 +174,7 @@ window, decoration, window, decoration, window, decoration, window
 
 下一个高亮行代码定义了框架的矩形区域：
 
-```
+```js
 "frame": {"x":128,"y":0,"w":64,"h":256},
 ```
 
@@ -184,7 +184,7 @@ JSON 文件中还有其他七种类型的切片。每个切片将由唯一的帧
 
 wall.json 的后面，有一些元数据：
 
-```
+```json
 "meta": {
   "app": "http://www.codeandweb.com/texturepacker ",
   "version": "1.0",
@@ -208,7 +208,7 @@ wall.json 的后面，有一些元数据：
 
 在文件的末尾，添加以下方法来加载精灵表：
 
-```
+```js
 Main.prototype.loadSpriteSheet = function() {
   var loader = PIXI.loader;
   loader.add("wall", "resources/wall.json");
@@ -225,7 +225,7 @@ Main.prototype.loadSpriteSheet = function() {
 
 > 目前，远景层和中间层图像在其构造函数中加载。但是，我们实际上可以预先加载这些图像，并避免在实例化远景层和中间类时出现短暂的延迟。将它们添加到我们的 Loader 实例中：
 
-```
+```js
 loader.add("wall", "resources/wall.json");
 loader.add("bg-mid", "resources/bg-mid.png"); // 添加
 loader.add("bg-far", "resources/bg-far.png"); // 添加
@@ -235,7 +235,7 @@ loader.add("bg-far", "resources/bg-far.png"); // 添加
 
 现在让我们编写 `spriteSheetLoaded()` 方法。在文件末尾添加以下内容：
 
-```
+```js
 Main.prototype.spriteSheetLoaded = function() {
 };
 ```
@@ -244,7 +244,7 @@ Main.prototype.spriteSheetLoaded = function() {
 
 向上滚动到构造函数并删除以下两行：
 
-```
+```js
 function Main() {
   this.stage = new PIXI.Container();
   this.renderer = PIXI.autoDetectRenderer(
@@ -261,7 +261,7 @@ function Main() {
 
 再回到你的 `spriteSheetLoaded()` 方法并在那里添加删除的两行：
 
-```
+```js
 Main.prototype.spriteSheetLoaded = function() {
   this.scroller = new Scroller(this.stage);
   requestAnimationFrame(this.update.bind(this));
@@ -270,7 +270,7 @@ Main.prototype.spriteSheetLoaded = function() {
 
 最后，返回构造函数并调用 `loadSpriteSheet()` 方法：
 
-```
+```js
 function Main() {
   this.stage = new PIXI.Container();
   this.renderer = PIXI.autoDetectRenderer(
@@ -291,7 +291,7 @@ function Main() {
 
 我们将在 `spriteSheetLoaded()` 方法中执行我们的测试。将以下代码添加到其中：
 
-```
+```js
 Main.prototype.spriteSheetLoaded = function() {
   this.scroller = new Scroller(this.stage);
   requestAnimationFrame(this.update.bind(this));
@@ -309,7 +309,7 @@ Main.prototype.spriteSheetLoaded = function() {
 
 让我们添加第二个垂直切片。这次我们将使用砖块墙中间的切片类型。为了更精确，我们将使用精灵表中名为`decoration_03` 的帧：
 
-```
+```js
 Main.prototype.spriteSheetLoaded = function() {
   this.scroller = new Scroller(this.stage);
   requestAnimationFrame(this.update.bind(this));
@@ -332,7 +332,7 @@ Main.prototype.spriteSheetLoaded = function() {
 
 希望你现在对精灵表的框架已成功加载并缓存产生了一些成就感。从 `spriteSheetLoaded()` 方法中删除测试代码。方法应再次如下所示：
 
-```
+```js
 Main.prototype.spriteSheetLoaded = function() {
   this.scroller = new Scroller(this.stage);
   requestAnimationFrame(this.update.bind(this));
@@ -391,7 +391,7 @@ GPU 更擅长一次处理大数据量的场景。 Pixi 会迎合 GPU 的这个�
 
 在文本编辑器中创建一个新文件并添加以下构造函数：
 
-```
+```js
 function WallSpritesPool() {
   this.windows = [];
 }
@@ -405,7 +405,7 @@ function WallSpritesPool() {
 
 我们的数组需要预先填充一些窗口精灵。请记住，我们的砖块墙可以支持两种类型的窗户 — 一个开灯的窗户和一个没有开灯的窗户 - 所以我们需要确保我们添加两种类型足够多。通过将以下代码添加到构造函数来填充数组：
 
-```
+```js
 function WallSpritesPool() {
   this.windows = [];
 
@@ -430,7 +430,7 @@ function WallSpritesPool() {
 
 以下方法将把传递给它的数组打乱。添加方法：
 
-```
+```js
 WallSpritesPool.prototype.shuffle = function(array) {
   var len = array.length;
   var shuffles = len * 3;
@@ -445,7 +445,7 @@ WallSpritesPool.prototype.shuffle = function(array) {
 
 现在从构造函数调用 `shuffle()` 方法：
 
-```
+```js
 function WallSpritesPool() {
   this.windows = [];
 
@@ -468,7 +468,7 @@ function WallSpritesPool() {
 
 现在让我们做一些重构，因为有一个更简洁的方法来填充我们的数组。由于我们实际上是在数组中添加两组精灵（亮灯和不亮灯的窗口），我们可以替换以下代码行：
 
-```
+```js
 function WallSpritesPool() {
   this.windows = [];
 
@@ -491,7 +491,7 @@ function WallSpritesPool() {
 
 用下面的代替：
 
-```
+```js
 function WallSpritesPool() {
   this.windows = [];
 
@@ -528,7 +528,7 @@ WallSpritesPool.prototype.shuffle = function(array) {
 
 在继续之前，我们应该再做一次重构。将构造函数中的代码移动到单独的方法中。删除以下行：
 
-```
+```js
 function WallSpritesPool() {
   this.windows = []; // 删除
 
@@ -541,7 +541,7 @@ function WallSpritesPool() {
 
 使用一个新方法替换：
 
-```
+```js
 WallSpritesPool.prototype.createWindows = function() {
   this.windows = [];
 
@@ -554,7 +554,7 @@ WallSpritesPool.prototype.createWindows = function() {
 
 最后，从构造函数中调用 `createWindows()` 方法：
 
-```
+```js
 function WallSpritesPool() {
   this.createWindows();
 }
@@ -581,7 +581,7 @@ function WallSpritesPool() {
 
 好的，我们在类的构造函数之后添加 `borrowWindow()` 方法：
 
-```
+```js
 function WallSpritesPool() {
   this.createWindows();
 }
@@ -597,7 +597,7 @@ WallSpritesPool.prototype.borrowWindow = function() {
 
 现在直接在其下面添加 `returnWindow()` 方法：
 
-```
+```js
 WallSpritesPool.prototype.borrowWindow = function() {
   return this.windows.shift();
 };
@@ -617,7 +617,7 @@ WallSpritesPool.prototype.returnWindow = function(sprite) {
 
 查看一下 `WallSpritesPool` 类。并没有很多代码，但重要的是你要了解在添加之前发生了什么。以下是类的当前版本：
 
-```
+```js
 function WallSpritesPool() {
   this.createWindows();
 }
@@ -667,7 +667,7 @@ WallSpritesPool.prototype.shuffle = function(array) {
 
 转到你的 index.html 文件并引用 `WallSpritesPool` 类的源文件：
 
-```
+```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.0.0/pixi.min.js"></script>
 <script src="Far.js"></script>
 <script src="Mid.js"></script>
@@ -682,7 +682,7 @@ WallSpritesPool.prototype.shuffle = function(array) {
 
 我们首先在 `spriteSheetLoaded()` 方法中创建我们的对象池的实例，创建将用于保存从池中获取的切片精灵数组：
 
-```
+```js
 Main.prototype.spriteSheetLoaded = function() {
   this.scroller = new Scroller(this.stage);
   requestAnimationFrame(this.update.bind(this));
@@ -696,7 +696,7 @@ Main.prototype.spriteSheetLoaded = function() {
 
 现在让我们编写一些代码来从池中获取指定数量的窗口并将它们连续地添加到舞台上。添加以下测试方法：
 
-```
+```js
 Main.prototype.borrowWallSprites = function(num) {
   for (var i = 0; i < num; i++)
   {
@@ -713,7 +713,7 @@ Main.prototype.borrowWallSprites = function(num) {
 
 除了将窗口精灵添加到舞台，上面的 `borrowWallSprites()` 方法还将每个精灵添加到我们的 `wallSlices` 成员变量中。这样做的原因是我们需要能够从第二个测试方法中访问（删除、移除、归还）这些窗口精灵，我们现在将编写它们。添加以下内容：
 
-```
+```js
 Main.prototype.returnWallSprites = function() {
   for (var i = 0; i < this.wallSlices.length; i++)
   {
@@ -732,7 +732,7 @@ Main.prototype.returnWallSprites = function() {
 
 刷新浏览器并打开JavaScript控制台。手动执行如下代码：
 
-```
+```js
 main.borrowWallSprites(9);
 ```
 
@@ -744,7 +744,7 @@ main.borrowWallSprites(9);
 
 现在让我们验证是否可以将这些精灵归还给对象池。在控制台中输入以下内容：
 
-```
+```js
 main.returnWallSprites();
 ```
 
@@ -752,13 +752,13 @@ main.returnWallSprites();
 
 这还不能满足我们的实际需示。最简单的方法是从池中请求更多窗口并检查它们是否也出现在屏幕上。让我们从游泳池中再借用九个窗口：
 
-```
+```js
 main.borrowWallSprites(9);
 ```
 
 然后再归还：
 
-```
+```js
 main.returnWallSprites();
 ```
 
@@ -766,19 +766,19 @@ main.returnWallSprites();
 
 JavaScript 中的所有内容都可以公开访问，我们可以在任何时候轻松检查对象池的内部数组。尝试从控制台检查数组的大小：
 
-```
+```js
 main.pool.windows.length
 ```
 
 这么做应该返回长度 12。现在使用以下方法从池中借用四个窗口精灵：
 
-```
+```js
 main.borrowWallSprites(4);
 ```
 
 再次查看池子中的精灵个数：
 
-```
+```js
 main.pool.windows.length
 ```
 
@@ -794,7 +794,7 @@ main.pool.windows.length
 
 打开 `WallSpritesPool.js` 并在构造函数中进行以下调用：
 
-```
+```js
 function WallSpritesPool() {
   this.createWindows();
   this.createDecorations(); // 添加
@@ -803,7 +803,7 @@ function WallSpritesPool() {
 
 现在真正来实现 `createDecorations()` 方法：
 
-```
+```js
 WallSpritesPool.prototype.createWindows = function() {
   this.windows = [];
 
@@ -828,7 +828,7 @@ WallSpritesPool.prototype.createDecorations = function() {
 
 现在让我们来编写 `addDecorationSprites()` 方法。在 `addWindowSprites()` 方法之后直接添加以下内容：
 
-```
+```js
 WallSpritesPool.prototype.addWindowSprites = function(amount, frameId) {
   for (var i = 0; i < amount; i++)
   {
@@ -848,7 +848,7 @@ WallSpritesPool.prototype.addDecorationSprites = function(amount, frameId) {
 
 现在剩下要做的就是添加两个新方法，允许从对象池借用装饰精灵并返还。方法名称将遵循用于窗口精灵的命名约定。添加 `borrowDecoration()` 和 `returnDecoration()` 方法：
 
-```
+```js
 WallSpritesPool.prototype.borrowWindow = function() {
   return this.windows.shift();
 };
@@ -876,7 +876,7 @@ WallSpritesPool.prototype.returnDecoration = function(sprite) {
 
 打开 Main.js 并从 `borrowWallSprites()` 方法中删除以下行：
 
-```
+```js
 Main.prototype.borrowWallSprites = function(num) {
   for (var i = 0; i < num; i++)
   {
@@ -893,7 +893,7 @@ Main.prototype.borrowWallSprites = function(num) {
 
 用下面几行代替：
 
-```
+```js
 Main.prototype.borrowWallSprites = function(num) {
   for (var i = 0; i < num; i++)
   {
@@ -920,7 +920,7 @@ window, decoration, window, decoration, window, decoration, window
 
 现在转到 `returnWallSprites()` 方法并删除以下行：
 
-```
+```js
 Main.prototype.returnWallSprites = function() {
   for (var i = 0; i < this.wallSlices.length; i++)
   {
@@ -935,7 +935,7 @@ Main.prototype.returnWallSprites = function() {
 
 用下面几行代替：
 
-```
+```js
 Main.prototype.returnWallSprites = function() {
   for (var i = 0; i < this.wallSlices.length; i++)
   {
@@ -959,7 +959,7 @@ Main.prototype.returnWallSprites = function() {
 
 刷新浏览器，然后使用 Chrome 的 JavaScript 控制台测试我们的对象池。通过在控制台窗口中输入以下内容来生成测试墙：
 
-```
+```js
 main.borrowWallSprites(9);
 ```
 
@@ -971,7 +971,7 @@ main.borrowWallSprites(9);
 
 使用以下调用将精灵返还到对象池：
 
-```
+```js
 main.returnWallSprites();
 ```
 
@@ -983,7 +983,7 @@ main.returnWallSprites();
 
 在文本编辑器中打开 `WallSpritesPool.js` 并将以下两行添加到其构造函数中：
 
-```
+```js
 function WallSpritesPool() {
   this.createWindows();
   this.createDecorations();
@@ -994,7 +994,7 @@ function WallSpritesPool() {
 
 现在添加一个 `createFrontEdges()` 和一个 `createBackEdges()` 方法：
 
-```
+```js
 WallSpritesPool.prototype.createDecorations = function() {
   this.decorations = [];
 
@@ -1030,7 +1030,7 @@ WallSpritesPool.prototype.createBackEdges = function() {
 
 现在继续添加 `addFrontEdgeSprites()` 和 `addBackEdgeSprites()` 方法：
 
-```
+```js
 WallSpritesPool.prototype.addDecorationSprites = function(amount, frameId) {
   for (var i = 0; i < amount; i++)
   {
@@ -1060,7 +1060,7 @@ WallSpritesPool.prototype.addBackEdgeSprites = function(amount, frameId) {
 
 上面的代码没什么特殊的地方，但 `addBackEdgeSprites()` 方法中有几行值得注意：
 
-```
+```js
 var sprite = new PIXI.Sprite(PIXI.Texture.fromFrame(frameId));
 sprite.anchor.x = 1; // 高亮行
 sprite.scale.x = -1;// 高亮行
@@ -1083,7 +1083,7 @@ Pixi 的 `PIXI.Sprite` 类还提供了一个 `anchor` 属性，用于定义 `spr
 
 好的，现在让我们来编写可以借用边缘并返还给对象池的方法。
 
-```
+```js
 WallSpritesPool.prototype.returnDecoration = function(sprite) {
   this.decorations.push(sprite);
 };
@@ -1117,7 +1117,7 @@ WallSpritesPool.prototype.returnBackEdge = function(sprite) {
 
 我们将实现一个名为 `generateTestWallSpan()` 的新方法，用它来生成七个切片宽度的砖块墙。我们将把所有切片存放在一张表里面。首先添加以下内容：
 
-```
+```js
 Main.prototype.generateTestWallSpan = function() {
   var lookupTable = [
     this.pool.borrowFrontEdge,  // 第一个切片
@@ -1135,7 +1135,7 @@ Main.prototype.generateTestWallSpan = function() {
 
 每个索引都包含对构建砖块墙所需的对象池中对应的引用。例如，第一个索引包含对池的 `borrowFrontEdge()` 方法的引用。第二个索引包含对 `borrowWindow()` 的引用，第三个索引包含对 `borrowDecoration()` 的引用。
 
-```
+```js
 Main.prototype.generateTestWallSpan = function() {
   var lookupTable = [
     this.pool.borrowFrontEdge,  // 1st slice
@@ -1164,19 +1164,19 @@ Main.prototype.generateTestWallSpan = function() {
 
 在循环内部，我们的代码获取对应切片的借用方法的引用，并将其存储在名为 `func` 的局部变量中：
 
-```
+```js
 var func = lookupTable[i];
 ```
 
 一旦我们有了这个正确的引用，就使用以下方法调用它：
 
-```
+```js
 var sprite = func.call(this.pool);
 ```
 
 `call()` 是一种原生的 JavaScript 方法，可用来从函数引用调用函数。例如，在循环的第一次迭代中，`func` 变量将指向精灵池的 `borrowFrontEdge()` 方法。因此，调用 `func` 的 `call()` 方法与下面的代码等价：
 
-```
+```js
 this.pool.borrowFrontEdge()
 ```
 
@@ -1184,7 +1184,7 @@ this.pool.borrowFrontEdge()
 
 在你的文件中加入下面的代码：
 
-```
+```js
 Main.prototype.clearTestWallSpan = function() {
   var lookupTable = [
     this.pool.returnFrontEdge,  // 1st slice
@@ -1217,7 +1217,7 @@ Main.prototype.clearTestWallSpan = function() {
 
 打开 Chrome 的 JavaScript 控制台并执行生成砖块墙的代码：
 
-```
+```js
 main.generateTestWallSpan();
 ```
 
@@ -1227,7 +1227,7 @@ main.generateTestWallSpan();
 
 七个切片都是从我们的对象池中借来的。让我们通过在控制台中输入以下内容来返还它们：
 
-```
+```js
 main.clearTestWallSpan();
 ```
 
@@ -1235,7 +1235,7 @@ main.clearTestWallSpan();
 
 再次生成砖块墙：
 
-```
+```js
 main.generateTestWallSpan();
 ```
 
@@ -1253,7 +1253,7 @@ main.generateTestWallSpan();
 
 添加下面一行到构造函数中。
 
-```
+```js
 function WallSpritesPool() {
   this.createWindows();
   this.createDecorations();
@@ -1265,7 +1265,7 @@ function WallSpritesPool() {
 
 现在来实现 `createSteps()` 方法：
 
-```
+```js
 WallSpritesPool.prototype.createSteps = function() {
   this.steps = [];
   this.addStepSprites(2, "step_01");
@@ -1274,7 +1274,7 @@ WallSpritesPool.prototype.createSteps = function() {
 
 并且添加一个 `addStepSprites()` 方法：
 
-```
+```js
 WallSpritesPool.prototype.addStepSprites = function(amount, frameId) {
   for (var i = 0; i < amount; i++)
   {
@@ -1299,7 +1299,7 @@ WallSpritesPool.prototype.addStepSprites = function(amount, frameId) {
 
 现在我们需要做的就是提供允许我们从对象池借用并返回一个步骤的方法。添加以下 `borrowStep()` 和 `returnStep()` 方法：
 
-```
+```js
 WallSpritesPool.prototype.borrowStep = function() {
   return this.steps.shift();
 };
@@ -1317,7 +1317,7 @@ WallSpritesPool.prototype.returnStep = function(sprite) {
 
 打开 Main.js 并删除 `generateTestWallSpan()` 方法中的代码。将其替换为以下内容：
 
-```
+```js
 Main.prototype.generateTestWallSpan = function() {
   var lookupTable = [
     this.pool.borrowFrontEdge,  // 1st slice
@@ -1360,7 +1360,7 @@ Main.prototype.generateTestWallSpan = function() {
 
 让我们转到我们的 `clearTestWallSpan()` 方法。从现有版本的方法中删除代码，并将其替换为以下内容：
 
-```
+```js
 Main.prototype.clearTestWallSpan = function() {
   var lookupTable = [
     this.pool.returnFrontEdge,  // 1st slice
@@ -1390,7 +1390,7 @@ Main.prototype.clearTestWallSpan = function() {
 
 在 JavaScript 控制台中输入以下内容：
 
-```
+```js
 main.generateTestWallSpan();
 ```
 
@@ -1400,7 +1400,7 @@ main.generateTestWallSpan();
 
 再返还整个砖块墙给对象池：
 
-```
+```js
 main.clearTestWallSpan();
 ```
 
@@ -1410,7 +1410,7 @@ main.clearTestWallSpan();
 
 我们不断地测试对象池，现在它已经成型。为了准备本系列的最后一个教程，我们现在从 Main 类中删除测试代码：
 
-```
+```js
 Main.prototype.spriteSheetLoaded = function() {
   this.scroller = new Scroller(this.stage);
   requestAnimationFrame(this.update.bind(this));

@@ -8,6 +8,8 @@ tags:
   - parcel
 ---
 
+{{TOC}}
+
 本文将会讲述一个完整的跨端桌面应用 [**代码画板**](https://code-sketch.com/ "代码画板") 的构建，会涉及到整个软件开发流程，从开始的设计、编码、到最后产品成型、包装等。
 
 本文不仅仅是一篇技术方面的专业文章，更会有很多产品方面的设计思想和将技术转换成生产力的思考，我将结合我自己的使用场景完全的讲解整个开发流程，当然涉及到设计方面的不一定具有普遍实用性，多数情况下都是我自己的一些喜好，我只关心自己的需求。
@@ -283,7 +285,7 @@ this.ipc.send('event', data)
 
 话题再转回性能问题。这时候需要我们去实现一个类似于 [react-window](https://addyosmani.com/blog/react-window/)  的功能，让列表元素根据滚动按需加载。这可能是一种通用的解决大列表加载的方案，但是我的解决方法更粗暴，因为我们的下拉过滤功能使用时用户只关注 **最佳的匹配项** 即可，后面匹配程度不高的项可以直接限制数量裁剪就行了嘛。很少有用户会一直滚动到下面去查找某个选项，如果有，那就说明我们这个匹配做的有问题。
 
-```
+```js
 slice() {
     const idx = (this.props.itemsPerPage || 50) * (this.state.activeFrame + 1)
     return this.props.items.slice(0, idx)
@@ -342,11 +344,12 @@ static defaultProps = {
     alias={alias}
     aliasClick={this.aliasClick.bind(this)}
     data={[ [], [], [] ]}
+/>
 ```
 
 `async` 这个 props 实际上是一个异步调用的钩子方法，它会回传给你组件上当前操作的相关数据状态，通过这些数据使用者就可以按自己的需求在不同的步骤上调用不同的方法
 
-```
+```js
 export const injectData = (step, item, results, cb) => {
     const API = 'https://api.bootcdn.cn/libraries'
 
@@ -368,7 +371,7 @@ export const injectData = (step, item, results, cb) => {
 
 系统的一些参数想直接传给渲染进程也是比较麻烦的，我的做法是直接从主进程中的 loadUrl 方法上以 queryString 的方式传到渲染页面的 URL 上
 
-```
+```js
 const query = {
     theme: osTheme,
     app_path: app.getAppPath(),
