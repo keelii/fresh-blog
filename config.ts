@@ -8,6 +8,8 @@ export type AppEnv = "prd" | "dev"
 
 const APP_ENV = Deno.env.get("APP_ENV") || "dev"
 
+export const isPrd = APP_ENV === "prd"
+
 log.info("APP_ENV: " + APP_ENV)
 
 const url = APP_ENV === "prd"
