@@ -11,11 +11,13 @@ import MarkdownItAnchor from "https://esm.sh/markdown-it-anchor@8.6.4"
 import MarkdownItToc from "https://esm.sh/v87/markdown-it-toc-done-right@4.2.0/es2022/markdown-it-toc-done-right.js"
 
 import "https://esm.sh/prismjs@1.25.0/components/prism-bash?no-check&pin=v57";
+import "https://esm.sh/prismjs@1.25.0/components/prism-vim?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-typescript?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-makefile?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-http?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-python?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-java?no-check&pin=v57";
+import "https://esm.sh/prismjs@1.25.0/components/prism-jsx?no-check&pin=v57";
 import "https://esm.sh/prismjs@1.25.0/components/prism-json?no-check&pin=v57";
 
 const md = new MarkdownIt({
@@ -24,7 +26,7 @@ const md = new MarkdownIt({
     if (lang && Prism.languages[lang]) {
       return Prism.highlight(str, Prism.languages[lang], lang);
     }
-    return str;
+    return htmlencode(str);
   }
 })
 const slugify = function(s: string) {
