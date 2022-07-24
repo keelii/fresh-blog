@@ -8,6 +8,7 @@ import Prism from "https://esm.sh/prismjs@1.27.0";
 
 import MarkdownIt from "https://esm.sh/markdown-it@13.0.1"
 import MarkdownItAnchor from "https://esm.sh/markdown-it-anchor@8.6.4"
+import MarkdownItFootnote from "https://esm.sh/markdown-it-footnote@3.0.3"
 import MarkdownItToc from "https://esm.sh/v87/markdown-it-toc-done-right@4.2.0/es2022/markdown-it-toc-done-right.js"
 
 import "https://esm.sh/prismjs@1.25.0/components/prism-bash?no-check&pin=v57";
@@ -56,8 +57,9 @@ const tocOptions = {
 }
 
 md.use(MarkdownItToc, tocOptions)
+md.use(MarkdownItFootnote)
 
-function htmlencode (x: string) {
+function htmlencode(x: string) {
   return String(x)
     .replace(/&/g, '&amp;')
     .replace(/"/g, '&quot;')
