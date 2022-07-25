@@ -3,8 +3,8 @@ import manifest from "./fresh.gen.ts"
 
 import {config, setup} from "@twind"
 import {virtualSheet} from "twind/sheets"
-import {getCachedPosts} from "./utils/util.ts"
 import {setupConfig} from "./config/config.ts"
+import {getCachedPosts} from "./utils/post.ts"
 
 
 // IP: 199.19.111.44

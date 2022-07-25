@@ -2,8 +2,9 @@
 import { h } from "preact";
 import { Feed, Item } from "https://esm.sh/feed@4.2.2";
 import { Handlers } from "$fresh/src/server/types.ts";
-import { getCachedPosts, MetaInfo } from "../utils/util.ts";
+import { MetaInfo } from "../utils/util.ts";
 import { cfg } from "../main.ts";
+import { getCachedPosts } from "../utils/post.ts";
 
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {

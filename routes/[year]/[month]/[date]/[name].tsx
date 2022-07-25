@@ -1,13 +1,14 @@
 /** @jsx h */
 import { Fragment, h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { MetaInfo, parseCachedYamlFile, toDisplayDate } from "../../../../utils/util.ts";
+import { MetaInfo, toDisplayDate } from "../../../../utils/util.ts";
 import { Container } from "../../../../component/Container.tsx";
 import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
 
 import { join } from "../../../../deps.ts";
 import { cfg } from "../../../../main.ts";
+import { parseCachedYamlFile } from "../../../../utils/post.ts";
 
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
