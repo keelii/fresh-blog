@@ -4,11 +4,11 @@ import { Handlers, PageProps } from "$fresh/src/server/types.ts";
 import { getCachedPosts, MetaInfo } from "../utils/util.ts";
 import { Container } from "../component/Container.tsx";
 import { Layout } from "../component/Layout.tsx";
-import { BLOG_CONFIG, POST_DIR } from "../config/config.ts";
+import { cfg } from "../main.ts";
 
 export const handler: Handlers<MetaInfo[] | null> = {
   async GET(_, ctx) {
-    const posts = await getCachedPosts(POST_DIR);
+    const posts = await getCachedPosts(cfg.getEnv("POST_DIR"));
     return ctx.render(posts);
   },
 };
@@ -17,10 +17,10 @@ export default function Home(props: PageProps<MetaInfo[]>) {
   const posts = props.data;
 
   return (
-    <Layout title={BLOG_CONFIG.title}>
+    <Layout title={cfg.getConfig("title")}>
       <Container>
         <header className={"wysiwyg"}>
-          <h1>{BLOG_CONFIG.title}</h1>
+          <h1>{cfg.getConfig("title")}</h1>
           <a href="/about" className="meta">关于我</a>
         </header>
         <div className={"wysiwyg"}>
@@ -39,7 +39,7 @@ export default function Home(props: PageProps<MetaInfo[]>) {
             Copyright &copy; {new Date().getFullYear()} keelii, Powered by
             <a href="https://deno.com/deploy" target="_blank">Deno</a>
             |
-            <a href={`${BLOG_CONFIG.url}/${BLOG_CONFIG.rss}`}>
+            <a href={`${cfg.getConfig("title")}/${cfg.getConfig("title")}`}>
               <abbr title="RDF Site Summary">RSS</abbr>
             </a>
           </p>

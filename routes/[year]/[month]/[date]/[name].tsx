@@ -6,12 +6,12 @@ import { Container } from "../../../../component/Container.tsx";
 import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
 
-import { POST_DIR } from "../../../../config/config.ts";
 import { join } from "../../../../deps.ts";
+import { cfg } from "../../../../main.ts";
 
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
-    const file = join(POST_DIR, ctx.params.name + ".md");
+    const file = join(cfg.getEnv("POST_DIR"), ctx.params.name + ".md");
     const result = await parseCachedYamlFile(file, true);
     return ctx.render(result);
   },

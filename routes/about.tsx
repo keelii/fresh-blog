@@ -5,12 +5,12 @@ import { Layout } from "../component/Layout.tsx";
 import { Container } from "../component/Container.tsx";
 import { Comment } from "../component/Comment.tsx";
 import { MetaInfo, parseCachedYamlFile, toDisplayDate } from "../utils/util.ts";
-import { CONTENT_DIR } from "../config/config.ts";
 import { join } from "../deps.ts";
+import { cfg } from "../main.ts";
 
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
-    const file = join(CONTENT_DIR, "about.md");
+    const file = join(cfg.getEnv("CONTENT_DIR"), "about.md");
     const result = await parseCachedYamlFile(file, true);
     return ctx.render(result);
   },

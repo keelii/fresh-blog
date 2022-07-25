@@ -1,29 +1,69 @@
-import {info, join} from "../deps.ts"
+import {info, join, setupEnvironment, warning} from "../deps.ts"
+import {DotenvConfig} from "std/dotenv/mod.ts"
 
-export const CONTENT_DIR = join(Deno.cwd(), Deno.env.get("CONTENT_DIR") || "blog")
-export const POST_DIR = join(CONTENT_DIR, Deno.env.get("POST_DIR") || "posts")
-
-export type AppEnv = "prd" | "dev"
-
-const APP_ENV = Deno.env.get("APP_ENV") || "dev"
-
-export const isPrd = APP_ENV === "prd"
-
-info("APP_ENV: " + APP_ENV)
-
-const url = APP_ENV === "prd"
-  ? "https://keelii.com"
-  : "http://localhost:8000"
-
-export const BLOG_CONFIG = {
-  url: url,
-  title: "臨池不輟",
-  description: "__ you don&#39;t know yet",
-  author: "keelii",
-  keywords: "前端开发,编程,javascript,typescript,css,html,nodejs,python,java",
-  rss: "atom.xml"
+export interface BlogConfig extends DotenvConfig {
+  url: string,
+  title: string
+  description: string
+  author: string
+  keywords: string
+  rss: string
 }
-export const ANCHOR_SVG =
-  "<svg class=\"octicon octicon-link\" viewbox=\"0 0 16 16\" width=\"16\" height=\"16\" aria-hidden=\"true\"><path fill-rule=\"evenodd\" d=\"M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z\"></path></svg>"
+interface BlogEnv extends DotenvConfig {
+  BLOG_TITLE: string
+  BLOG_DESCRIPTION: string
+  BLOG_AUTHOR: string
+  BLOG_KEYWORDS: string
+  BLOG_RSS: string
+}
+export interface EnvConfig extends DotenvConfig {
+  APP_ENV: "prd" | "dev"
+  APP_URL: string
+  CONTENT_DIR: string
+  POST_DIR: string
+}
 
+type DotEnv = EnvConfig & BlogEnv
 
+export async function setupConfig() {
+  const DOT_CONFIG = await setupEnvironment({
+    path: "./config/.env",
+    defaults: "./config/.defaults.env",
+  }) as DotEnv
+
+  const APP_ENV = DOT_CONFIG.APP_ENV || "dev"
+  const APP_URL = DOT_CONFIG.APP_URL || "dev"
+  const CONTENT_DIR = join(Deno.cwd(), DOT_CONFIG.CONTENT_DIR || "blog")
+  const POST_DIR = join(CONTENT_DIR, DOT_CONFIG.POST_DIR || "posts")
+
+  const EnvConfigMap: EnvConfig = {
+    APP_ENV,
+    APP_URL,
+    CONTENT_DIR,
+    POST_DIR,
+  }
+  const BlogConfigMap: BlogConfig = {
+    url: APP_URL,
+    title: DOT_CONFIG.BLOG_TITLE,
+    description: DOT_CONFIG.BLOG_DESCRIPTION,
+    author: DOT_CONFIG.BLOG_AUTHOR,
+    keywords: DOT_CONFIG.BLOG_KEYWORDS,
+    rss: DOT_CONFIG.BLOG_RSS
+  }
+
+  warning("APP_ENV: " + APP_ENV)
+  info("[EnvConfig]: " + JSON.stringify(EnvConfigMap))
+  info("[BlogConfig]: " + JSON.stringify(BlogConfigMap))
+
+  return {
+    isPrd() {
+      return APP_ENV === "prd"
+    },
+    getConfig(key: string) {
+      return BlogConfigMap[key]
+    },
+    getEnv(key: keyof EnvConfig) {
+      return EnvConfigMap[key]
+    }
+  }
+}

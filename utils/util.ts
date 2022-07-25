@@ -1,4 +1,14 @@
-import { basename, error, MarkdownIt, MarkdownItAnchor, MarkdownItToc, parseYaml, walk } from "../deps.ts";
+import {
+  basename,
+  error,
+  MarkdownIt,
+  MarkdownItAnchor,
+  MarkdownItFootnote,
+  MarkdownItToc,
+  parseYaml,
+  walk
+} from "../deps.ts"
+
 
 import Prism from "prismjs";
 (window as any).Prism = Prism;
@@ -19,7 +29,7 @@ const md = new MarkdownIt({
     if (lang && Prism.languages[lang]) {
       return Prism.highlight(str, Prism.languages[lang], lang);
     }
-    return htmlencode(str);
+    return htmlEncode(str);
   },
 });
 const slugify = function (s: string) {
@@ -49,8 +59,9 @@ const tocOptions = {
 };
 
 md.use(MarkdownItToc, tocOptions);
+md.use(MarkdownItFootnote)
 
-function htmlencode(x: string) {
+function htmlEncode(x: string) {
   return String(x)
     .replace(/&/g, "&amp;")
     .replace(/"/g, "&quot;")
@@ -65,9 +76,9 @@ md.renderer.rules.tocOpen = function (tokens: any[], idx: number) {
     const token = tokens[idx];
     _options = Object.assign(_options, token.inlineOptions);
   }
-  const id = _options.containerId ? ` id="${htmlencode(_options.containerId)}"` : "";
+  const id = _options.containerId ? ` id="${htmlEncode(_options.containerId)}"` : "";
   return `<div id="toc"><div onclick="this.parentNode.classList.toggle('show')" class="toggle">§</div><nav${id} class="${
-    htmlencode(_options.containerClass)
+    htmlEncode(_options.containerClass)
   }">`;
 };
 md.renderer.rules.tocClose = function () {

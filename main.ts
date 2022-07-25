@@ -3,10 +3,8 @@ import manifest from "./fresh.gen.ts"
 
 import {config, setup} from "@twind"
 import {virtualSheet} from "twind/sheets"
-import {isPrd, POST_DIR} from "./config/config.ts"
 import {getCachedPosts} from "./utils/util.ts"
-import {setupEnvironment} from "./deps.ts"
-import {DotenvConfig} from "std/dotenv/mod.ts"
+import {setupConfig} from "./config/config.ts"
 
 
 // IP: 199.19.111.44
@@ -108,24 +106,10 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
   ctx.state.set("twind", newSnapshot);
 }
 
+export const cfg = await setupConfig()
 
-interface EnvConfig extends DotenvConfig{
-  APP_ENV: string
-  APP_URL: string
-  CONTENT_DIR: string
-  POST_DIR: string
+if (cfg.isPrd()) {
+  await getCachedPosts(cfg.getEnv("POST_DIR"), true)
 }
-export const ENV_CONFIG = (await setupEnvironment({
-  path: "./config/.env",
-  // export: false,
-  // safe: false,
-  // example: `.example.env`,
-  // allowEmptyValues: false,
-  defaults: "./config/.defaults.env",
-})) as EnvConfig
-console.log(ENV_CONFIG)
 
-if (isPrd) {
-  await getCachedPosts(POST_DIR, true)
-}
 await start(manifest, { render });

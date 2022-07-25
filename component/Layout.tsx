@@ -2,7 +2,7 @@
 import { Fragment, h } from "preact";
 import { Head } from "$fresh/runtime.ts";
 import type { ComponentChildren } from "preact";
-import { BLOG_CONFIG } from "../config/config.ts";
+import {cfg} from "../main.ts"
 
 interface LayoutProps {
   title: string;
@@ -23,12 +23,12 @@ export function Layout(props: LayoutProps) {
       <Head>
         <title>{props.title}</title>
 
-        <meta name="description" content={BLOG_CONFIG.description} />
-        <meta name="keywords" content={BLOG_CONFIG.keywords} />
-        <meta name="author" content={BLOG_CONFIG.author} />
+        <meta name="description" content={cfg.getConfig("description")} />
+        <meta name="keywords" content={cfg.getConfig("keywords")} />
+        <meta name="author" content={cfg.getConfig("author")} />
         <link
           rel="canonical"
-          href={BLOG_CONFIG.url + (props.canonical || "")}
+          href={cfg.getConfig("url") + (props.canonical || "")}
         />
 
         <meta name="msvalidate.01" content="5A15ECDE419A3094963BBE769402AFF3" />

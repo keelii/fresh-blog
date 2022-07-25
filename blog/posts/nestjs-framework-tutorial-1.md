@@ -27,7 +27,7 @@ tags:
 
 ---
 
-Nest 是一个用于构建高效、可扩展的 Node.js 服务端应用框架，基于 TypeScript 编写并且结合了 OOP^[Object Oriented Programming — 面向对象的编程]、FP^[Functional Programming — 函数式的编程]、FRP^[Functional Reactive Programming — 函数式响应工式编程] 的相关理念。并且设计上很多灵感来自于 Angular^[Angular is a platform for building mobile and desktop web applications.]。
+Nest 是一个用于构建高效、可扩展的 Node.js 服务端应用框架，基于 TypeScript 编写并且结合了 OOP^[Object Oriented Programming — 面向对象的编程]、FP^[Functional Programming — 函数式的编程]、FRP^[Functional Reactive Programming — 函数式响应式编程] 的相关理念。并且设计上很多灵感来自于 Angular^[Angular is a platform for building mobile and desktop web applications.]。
 
 Angular 的很多模式又来自于 Java 中的 Spring 框架，依赖注入、面向切面编程等，所以你可以认为： **Nest 是 Node.js 版的 Spring 框架**。
 
