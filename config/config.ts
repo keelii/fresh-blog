@@ -31,7 +31,7 @@ export async function setupConfig() {
     defaults: "./config/.defaults.env",
   }) as DotEnv
 
-  const APP_ENV = DOT_CONFIG.APP_ENV || "dev"
+  const APP_ENV = (Deno.env.get("APP_ENV") || "dev") as "prd" | "dev"
   const APP_URL = DOT_CONFIG.APP_URL || "dev"
   const CONTENT_DIR = join(Deno.cwd(), DOT_CONFIG.CONTENT_DIR || "blog")
   const POST_DIR = join(CONTENT_DIR, DOT_CONFIG.POST_DIR || "posts")
