@@ -2,7 +2,7 @@
 import { Fragment, h } from "preact";
 import { Head } from "$fresh/runtime.ts";
 import type { ComponentChildren } from "preact";
-import { BLOG_CONFIG } from "../config.ts";
+import { BLOG_CONFIG } from "../config/config.ts";
 
 interface LayoutProps {
   title: string;

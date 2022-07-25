@@ -1,10 +1,10 @@
 /** @jsx h */
 import { h } from "preact";
+import { Handlers, PageProps } from "$fresh/src/server/types.ts";
 import { getCachedPosts, MetaInfo } from "../utils/util.ts";
 import { Container } from "../component/Container.tsx";
 import { Layout } from "../component/Layout.tsx";
-import { Handlers, PageProps } from "$fresh/src/server/types.ts";
-import { BLOG_CONFIG, POST_DIR } from "../config.ts";
+import { BLOG_CONFIG, POST_DIR } from "../config/config.ts";
 
 export const handler: Handlers<MetaInfo[] | null> = {
   async GET(_, ctx) {

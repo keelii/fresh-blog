@@ -1,9 +1,9 @@
 /** @jsx h */
-import {h} from "preact"
-import {Feed, Item} from "https://esm.sh/feed@4.2.2"
-import {Handlers} from "$fresh/src/server/types.ts"
-import {getCachedPosts, MetaInfo} from "../utils/util.ts"
-import {ANCHOR_SVG, BLOG_CONFIG, POST_DIR} from "../config.ts"
+import { h } from "preact";
+import { Feed, Item } from "https://esm.sh/feed@4.2.2";
+import { Handlers } from "$fresh/src/server/types.ts";
+import { getCachedPosts, MetaInfo } from "../utils/util.ts";
+import { ANCHOR_SVG, BLOG_CONFIG, POST_DIR } from "../config/config.ts";
 
 export const handler: Handlers<MetaInfo | null> = {
   async GET(_, ctx) {
@@ -14,7 +14,7 @@ export const handler: Handlers<MetaInfo | null> = {
     } else {
       return new Response(`[/${name}] Not found.`, {
         status: 404,
-        headers: { "content-type": "text/plain" }
+        headers: { "content-type": "text/plain" },
       });
     }
   },
