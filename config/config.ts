@@ -27,7 +27,7 @@ type DotEnv = EnvConfig & BlogEnv
 
 export async function setupConfig() {
   const DOT_CONFIG = await setupEnvironment({
-    path: "./config/.env",
+    path: "./config/.prd.env",
     defaults: "./config/.defaults.env",
   }) as DotEnv
 
