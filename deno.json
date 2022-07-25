@@ -11,7 +11,8 @@
   },
   "fmt": {
     "files": {
-      "include": ["component/", "routes/", "utils"],
+      "include": ["component/", "config/", "routes/", "utils", "*.ts"],
+      "exclude": ["fresh.gen.ts"]
     },
     "options": {
       "lineWidth": 120

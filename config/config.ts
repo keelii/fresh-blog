@@ -59,6 +59,12 @@ export async function setupConfig() {
     isPrd() {
       return APP_ENV === "prd"
     },
+    getAll() {
+      return {
+        EnvConfigMap,
+        BlogConfigMap,
+      }
+    },
     getConfig(key: keyof BlogConfig) {
       return BlogConfigMap[key]
     },
