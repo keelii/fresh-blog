@@ -6,9 +6,8 @@ import {
   MarkdownItFootnote,
   MarkdownItToc,
   parseYaml,
-  walk
-} from "../deps.ts"
-
+  walk,
+} from "../deps.ts";
 
 import Prism from "prismjs";
 (window as any).Prism = Prism;
@@ -59,7 +58,7 @@ const tocOptions = {
 };
 
 md.use(MarkdownItToc, tocOptions);
-md.use(MarkdownItFootnote)
+md.use(MarkdownItFootnote);
 
 function htmlEncode(x: string) {
   return String(x)
