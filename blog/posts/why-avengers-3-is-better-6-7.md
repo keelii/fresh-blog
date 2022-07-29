@@ -67,7 +67,7 @@ categories:
 
 ---
 
-++Red Skull++（红骷髅）
+**Red Skull**（红骷髅）
 
 > What you seek lies front of you — 你想要的东西就在前面
 >
@@ -79,31 +79,31 @@ categories:
 
 > 美好的东西都在一瞬间，不容易得到的东西一旦拥有失去也会很快。当你经历过这个轮回才会发现没有什么东西是美好的，美好的背后可能是你看不见的丑陋的牺牲，没有这些丑陋的牺牲美好也失去了意义。这一切都在于你是否准备好了拿等价的牺牲去交换…
 
-++Gamora++（卡魔拉）
+**Gamora**（卡魔拉）
 
 > What’s this — 这是什么
 
-++Red Skull++（红骷髅）
+**Red Skull**（红骷髅）
 
 > The price — 代价
 >
 > Soul holds a special place among the infinity stones, you might say it has a certain wisdom — 灵魂宝石在众多无限宝石中有特殊的地位，或者说有一种特殊的智慧
 
-++Thanos++（灭霸）这里灭霸还没意识到代价是什么
+**Thanos**（灭霸）这里灭霸还没意识到代价是什么
 
 > Tall me what it needs — 告诉我它需要什么
 
-++Red Skull++（红骷髅）
+**Red Skull**（红骷髅）
 
 > to ensure that whoever possesses it understands its power… 为了保证持拥有它的人明白它的威力
 >
 > the stone demands a sacrifice — 宝石需要一样「牺牲」
 
-++Thanos++（灭霸）
+**Thanos**（灭霸）
 
 > of what — 什么
 
-++Red Skull++（红骷髅）
+**Red Skull**（红骷髅）
 
 > in order to take the stone, you must lose that which you love — 为了得到宝石，你必须牺牲一件你的至爱
 >
@@ -121,7 +121,7 @@ categories:
 
 于是他说了下面这段现在看来很残忍的话：
 
-++Gamora++（卡魔拉）
+**Gamora**（卡魔拉）
 
 > all my life, i dreamed of a day… a moment… — 我一生都梦想有一天，此刻…
 >
@@ -149,7 +149,7 @@ categories:
 
 ![thanos-6.png](https://i.loli.net/2019/06/07/5cfa3e3c5f93082010.png)
 
-++Thanos++（灭霸）
+**Thanos**（灭霸）
 
 > No. — 不.
 
@@ -159,13 +159,13 @@ categories:
 
 灭霸实际上是非常的孤独，所有他的想法都不被周围的人认可，虽然他强大的内心可以完全不在意外人的评判，但是他还做不到不在乎自己的女儿对他的评价。所以反射性的去否定卡魔拉，他非常坚定的相信自己是爱自己女儿的，同时也表露出了即将要失去女儿的真挚情感。
 
-++Gamora++（卡魔拉）此时的卡魔拉还没有反应过来，她认为灭霸是因为自己的计划无法得逞而为自己流泪。
+**Gamora**（卡魔拉）此时的卡魔拉还没有反应过来，她认为灭霸是因为自己的计划无法得逞而为自己流泪。
 
 > Really, tears? — 真的吗，你也会为自己流泪？
 
 她还没有发现自己在恨父亲的同时实际上对灭霸也是有感情的，正所谓爱之深、恨之切…
 
-++Red Skull++（红骷髅）
+**Red Skull**（红骷髅）
 
 > They’are not for him. — 他并不是为自己
 
@@ -181,7 +181,7 @@ categories:
 
 > No, this isn’t love — 不，这不是爱
 
-++Thanos++（灭霸）很难想像灭霸在这一小段时间内，内心情绪有多么的复杂。他终其一生想要完成的事业却要让他失去至爱。他是一个无比理想化的存在，为了自己的理想可以放弃任何东西，而且他已经错过一次命运，所以这次他选择了完成自己的宿命。
+**Thanos**（灭霸）很难想像灭霸在这一小段时间内，内心情绪有多么的复杂。他终其一生想要完成的事业却要让他失去至爱。他是一个无比理想化的存在，为了自己的理想可以放弃任何东西，而且他已经错过一次命运，所以这次他选择了完成自己的宿命。
 
 > I ignored my destiny once, i can't do that again, Even for you — 我已经错过一次命运了，不能再错一次，即使以失去你为代价
 
