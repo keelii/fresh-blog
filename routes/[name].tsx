@@ -1,5 +1,3 @@
-/** @jsx h */
-import { h } from "preact";
 import { Feed, Item } from "https://esm.sh/feed@4.2.2";
 import { Handlers } from "$fresh/src/server/types.ts";
 import { MetaInfo } from "../utils/util.ts";

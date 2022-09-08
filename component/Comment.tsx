@@ -1,5 +1,3 @@
-/** @jsx h */
-import { h } from "preact";
 
 export function Comment(props: any) {
   return (
