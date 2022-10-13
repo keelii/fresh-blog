@@ -1,5 +1,4 @@
-/** @jsx h */
-import { Fragment, h } from "preact";
+import { Fragment } from "preact";
 import { Head } from "$fresh/runtime.ts";
 import type { ComponentChildren } from "preact";
 import { cfg } from "../main.ts";

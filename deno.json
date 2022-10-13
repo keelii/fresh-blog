@@ -3,6 +3,10 @@
     "start": "deno run -A --watch=config/,blog/,static/,routes/ dev.ts"
   },
   "importMap": "./import_map.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
   "lint": {
     "files": {
       "exclude": ["*.ts", "*.tsx", "utils/", "routes/", "static/", "content/"]

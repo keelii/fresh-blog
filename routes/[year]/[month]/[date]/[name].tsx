@@ -1,4 +1,3 @@
-/** @jsx h */
 import { Fragment, h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { MetaInfo, toDisplayDate } from "../../../../utils/util.ts";
