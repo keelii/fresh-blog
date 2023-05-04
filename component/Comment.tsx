@@ -1,8 +1,8 @@
-
 export function Comment(props: any) {
   return (
     <div className="comment">
-      <script src="https://giscus.app/client.js"
+      <script
+        src="https://giscus.app/client.js"
         data-repo="keelii/fresh-blog"
         data-repo-id="R_kgDOHmFUTA"
         data-category="Announcements"
@@ -16,7 +16,8 @@ export function Comment(props: any) {
         data-lang="zh-CN"
         data-loading="lazy"
         crossOrigin="anonymous"
-        async>
+        async
+      >
       </script>
       {/*<script*/}
       {/*  src="https://utteranc.es/client.js"*/}

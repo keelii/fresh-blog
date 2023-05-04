@@ -1,6 +1,5 @@
 import { Fragment, h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { MetaInfo, toDisplayDate } from "../../../../utils/util.ts";
 import { Container } from "../../../../component/Container.tsx";
 import { Comment } from "../../../../component/Comment.tsx";
 import { Layout } from "../../../../component/Layout.tsx";
@@ -8,17 +7,23 @@ import { Layout } from "../../../../component/Layout.tsx";
 import { join } from "../../../../deps.ts";
 import { cfg } from "../../../../main.ts";
 import { parseCachedYamlFile } from "../../../../utils/post.ts";
+import { countPageView } from "../../../helpers.ts";
+import { Footer } from "../../../../component/Footer.tsx";
+import { toDisplayDate } from "../../../../utils/util.ts";
 
-export const handler: Handlers<MetaInfo | null> = {
-  async GET(_, ctx) {
+export const handler: Handlers = {
+  async GET(req: Request, ctx) {
+    const pageView = await countPageView(req);
+
     const file = join(cfg.getEnv("POST_DIR"), ctx.params.name + ".md");
     const result = await parseCachedYamlFile(file, true);
-    return ctx.render(result);
+    return ctx.render({ result, pageView });
   },
 };
 
 export default function ArticleDetail(props: PageProps<MetaInfo>) {
-  const { content, ...yaml } = props.data;
+  const { result, pageView } = props.data;
+  const { content, ...yaml } = result;
 
   const initMath = `
     window.MathJax = {
@@ -60,6 +65,7 @@ export default function ArticleDetail(props: PageProps<MetaInfo>) {
         </article>
         <div className="eof" />
         <Comment />
+        <Footer count={pageView} />
       </Container>
     </Layout>
   );

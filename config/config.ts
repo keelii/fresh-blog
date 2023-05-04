@@ -33,12 +33,14 @@ export async function setupConfig() {
 
   const APP_ENV = DOT_CONFIG.APP_ENV || "dev";
   const APP_URL = DOT_CONFIG.APP_URL || "http://localhost";
+  const ENABLE_PAGEVIEW = DOT_CONFIG.ENABLE_PAGEVIEW || "0";
   const CONTENT_DIR = join(Deno.cwd(), DOT_CONFIG.CONTENT_DIR || "blog");
   const POST_DIR = join(CONTENT_DIR, DOT_CONFIG.POST_DIR || "posts");
 
   const EnvConfigMap: EnvConfig = {
     APP_ENV,
     APP_URL,
+    ENABLE_PAGEVIEW,
     CONTENT_DIR,
     POST_DIR,
   };
@@ -58,6 +60,9 @@ export async function setupConfig() {
   return {
     isPrd() {
       return APP_ENV === "prd";
+    },
+    enablePageView() {
+      return ENABLE_PAGEVIEW === "1";
     },
     getAll() {
       return {

@@ -1,18 +1,21 @@
 import { Handlers, PageProps } from "$fresh/src/server/types.ts";
 import { Container } from "../component/Container.tsx";
+import { Footer } from "../component/Footer.tsx";
 import { Layout } from "../component/Layout.tsx";
 import { cfg } from "../main.ts";
 import { getCachedPosts, MetaInfo } from "../utils/post.ts";
+import { countPageView } from "./helpers.ts";
 
-export const handler: Handlers<MetaInfo[] | null> = {
-  async GET(_, ctx) {
+export const handler: Handlers<{ posts: MetaInfo[]; pageView: number } | null> = {
+  async GET(req: Request, ctx) {
     const posts = await getCachedPosts(cfg.getEnv("POST_DIR"));
-    return ctx.render(posts);
+    const pageView = await countPageView(req);
+    return ctx.render({ posts, pageView });
   },
 };
 
 export default function Home(props: PageProps<MetaInfo[]>) {
-  const posts = props.data;
+  const { posts, pageView } = props.data;
 
   return (
     <Layout title={cfg.getConfig("title")}>
@@ -32,16 +35,7 @@ export default function Home(props: PageProps<MetaInfo[]>) {
           </ul>
           <hr style={{ marginTop: 40 }} />
         </div>
-        <footer>
-          <p>
-            Copyright &copy; {new Date().getFullYear()} keelii, Powered by
-            <a href="https://deno.com/deploy" target="_blank">Deno</a>
-            |
-            <a href={`${cfg.getConfig("url")}/${cfg.getConfig("rss")}`}>
-              <abbr title="RDF Site Summary">RSS</abbr>
-            </a>
-          </p>
-        </footer>
+        <Footer count={pageView} />
       </Container>
     </Layout>
   );

@@ -1,12 +1,13 @@
 import { Feed, Item } from "https://esm.sh/feed@4.2.2";
 import { Handlers } from "$fresh/src/server/types.ts";
-import { MetaInfo } from "../utils/util.ts";
 import { cfg } from "../main.ts";
 import { getCachedPosts } from "../utils/post.ts";
+import { countPageView } from "./helpers.ts";
 
-export const handler: Handlers<MetaInfo | null> = {
-  async GET(_, ctx) {
+export const handler: Handlers = {
+  async GET(req: Request, ctx) {
     const { name } = ctx.params;
+    const pageView = await countPageView(req);
 
     if (name === "atom.xml") {
       return await generateRSS();

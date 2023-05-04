@@ -6,17 +6,22 @@ import { toDisplayDate } from "../utils/util.ts";
 import { join } from "../deps.ts";
 import { cfg } from "../main.ts";
 import { MetaInfo, parseCachedYamlFile } from "../utils/post.ts";
+import { countPageView } from "./helpers.ts";
+import { Footer } from "../component/Footer.tsx";
 
 export const handler: Handlers<MetaInfo | null> = {
-  async GET(_, ctx) {
+  async GET(req: Request, ctx) {
+    const pageView = await countPageView(req);
+
     const file = join(cfg.getEnv("CONTENT_DIR"), "about.md");
     const result = await parseCachedYamlFile(file, true);
-    return ctx.render(result);
+    return ctx.render({ result, pageView });
   },
 };
 
 export default function About(props: PageProps<MetaInfo>) {
-  const { content, ...toml } = props.data;
+  const { result, pageView } = props.data;
+  const { content, ...toml } = result;
 
   return (
     <Layout title={toml.title} canonical="/about">
@@ -37,6 +42,7 @@ export default function About(props: PageProps<MetaInfo>) {
           </div>
         </article>
         <Comment />
+        <Footer count={pageView} />
       </Container>
     </Layout>
   );
