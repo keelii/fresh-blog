@@ -1,8 +1,8 @@
 export { basename, join } from "std/path/mod.ts";
 export { error, info, warning } from "std/log/mod.ts";
-export { config as setupEnvironment } from "std/dotenv/mod.ts";
+export { load } from "std/dotenv/mod.ts";
 
-export { parse as parseYaml } from "std/encoding/yaml.ts";
+export { parse as parseYaml } from "std/yaml/mod.ts";
 export { walk } from "std/fs/mod.ts";
 
 import MarkdownIt from "markdown-it";

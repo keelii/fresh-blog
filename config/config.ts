@@ -1,5 +1,6 @@
-import { info, join, setupEnvironment, warning } from "../deps.ts";
+import { info, join, load, warning } from "../deps.ts";
 import { DotenvConfig } from "std/dotenv/mod.ts";
+import {resolve} from "std/path/mod.ts"
 
 export interface BlogConfig extends DotenvConfig {
   url: string;
@@ -26,9 +27,9 @@ export interface EnvConfig extends DotenvConfig {
 type DotEnv = EnvConfig & BlogEnv;
 
 export async function setupConfig() {
-  const DOT_CONFIG = await setupEnvironment({
-    path: "./config/.prd.env",
-    defaults: "./config/.defaults.env",
+  const DOT_CONFIG = await load({
+    envPath: resolve("./config/.prd.env"),
+    defaults: resolve("./config/.defaults.env"),
   }) as DotEnv;
 
   const APP_ENV = DOT_CONFIG.APP_ENV || "dev";
