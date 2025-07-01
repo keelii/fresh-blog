@@ -13,13 +13,13 @@ Weibo/Zhihu/Github/Wechat/Twitter: @keelii
 
 ### 手艺
 
-* [肆零玖陆](https://img10.360buyimg.com/devfe/jfs/t1/2176/40/10914/39038/5bcc43aaEcc0d75c0/e0e19b8edc123beb.jpg) 微信公众号 - 编程有两种「一种是 for 饭，另一种还是 for fun」
+* [肆零玖陆](https://img10.360buyimg.com/devfe/jfs/t1/2176/40/10914/39038/5bcc43aaEcc0d75c0/e0e19b8edc123beb.jpg) 微信公众号 — 编程有两种「一种是 for 饭，另一种还是 for fun」
 * [JavaScript syntax detector](https://js-syntax.com/) js-syntax — JavaScript 语法检测工具
-* [Code Sketch](https://code-sketch.com/) 代码画板 - 一个你最初写代码的地方
-* [Zen Writer](https://zen-writer.com) 禅意写作 - 一个简洁、纯粹的 Markdown 写作应用
-* [FE Player@zhihu](https://zhuanlan.zhihu.com/fe-player) 前端玩家 - 知乎专栏
-* [Wooo](https://github.com/keelii/wo) 一个前端工程自动化打包工具
-* [Awesome Host Manager(chrome plugin)](https://chrome.google.com/webstore/detail/awesome-host-manager/pikaoeecieigblebdddckmlegonlogha?hl=zh-CN) - Chrome Host 管理插件
+* [Code Sketch](https://code-sketch.com/) 代码画板 — 一个你最初写代码的地方
+* [Zen Writer](https://zen-writer.com) 禅意写作 — 一个简洁、纯粹的 Markdown 写作应用
+* [FE Player@zhihu](https://zhuanlan.zhihu.com/fe-player) 前端玩家 — 知乎专栏
+* [Wooo](https://github.com/keelii/wo) Wooo — 一个前端工程自动化打包工具
+* [Awesome Host Manager(chrome plugin)](https://chrome.google.com/webstore/detail/awesome-host-manager/pikaoeecieigblebdddckmlegonlogha?hl=zh-CN) — Chrome Host 管理插件
 
 <!-- All articles are under [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/) License
 
