@@ -1,8 +1,7 @@
 {
   "tasks": {
-    "start": "deno run -A --unstable --watch=config/,blog/,static/,routes/ dev.ts"
+    "start": "deno run -A --watch main.ts"
   },
-  "importMap": "./import_map.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
@@ -21,5 +20,8 @@
     "options": {
       "lineWidth": 120
     }
+  },
+  "imports": {
+    "preact": "npm:preact@^10.27.0"
   }
 }

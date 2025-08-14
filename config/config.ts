@@ -1,6 +1,6 @@
-import { info, join, load, warning } from "../deps.ts";
-import { DotenvConfig } from "std/dotenv/mod.ts";
-import {resolve} from "std/path/mod.ts"
+import { info, join, load, warn } from "../deps.ts";
+import { DotenvConfig } from "jsr:@std/dotenv";
+import {resolve} from "jsr:@std/path"
 
 export interface BlogConfig extends DotenvConfig {
   url: string;
@@ -36,14 +36,13 @@ export async function setupConfig() {
   const APP_URL = DOT_CONFIG.APP_URL || "http://localhost";
   const ENABLE_PAGEVIEW = DOT_CONFIG.ENABLE_PAGEVIEW || "0";
   const CONTENT_DIR = join(Deno.cwd(), DOT_CONFIG.CONTENT_DIR || "blog");
-  const POST_DIR = join(CONTENT_DIR, DOT_CONFIG.POST_DIR || "posts");
 
   const EnvConfigMap: EnvConfig = {
     APP_ENV,
     APP_URL,
     ENABLE_PAGEVIEW,
     CONTENT_DIR,
-    POST_DIR,
+    POST_DIR: CONTENT_DIR,
   };
   const BlogConfigMap: BlogConfig = {
     url: APP_URL,
@@ -54,7 +53,7 @@ export async function setupConfig() {
     rss: DOT_CONFIG.BLOG_RSS,
   };
 
-  warning("APP_ENV: " + APP_ENV);
+  warn("APP_ENV: " + APP_ENV);
   info("[EnvConfig]: " + JSON.stringify(EnvConfigMap));
   info("[BlogConfig]: " + JSON.stringify(BlogConfigMap));
 

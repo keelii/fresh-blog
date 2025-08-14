@@ -1,19 +1,20 @@
+import { escape } from "jsr:@std/html/entities";
 import { MarkdownIt, MarkdownItAnchor, MarkdownItFootnote, MarkdownItToc } from "../deps.ts";
 
-import Prism from "prismjs";
+import Prism from "npm:prismjs";
 // (window as any).Prism = Prism;
 
-import "prismjs/components/prism-bash?no-check&pin=v57";
-import "prismjs/components/prism-vim?no-check&pin=v57";
-import "prismjs/components/prism-typescript?no-check&pin=v57";
-import "prismjs/components/prism-makefile?no-check&pin=v57";
-import "prismjs/components/prism-http?no-check&pin=v57";
-import "prismjs/components/prism-python?no-check&pin=v57";
-import "prismjs/components/prism-java?no-check&pin=v57";
-import "prismjs/components/prism-jsx?no-check&pin=v57";
-import "prismjs/components/prism-json?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-bash?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-vim?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-typescript?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-makefile?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-http?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-python?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-java?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-jsx?no-check&pin=v57";
+import "https://esm.sh/prismjs/components/prism-json?no-check&pin=v57";
 
-import { htmlEncode } from "./util.ts";
+
 
 export const md = new MarkdownIt({
   html: true,
@@ -21,7 +22,7 @@ export const md = new MarkdownIt({
     if (lang && Prism.languages[lang]) {
       return Prism.highlight(str, Prism.languages[lang], lang);
     }
-    return htmlEncode(str);
+    return escape(str);
   },
 });
 const slugify = function (s: string) {
@@ -59,9 +60,9 @@ md.renderer.rules.tocOpen = function (tokens: any[], idx: number) {
     const token = tokens[idx];
     _options = Object.assign(_options, token.inlineOptions);
   }
-  const id = _options.containerId ? ` id="${htmlEncode(_options.containerId)}"` : "";
+  const id = _options.containerId ? ` id="${escape(_options.containerId)}"` : "";
   return `<div id="toc"><div onclick="this.parentNode.classList.toggle('show')" class="toggle">§</div><nav${id} class="${
-    htmlEncode(_options.containerClass)
+    escape(_options.containerClass)
   }">`;
 };
 md.renderer.rules.tocClose = function () {

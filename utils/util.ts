@@ -1,3 +1,4 @@
+
 export function htmlEncode(x: string) {
   return String(x)
     .replace(/&/g, "&amp;")
