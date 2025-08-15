@@ -1,6 +1,11 @@
 import { Fragment } from "preact";
 import type { ComponentChildren } from "preact";
-import { cfg } from "../main.ts";
+import {
+  BLOG_AUTHOR,
+  BLOG_DESCRIPTION,
+  BLOG_KEYWORDS,
+  BLOG_URL
+} from "../config.ts";
 
 interface LayoutProps {
   title: string;
@@ -105,14 +110,14 @@ export function Layout(props: LayoutProps) {
       <head>
         <title>{props.title}</title>
 
-        <meta name="description" content={cfg.getConfig("description")} />
-        <meta name="keywords" content={cfg.getConfig("keywords")} />
-        <meta name="author" content={cfg.getConfig("author")} />
+        <meta name="description" content={BLOG_DESCRIPTION} />
+        <meta name="keywords" content={BLOG_KEYWORDS} />
+        <meta name="author" content={BLOG_AUTHOR} />
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
         <link
           rel="canonical"
-          href={cfg.getConfig("url") + (props.canonical || "")}
+          href={BLOG_URL + (props.canonical || "")}
         />
 
         <meta name="msvalidate.01" content="5A15ECDE419A3094963BBE769402AFF3" />

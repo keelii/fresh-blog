@@ -7,17 +7,29 @@ import {Comment} from "./component/Comment.tsx";
 import {Footer} from "./component/Footer.tsx";
 import { Fragment, h } from "npm:preact";
 import { render } from 'npm:preact-render-to-string';
-import {cfg} from "./main.ts";
 import {join} from "./deps.ts";
+import {
+  BLOG_AUTHOR,
+  BLOG_DESCRIPTION,
+  BLOG_RSS,
+  BLOG_TITLE,
+  BLOG_URL, POST_DIR
+} from "./config.ts";
+import {
+  HtmlResponse,
+  ServerError,
+  NotFound,
+  XmlResponse
+} from "./utils/response.ts";
 
 function Home(props: {posts: MetaInfo[]}) {
   const { posts } = props;
 
   return (
-    <Layout title={cfg.getConfig("title")}>
+    <Layout title={BLOG_TITLE}>
       <Container>
         <header className={"wysiwyg"}>
-          <h1>{cfg.getConfig("title")}</h1>
+          <h1>{BLOG_TITLE}</h1>
           <a href="/about" className="meta">关于我</a>
         </header>
         <div className={"wysiwyg"}>
@@ -85,30 +97,30 @@ function ArticleDetail(props: MetaInfo) {
   );
 }
 async function generateRSS() {
-  const copyright = `Copyright ${new Date().getFullYear()} ${cfg.getConfig("url")}`;
+  const copyright = `Copyright ${new Date().getFullYear()} ${BLOG_URL}`;
   const feed = new Feed({
-    title: cfg.getConfig("title"),
-    description: cfg.getConfig("description"),
-    id: cfg.getConfig("url"),
-    link: cfg.getConfig("url"),
+    title: BLOG_TITLE,
+    description: BLOG_DESCRIPTION,
+    id: BLOG_URL,
+    link: BLOG_URL,
     language: "zh_CN",
-    favicon: `${cfg.getConfig("url")}/favicon.ico`,
+    favicon: `${BLOG_URL}/favicon.ico`,
     copyright: copyright,
     generator: "Feed (https://github.com/jpmonette/feed) for Deno",
     feedLinks: {
-      atom: `${cfg.getConfig("url")}${cfg.getConfig("rss")}`,
+      atom: `${BLOG_URL}${BLOG_RSS}`,
     },
   });
 
-  const posts = await getCachedPosts(cfg.getEnv("POST_DIR"), true);
+  const posts = await getCachedPosts(true);
   for (const post of posts) {
     const item: Item = {
-      id: cfg.getConfig("url") + post.url,
-      link: cfg.getConfig("url") + post.url,
+      id: BLOG_URL + post.url,
+      link: BLOG_URL + post.url,
       title: post.title,
       description: post.content,
       date: post.date,
-      author: [{ name: cfg.getConfig("author") }],
+      author: [{ name: BLOG_AUTHOR }],
       copyright,
       published: post.date,
     };
@@ -120,42 +132,31 @@ async function generateRSS() {
 
 
 export async function TsxRender(pathname: string): Promise<Response> {
-  if (pathname === cfg.getConfig("rss")) {
+  if (pathname === BLOG_RSS) {
     const feed = await generateRSS();
-    return Promise.resolve(new Response(feed, {
-      headers: {
-        "content-type": "text/xml",
-      }
-    }))
+    return XmlResponse(feed)
   }
 
   let html = `<!DOCTYPE html>
     <html lang="en">{__HTML__}</html>`
 
   if (pathname === "" || pathname === "/") {
-    const posts = await getCachedPosts(cfg.getEnv("POST_DIR"));
+    const posts = await getCachedPosts();
     html = html.replace("{__HTML__}", render(<Home posts={posts} />))
   } else {
-    const file = join(cfg.getEnv("POST_DIR"), pathname + ".md");
+    const file = join(POST_DIR, pathname + ".md");
     try {
       await Deno.stat(file)
     } catch (e: any) {
       if (e instanceof Deno.errors.NotFound) {
-        return new Response("not found", { status: 404, });
+        return NotFound()
       }
+      return ServerError()
     }
 
     const result = await parseCachedYamlFile(file, true);
     html = html.replace("{__HTML__}", render(<ArticleDetail {...result} />))
   }
 
-  return Promise.resolve(new Response(html, {
-    headers: {
-      "content-type": "text/html",
-    }
-  }));
-  //
-  // return new Response("not found", {
-  //   status: 404,
-  // });
+  return HtmlResponse(html);
 }
