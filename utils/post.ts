@@ -63,7 +63,6 @@ export async function parseYamlFile(path: string, includeContent: boolean = fals
     const toml = parseYaml(yamlContent) as any;
 
     const html = md.render(mdContent);
-    // const html = render(mdContent, {});
 
     if (toml.draft) return null;
 

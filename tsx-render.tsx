@@ -53,12 +53,12 @@ function ArticleDetail(props: MetaInfo) {
 
   const initMath = `
     window.MathJax = {
-      options: {},
-      tex: {
-        inlineMath: [ ['$','$'] ],
-        displayMath: [ ['$$','$$'] ],
-        processEscapes: false
-      }
+    options: {},
+    tex: {
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'] ],
+      processEscapes: false
+    }
     }
   `;
 
@@ -85,6 +85,7 @@ function ArticleDetail(props: MetaInfo) {
               <script
                 id="MathJax-script"
                 src="//unpkg.com/mathjax@3.2.2/es5/tex-chtml.js"
+                async
               />
             </Fragment>
           )}
@@ -140,12 +141,11 @@ export async function TsxRender(pathname: string): Promise<Response> {
     return XmlResponse(feed)
   }
 
-  let html = `<!DOCTYPE html>
-    <html lang="en">{__HTML__}</html>`
+  let html = `<!DOCTYPE html><html lang="en">`
 
   if (pathname === "" || pathname === "/") {
     const posts = await getCachedPosts();
-    html = html.replace("{__HTML__}", render(<Home posts={posts} />))
+    html += render(<Home posts={posts} />)
   } else {
     const file = join(POST_DIR, pathname + ".md");
     try {
@@ -158,8 +158,12 @@ export async function TsxRender(pathname: string): Promise<Response> {
     }
 
     const result = await parseCachedYamlFile(file, true);
-    html = html.replace("{__HTML__}", render(<ArticleDetail {...result} />))
+    html += render(<ArticleDetail {...result} />)
   }
+
+  // html += `<script>${MathJaxConfig}</script>`
+  html += `</html>`
+  // html = html.replace("window.MathJax", MathJaxConfig)
 
   return HtmlResponse(html);
 }

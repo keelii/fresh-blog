@@ -10,11 +10,11 @@ export function Footer({ count }: { count: number }) {
         <a href={`${BLOG_URL}${BLOG_RSS}`}>
           <abbr title="RDF Site Summary">RSS</abbr>
         </a>
-        {count && (
-          <>
-            | <span>{count}</span>
-          </>
-        )}
+        {/*{count && (*/}
+        {/*  <>*/}
+        {/*    | <span>{count}</span>*/}
+        {/*  </>*/}
+        {/*)}*/}
       </p>
     </footer>
   );
