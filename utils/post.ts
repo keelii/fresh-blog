@@ -72,6 +72,7 @@ export async function parseYamlFile(path: string, includeContent: boolean = fals
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
+      timeZone: "UTC",
     }).format(date);
     const name = basename(path, ".md");
     const url = `/${datePrefix}/${name}`;
