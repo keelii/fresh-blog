@@ -132,6 +132,9 @@ async function generateRSS() {
 
 
 export async function TsxRender(pathname: string): Promise<Response> {
+  if (pathname.endsWith("/")) {
+    pathname = pathname.slice(0, pathname.length - 1);
+  }
   if (pathname === BLOG_RSS) {
     const feed = await generateRSS();
     return XmlResponse(feed)

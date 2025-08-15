@@ -14,7 +14,7 @@ draft: true
 
 原文： [PART 1](http://www.yeahbutisitflash.com/?p=5226)・ [PART 2](http://www.yeahbutisitflash.com/?p=5666)・ [PART 3](http://www.yeahbutisitflash.com/?p=6496)・ [PART 4](http://www.yeahbutisitflash.com/?p=7046)
 
-译文： [第一篇](/2019/03/16/building-a-parallax-scroller-with-pixijs-cn-1/)・ [第二篇](/2019/03/17/building-a-parallax-scroller-with-pixijs-cn-2/)・ 第三篇・ 第四篇
+译文： [第一篇](/2019/03/16/building-a-parallax-scroller-with-pixijs-cn-1)・ [第二篇](/2019/03/17/building-a-parallax-scroller-with-pixijs-cn-2)・ 第三篇・ 第四篇
 
 ---
 
