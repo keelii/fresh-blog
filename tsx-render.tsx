@@ -167,7 +167,6 @@ export async function TsxRender(pathname: string): Promise<Response> {
 
   let DisallowRobotHeader = {}
 
-  console.log(APP_DISALLOW_SE)
   if (APP_DISALLOW_SE) {
     DisallowRobotHeader["X-Robots-Tag"] = "noindex, nofollow, noarchive, nosnippet, noimageindex"
   }

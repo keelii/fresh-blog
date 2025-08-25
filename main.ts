@@ -28,6 +28,7 @@ async function handler(_req: Request): Promise<Response> {
       urlRoot: "",
       showDirListing: false,
       enableCors: true,
+      quiet: true,
     });
   }
 
