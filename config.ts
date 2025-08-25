@@ -13,6 +13,7 @@ export const BLOG_RSS = Deno.env.get("BLOG_RSS") || "/atom.xml"
 
 warn("CONFIG:" + JSON.stringify({
   APP_ENV,
+  APP_PORT,
   POST_DIR,
   BLOG_URL,
   BLOG_TITLE,
