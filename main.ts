@@ -1,26 +1,38 @@
+import { serveDir } from "jsr:@std/http/file-server";
 import {getCachedPosts} from "./utils/post.ts";
 import {TsxRender} from "./tsx-render.tsx";
 import {join} from "./deps.ts";
-import {APP_PORT, IS_PRD} from "./config.ts";
-import {NotFound} from "./utils/response.ts";
+import {APP_PORT, APP_IS_PRD, APP_DISALLOW_SE} from "./config.ts"
+import {NotFound, TextResponse} from "./utils/response.ts"
 
-if (IS_PRD) {
+if (APP_IS_PRD) {
   await getCachedPosts(true)
 }
 
+function isStaticPath(pathname: string) {
+  return [".css", ".js",
+    ".png", ".jpg", ".jpeg", ".gif",
+    ".ico", ".svg",
+    ".woff", ".woff2", ".ttf", ".eot"].some(ext => pathname.endsWith(ext));
+}
 
 async function handler(_req: Request): Promise<Response> {
   const url = new URL(_req.url)
 
+  if (APP_DISALLOW_SE && url.pathname === "/robots.txt") {
+    return TextResponse("User-agent: *\nDisallow: /");
+  }
+  if (isStaticPath(url.pathname)) {
+    return serveDir(_req, {
+      fsRoot: join(Deno.cwd(), "static"),
+      urlRoot: "",
+      showDirListing: false,
+      enableCors: true,
+    });
+  }
+
   try {
-    if (url.pathname === "/favicon.ico") {
-      const f = await Deno.readFile(join(Deno.cwd(), "/favicon.ico"))
-      return new Response(f, {
-        headers: { "content-type": "image/x-icon" },
-      });
-    } else {
-      return TsxRender(url.pathname)
-    }
+    return TsxRender(url.pathname)
   } catch (e: any) {
     return NotFound();
   }

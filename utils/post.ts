@@ -1,6 +1,6 @@
 import { basename, error, parseYaml, walk } from "../deps.ts";
 import { md } from "./markdown.ts";
-import {POST_DIR} from "../config.ts";
+import {BLOG_DIR} from "../config.ts";
 
 export interface MetaInfo {
   title: string;
@@ -95,9 +95,9 @@ export async function parseYamlFile(path: string, includeContent: boolean = fals
 export async function getCachedPosts(includeContent: boolean = false) {
   if (!CACHE.posts) {
     try {
-      CACHE.posts = await getPosts(POST_DIR, includeContent);
+      CACHE.posts = await getPosts(BLOG_DIR, includeContent);
     } catch (e) {
-      console.log("=====", POST_DIR)
+      console.log("=====", BLOG_DIR)
       console.error(e);
       return []
     }

@@ -13,8 +13,8 @@ import {
   BLOG_DESCRIPTION,
   BLOG_RSS,
   BLOG_TITLE,
-  BLOG_URL, POST_DIR
-} from "./config.ts";
+  BLOG_URL, BLOG_DIR, APP_DISALLOW_SE
+} from "./config.ts"
 import {
   HtmlResponse,
   ServerError,
@@ -147,7 +147,7 @@ export async function TsxRender(pathname: string): Promise<Response> {
     const posts = await getCachedPosts();
     html += render(<Home posts={posts} />)
   } else {
-    const file = join(POST_DIR, pathname + ".md");
+    const file = join(BLOG_DIR, pathname + ".md");
     try {
       await Deno.stat(file)
     } catch (e: any) {
@@ -165,5 +165,12 @@ export async function TsxRender(pathname: string): Promise<Response> {
   html += `</html>`
   // html = html.replace("window.MathJax", MathJaxConfig)
 
-  return HtmlResponse(html);
+  let DisallowRobotHeader = {}
+
+  console.log(APP_DISALLOW_SE)
+  if (APP_DISALLOW_SE) {
+    DisallowRobotHeader["X-Robots-Tag"] = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+  }
+
+  return HtmlResponse(html, DisallowRobotHeader);
 }

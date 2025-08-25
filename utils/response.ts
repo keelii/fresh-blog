@@ -1,12 +1,22 @@
-export function HtmlResponse(html: string, responseInit: ResponseInit = {}) {
+export function HtmlResponse(html: string,
+                             headers: Record<string, string> = {},
+                             responseInit: ResponseInit = {}) {
   return new Response(html, {
     headers: {
       "content-type": "text/html",
+      ...headers
     },
     ...responseInit
   })
 }
-
+export function TextResponse(text: string, responseInit: ResponseInit = {}) {
+  return new Response(text, {
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+    },
+    ...responseInit
+  })
+}
 export function XmlResponse(xml: string, responseInit: ResponseInit = {}) {
   return new Response(xml, {
     headers: {
