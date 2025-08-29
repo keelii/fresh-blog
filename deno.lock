@@ -22,7 +22,6 @@
     "jsr:@std/streams@^1.0.10": "1.0.11",
     "jsr:@std/yaml@*": "1.0.9",
     "npm:@types/react@^19.1.1": "19.1.12",
-    "npm:fast-glob@3.3.3": "3.3.3",
     "npm:markdown-it-anchor@*": "9.2.0_@types+markdown-it@14.1.2_markdown-it@14.1.0",
     "npm:markdown-it-footnote@*": "4.0.0",
     "npm:markdown-it-toc-done-right@*": "4.2.0",
@@ -99,140 +98,55 @@
     }
   },
   "npm": {
-    "@nodelib/fs.scandir@2.1.5": {
-      "integrity": "7619c2eb21b25483f6d167548b4cfd5a7488c3d5",
-      "dependencies": [
-        "@nodelib/fs.stat",
-        "run-parallel"
-      ],
-      "tarball": "http://registry.m.jd.com/@nodelib/fs.scandir/download/@nodelib/fs.scandir-2.1.5.tgz"
-    },
-    "@nodelib/fs.stat@2.0.5": {
-      "integrity": "5bd262af94e9d25bd1e71b05deed44876a222e8b",
-      "tarball": "http://registry.m.jd.com/@nodelib/fs.stat/download/@nodelib/fs.stat-2.0.5.tgz"
-    },
-    "@nodelib/fs.walk@1.2.8": {
-      "integrity": "e95737e8bb6746ddedf69c556953494f196fe69a",
-      "dependencies": [
-        "@nodelib/fs.scandir",
-        "fastq"
-      ],
-      "tarball": "http://registry.m.jd.com/@nodelib/fs.walk/download/@nodelib/fs.walk-1.2.8.tgz"
-    },
     "@types/linkify-it@5.0.0": {
-      "integrity": "21413001973106cda1c3a9b91eedd4ccd5469d76",
-      "tarball": "http://registry.m.jd.com/@types/linkify-it/download/@types/linkify-it-5.0.0.tgz"
+      "integrity": "sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q=="
     },
     "@types/markdown-it@14.1.2": {
-      "integrity": "57f2532a0800067d9b934f3521429a2e8bfb4c61",
+      "integrity": "sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==",
       "dependencies": [
         "@types/linkify-it",
         "@types/mdurl"
-      ],
-      "tarball": "http://registry.m.jd.com/@types/markdown-it/download/@types/markdown-it-14.1.2.tgz"
+      ]
     },
     "@types/mdurl@2.0.0": {
-      "integrity": "d43878b5b20222682163ae6f897b20447233bdfd",
-      "tarball": "http://registry.m.jd.com/@types/mdurl/download/@types/mdurl-2.0.0.tgz"
+      "integrity": "sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg=="
     },
     "@types/react@19.1.12": {
-      "integrity": "7bfaa76aabbb0b4fe0493c21a3a7a93d33e8937b",
+      "integrity": "sha512-cMoR+FoAf/Jyq6+Df2/Z41jISvGZZ2eTlnsaJRptmZ76Caldwy1odD4xTr/gNV9VLj0AWgg/nmkevIyUfIIq5w==",
       "dependencies": [
         "csstype"
-      ],
-      "tarball": "http://registry.m.jd.com/@types/react/download/@types/react-19.1.12.tgz"
+      ]
     },
     "argparse@2.0.1": {
-      "integrity": "246f50f3ca78a3240f6c997e8a9bd1eac49e4b38",
-      "tarball": "http://registry.m.jd.com/argparse/download/argparse-2.0.1.tgz"
-    },
-    "braces@3.0.3": {
-      "integrity": "490332f40919452272d55a8480adc0c441358789",
-      "dependencies": [
-        "fill-range"
-      ],
-      "tarball": "http://registry.m.jd.com/braces/download/braces-3.0.3.tgz"
+      "integrity": "sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q=="
     },
     "csstype@3.1.3": {
-      "integrity": "d80ff294d114fb0e6ac500fbf85b60137d7eff81",
-      "tarball": "http://registry.m.jd.com/csstype/download/csstype-3.1.3.tgz"
+      "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
     },
     "entities@4.5.0": {
-      "integrity": "5d268ea5e7113ec74c4d033b79ea5a35a488fb48",
-      "tarball": "http://registry.m.jd.com/entities/download/entities-4.5.0.tgz"
-    },
-    "fast-glob@3.3.3": {
-      "integrity": "d06d585ce8dba90a16b0505c543c3ccfb3aeb818",
-      "dependencies": [
-        "@nodelib/fs.stat",
-        "@nodelib/fs.walk",
-        "glob-parent",
-        "merge2",
-        "micromatch"
-      ],
-      "tarball": "http://registry.m.jd.com/fast-glob/download/fast-glob-3.3.3.tgz"
-    },
-    "fastq@1.19.1": {
-      "integrity": "d50eaba803c8846a883c16492821ebcd2cda55f5",
-      "dependencies": [
-        "reusify"
-      ],
-      "tarball": "http://registry.m.jd.com/fastq/download/fastq-1.19.1.tgz"
-    },
-    "fill-range@7.1.1": {
-      "integrity": "44265d3cac07e3ea7dc247516380643754a05292",
-      "dependencies": [
-        "to-regex-range"
-      ],
-      "tarball": "http://registry.m.jd.com/fill-range/download/fill-range-7.1.1.tgz"
-    },
-    "glob-parent@5.1.2": {
-      "integrity": "869832c58034fe68a4093c17dc15e8340d8401c4",
-      "dependencies": [
-        "is-glob"
-      ],
-      "tarball": "http://registry.m.jd.com/glob-parent/download/glob-parent-5.1.2.tgz"
-    },
-    "is-extglob@2.1.1": {
-      "integrity": "a88c02535791f02ed37c76a1b9ea9773c833f8c2",
-      "tarball": "http://registry.m.jd.com/is-extglob/download/is-extglob-2.1.1.tgz"
-    },
-    "is-glob@4.0.3": {
-      "integrity": "64f61e42cbbb2eec2071a9dac0b28ba1e65d5084",
-      "dependencies": [
-        "is-extglob"
-      ],
-      "tarball": "http://registry.m.jd.com/is-glob/download/is-glob-4.0.3.tgz"
-    },
-    "is-number@7.0.0": {
-      "integrity": "7535345b896734d5f80c4d06c50955527a14f12b",
-      "tarball": "http://registry.m.jd.com/is-number/download/is-number-7.0.0.tgz"
+      "integrity": "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="
     },
     "linkify-it@5.0.0": {
-      "integrity": "9ef238bfa6dc70bd8e7f9572b52d369af569b421",
+      "integrity": "sha512-5aHCbzQRADcdP+ATqnDuhhJ/MRIqDkZX5pyjFHRRysS8vZ5AbqGEoFIb6pYHPZ+L/OC2Lc+xT8uHVVR5CAK/wQ==",
       "dependencies": [
         "uc.micro"
-      ],
-      "tarball": "http://registry.m.jd.com/linkify-it/download/linkify-it-5.0.0.tgz"
+      ]
     },
     "markdown-it-anchor@9.2.0_@types+markdown-it@14.1.2_markdown-it@14.1.0": {
-      "integrity": "89375d9a2a79336403ab7c4fd36b1965cc45e5c8",
+      "integrity": "sha512-sa2ErMQ6kKOA4l31gLGYliFQrMKkqSO0ZJgGhDHKijPf0pNFM9vghjAh3gn26pS4JDRs7Iwa9S36gxm3vgZTzg==",
       "dependencies": [
         "@types/markdown-it",
         "markdown-it"
-      ],
-      "tarball": "http://registry.m.jd.com/markdown-it-anchor/download/markdown-it-anchor-9.2.0.tgz"
+      ]
     },
     "markdown-it-footnote@4.0.0": {
-      "integrity": "02ede0cb68a42d7e7774c3abdc72d77aaa24c531",
-      "tarball": "http://registry.m.jd.com/markdown-it-footnote/download/markdown-it-footnote-4.0.0.tgz"
+      "integrity": "sha512-WYJ7urf+khJYl3DqofQpYfEYkZKbmXmwxQV8c8mO/hGIhgZ1wOe7R4HLFNwqx7TjILbnC98fuyeSsin19JdFcQ=="
     },
     "markdown-it-toc-done-right@4.2.0": {
-      "integrity": "3ccdce22d5022ffae7b991d07261b1b1de5459d0",
-      "tarball": "http://registry.m.jd.com/markdown-it-toc-done-right/download/markdown-it-toc-done-right-4.2.0.tgz"
+      "integrity": "sha512-UB/IbzjWazwTlNAX0pvWNlJS8NKsOQ4syrXZQ/C72j+jirrsjVRT627lCaylrKJFBQWfRsPmIVQie8x38DEhAQ=="
     },
     "markdown-it@14.1.0": {
-      "integrity": "3c3c5992883c633db4714ccb4d7b5935d98b7d45",
+      "integrity": "sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==",
       "dependencies": [
         "argparse",
         "entities",
@@ -241,78 +155,32 @@
         "punycode.js",
         "uc.micro"
       ],
-      "bin": true,
-      "tarball": "http://registry.m.jd.com/markdown-it/download/markdown-it-14.1.0.tgz"
+      "bin": true
     },
     "mdurl@2.0.0": {
-      "integrity": "80676ec0433025dd3e17ee983d0fe8de5a2237e0",
-      "tarball": "http://registry.m.jd.com/mdurl/download/mdurl-2.0.0.tgz"
-    },
-    "merge2@1.4.1": {
-      "integrity": "4368892f885e907455a6fd7dc55c0c9d404990ae",
-      "tarball": "http://registry.m.jd.com/merge2/download/merge2-1.4.1.tgz"
-    },
-    "micromatch@4.0.8": {
-      "integrity": "d66fa18f3a47076789320b9b1af32bd86d9fa202",
-      "dependencies": [
-        "braces",
-        "picomatch"
-      ],
-      "tarball": "http://registry.m.jd.com/micromatch/download/micromatch-4.0.8.tgz"
-    },
-    "picomatch@2.3.1": {
-      "integrity": "3ba3833733646d9d3e4995946c1365a67fb07a42",
-      "tarball": "http://registry.m.jd.com/picomatch/download/picomatch-2.3.1.tgz"
+      "integrity": "sha512-Lf+9+2r+Tdp5wXDXC4PcIBjTDtq4UKjCPMQhKIuzpJNW0b96kVqSwW0bT7FhRSfmAiFYgP+SCRvdrDozfh0U5w=="
     },
     "prismjs@1.30.0": {
-      "integrity": "d9709969d9d4e16403f6f348c63553b19f0975a9",
-      "tarball": "http://registry.m.jd.com/prismjs/download/prismjs-1.30.0.tgz"
+      "integrity": "sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw=="
     },
     "punycode.js@2.3.1": {
-      "integrity": "6b53e56ad75588234e79f4affa90972c7dd8cdb7",
-      "tarball": "http://registry.m.jd.com/punycode.js/download/punycode.js-2.3.1.tgz"
-    },
-    "queue-microtask@1.2.3": {
-      "integrity": "4929228bbc724dfac43e0efb058caf7b6cfb6243",
-      "tarball": "http://registry.m.jd.com/queue-microtask/download/queue-microtask-1.2.3.tgz"
+      "integrity": "sha512-uxFIHU0YlHYhDQtV4R9J6a52SLx28BCjT+4ieh7IGbgwVJWO+km431c4yRlREUAsAmt/uMjQUyQHNEPf0M39CA=="
     },
     "react-dom@19.1.1_react@19.1.1": {
-      "integrity": "2daa9ff7f3ae384aeb30e76d5ee38c046dc89893",
+      "integrity": "sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==",
       "dependencies": [
         "react",
         "scheduler"
-      ],
-      "tarball": "http://registry.m.jd.com/react-dom/download/react-dom-19.1.1.tgz"
+      ]
     },
     "react@19.1.1": {
-      "integrity": "06d9149ec5e083a67f9a1e39ce97b06a03b644af",
-      "tarball": "http://registry.m.jd.com/react/download/react-19.1.1.tgz"
-    },
-    "reusify@1.1.0": {
-      "integrity": "0fe13b9522e1473f51b558ee796e08f11f9b489f",
-      "tarball": "http://registry.m.jd.com/reusify/download/reusify-1.1.0.tgz"
-    },
-    "run-parallel@1.2.0": {
-      "integrity": "66d1368da7bdf921eb9d95bd1a9229e7f21a43ee",
-      "dependencies": [
-        "queue-microtask"
-      ],
-      "tarball": "http://registry.m.jd.com/run-parallel/download/run-parallel-1.2.0.tgz"
+      "integrity": "sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ=="
     },
     "scheduler@0.26.0": {
-      "integrity": "4ce8a8c2a2095f13ea11bf9a445be50c555d6337",
-      "tarball": "http://registry.m.jd.com/scheduler/download/scheduler-0.26.0.tgz"
-    },
-    "to-regex-range@5.0.1": {
-      "integrity": "1648c44aae7c8d988a326018ed72f5b4dd0392e4",
-      "dependencies": [
-        "is-number"
-      ],
-      "tarball": "http://registry.m.jd.com/to-regex-range/download/to-regex-range-5.0.1.tgz"
+      "integrity": "sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA=="
     },
     "uc.micro@2.1.0": {
-      "integrity": "f8d3f7d0ec4c3dea35a7e3c8efa4cb8b45c9e7ee",
-      "tarball": "http://registry.m.jd.com/uc.micro/download/uc.micro-2.1.0.tgz"
+      "integrity": "sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A=="
     }
   },
   "redirects": {
