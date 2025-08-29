@@ -1,5 +1,4 @@
 import { basename } from "jsr:@std/path";
-import { error } from "jsr:@std/log";
 import { parse as parseYaml } from "jsr:@std/yaml";
 import { walk } from "jsr:@std/fs";
 
@@ -17,7 +16,6 @@ export interface MetaInfo {
   draft?: boolean;
   date: Date;
   content: string;
-  count: Deno.KvEntryMaybe<number>
 }
 
 interface ICache {

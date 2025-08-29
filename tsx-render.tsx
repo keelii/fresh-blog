@@ -49,7 +49,7 @@ function Home(props: {count: Deno.KvEntryMaybe<number>, posts: MetaInfo[]}) {
     </Layout>
   );
 }
-function ArticleDetail(props: MetaInfo) {
+function ArticleDetail(props: MetaInfo & { count: Deno.KvEntryMaybe<number> }) {
   const { content, ...yaml } = props;
 
   const initMath = `
