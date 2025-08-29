@@ -5,7 +5,7 @@
   },
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "react"
   },
   "lint": {
     "files": {
@@ -23,6 +23,8 @@
     }
   },
   "imports": {
-    "preact": "npm:preact@^10.27.0"
+    "react": "npm:react@^19.1.1",
+    "react-dom": "npm:react-dom@^19.1.1",
+    "react-dom/server": "npm:react-dom@^19.1.1/server"
   }
 }

@@ -1,5 +1,4 @@
-import { Fragment } from "preact";
-import type { ComponentChildren } from "preact";
+import { Fragment } from "react";
 import {
   BLOG_AUTHOR,
   BLOG_DESCRIPTION,
@@ -10,7 +9,6 @@ import {
 interface LayoutProps {
   title: string;
   canonical?: string;
-  children: ComponentChildren;
 }
 
 const gaScript = `
@@ -104,7 +102,7 @@ const codeCSS = `
 `
 const ALL_CSS = [resetCSS, wysiwygCSS, customCSS, codeCSS]
 
-export function Layout(props: LayoutProps) {
+export function Layout(props: React.PropsWithChildren<LayoutProps>) {
   return (
     <Fragment>
       <head>

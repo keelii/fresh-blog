@@ -1,3 +1,4 @@
+/** @jsxImportSourceTypes npm:@types/react@^19.1.1 */
 import {BLOG_AUTHOR, BLOG_RSS, BLOG_URL} from "../config.ts";
 
 export function Footer({ count }: { count: number }) {

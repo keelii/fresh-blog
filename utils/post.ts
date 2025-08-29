@@ -1,4 +1,10 @@
-import { basename, error, parseYaml, walk } from "../deps.ts";
+import { basename } from "jsr:@std/path";
+import { error } from "jsr:@std/log";
+import { parse as parseYaml } from "jsr:@std/yaml";
+import { walk } from "jsr:@std/fs";
+
+
+
 import { md } from "./markdown.ts";
 import {BLOG_DIR} from "../config.ts";
 
@@ -87,7 +93,7 @@ export async function parseYamlFile(path: string, includeContent: boolean = fals
       content: includeContent ? html : "",
     };
   } catch (e) {
-    error("解析出错：" + path, e);
+    console.error(e);
   }
   return null;
 }

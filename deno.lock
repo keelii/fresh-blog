@@ -2,27 +2,22 @@
   "version": "5",
   "specifiers": {
     "jsr:@std/cli@^1.0.21": "1.0.21",
-    "jsr:@std/dotenv@*": "0.225.5",
     "jsr:@std/encoding@^1.0.10": "1.0.10",
-    "jsr:@std/fmt@^1.0.2": "1.0.2",
     "jsr:@std/fmt@^1.0.5": "1.0.8",
     "jsr:@std/fmt@^1.0.8": "1.0.8",
     "jsr:@std/fs@*": "1.0.19",
     "jsr:@std/fs@^1.0.11": "1.0.19",
     "jsr:@std/fs@^1.0.19": "1.0.19",
-    "jsr:@std/fs@^1.0.4": "1.0.4",
     "jsr:@std/html@*": "1.0.4",
     "jsr:@std/html@^1.0.4": "1.0.4",
     "jsr:@std/http@*": "1.0.20",
     "jsr:@std/internal@^1.0.10": "1.0.10",
     "jsr:@std/internal@^1.0.9": "1.0.10",
-    "jsr:@std/io@0.225": "0.225.0",
     "jsr:@std/io@~0.225.2": "0.225.2",
     "jsr:@std/log@*": "0.224.14",
     "jsr:@std/media-types@^1.1.0": "1.1.0",
     "jsr:@std/net@^1.0.4": "1.0.5",
     "jsr:@std/path@*": "1.1.2",
-    "jsr:@std/path@^1.0.6": "1.0.6",
     "jsr:@std/path@^1.1.1": "1.1.2",
     "jsr:@std/streams@^1.0.10": "1.0.11",
     "jsr:@std/yaml@*": "1.0.9",
@@ -30,32 +25,19 @@
     "npm:markdown-it-footnote@*": "4.0.0",
     "npm:markdown-it-toc-done-right@*": "4.2.0",
     "npm:markdown-it@*": "14.1.0",
-    "npm:preact-render-to-string@*": "6.6.1_preact@10.27.1",
-    "npm:preact@*": "10.27.1",
-    "npm:preact@^10.27.0": "10.27.1",
-    "npm:prismjs@*": "1.30.0"
+    "npm:prismjs@*": "1.30.0",
+    "npm:react-dom@^19.1.1": "19.1.1_react@19.1.1",
+    "npm:react@^19.1.1": "19.1.1"
   },
   "jsr": {
     "@std/cli@1.0.21": {
       "integrity": "cd25b050bdf6282e321854e3822bee624f07aca7636a3a76d95f77a3a919ca2a"
     },
-    "@std/dotenv@0.225.5": {
-      "integrity": "9ce6f9d0ec3311f74a32535aa1b8c62ed88b1ab91b7f0815797d77a6f60c922f"
-    },
     "@std/encoding@1.0.10": {
       "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
     },
-    "@std/fmt@1.0.2": {
-      "integrity": "87e9dfcdd3ca7c066e0c3c657c1f987c82888eb8103a3a3baa62684ffeb0f7a7"
-    },
     "@std/fmt@1.0.8": {
       "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
-    },
-    "@std/fs@1.0.4": {
-      "integrity": "2907d32d8d1d9e540588fd5fe0ec21ee638134bd51df327ad4e443aaef07123c",
-      "dependencies": [
-        "jsr:@std/path@^1.0.6"
-      ]
     },
     "@std/fs@1.0.19": {
       "integrity": "051968c2b1eae4d2ea9f79a08a3845740ef6af10356aff43d3e2ef11ed09fb06",
@@ -63,9 +45,6 @@
         "jsr:@std/internal@^1.0.9",
         "jsr:@std/path@^1.1.1"
       ]
-    },
-    "@std/html@1.0.3": {
-      "integrity": "7a0ac35e050431fb49d44e61c8b8aac1ebd55937e0dc9ec6409aa4bab39a7988"
     },
     "@std/html@1.0.4": {
       "integrity": "eff3497c08164e6ada49b7f81a28b5108087033823153d065e3f89467dd3d50e"
@@ -87,26 +66,15 @@
     "@std/internal@1.0.10": {
       "integrity": "e3be62ce42cab0e177c27698e5d9800122f67b766a0bea6ca4867886cbde8cf7"
     },
-    "@std/io@0.225.0": {
-      "integrity": "c1db7c5e5a231629b32d64b9a53139445b2ca640d828c26bf23e1c55f8c079b3"
-    },
     "@std/io@0.225.2": {
       "integrity": "3c740cd4ee4c082e6cfc86458f47e2ab7cb353dc6234d5e9b1f91a2de5f4d6c7"
-    },
-    "@std/log@0.224.9": {
-      "integrity": "419d04e4d93e6b1a0205ac3f94809621cfec3d328d09fec9ec59cafa3b3fcaee",
-      "dependencies": [
-        "jsr:@std/fmt@^1.0.2",
-        "jsr:@std/fs@^1.0.4",
-        "jsr:@std/io@0.225"
-      ]
     },
     "@std/log@0.224.14": {
       "integrity": "257f7adceee3b53bb2bc86c7242e7d1bc59729e57d4981c4a7e5b876c808f05e",
       "dependencies": [
         "jsr:@std/fmt@^1.0.5",
         "jsr:@std/fs@^1.0.11",
-        "jsr:@std/io@~0.225.2"
+        "jsr:@std/io"
       ]
     },
     "@std/media-types@1.1.0": {
@@ -114,9 +82,6 @@
     },
     "@std/net@1.0.5": {
       "integrity": "b759d8c5e17d997e164af6379d57764668c6714f30109685eec0fd5e194d501a"
-    },
-    "@std/path@1.0.6": {
-      "integrity": "ab2c55f902b380cf28e0eec501b4906e4c1960d13f00e11cfbcd21de15f18fed"
     },
     "@std/path@1.1.2": {
       "integrity": "c0b13b97dfe06546d5e16bf3966b1cadf92e1cc83e56ba5476ad8b498d9e3038",
@@ -133,45 +98,54 @@
   },
   "npm": {
     "@types/linkify-it@5.0.0": {
-      "integrity": "sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q=="
+      "integrity": "21413001973106cda1c3a9b91eedd4ccd5469d76",
+      "tarball": "http://registry.m.jd.com/@types/linkify-it/download/@types/linkify-it-5.0.0.tgz"
     },
     "@types/markdown-it@14.1.2": {
-      "integrity": "sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==",
+      "integrity": "57f2532a0800067d9b934f3521429a2e8bfb4c61",
       "dependencies": [
         "@types/linkify-it",
         "@types/mdurl"
-      ]
+      ],
+      "tarball": "http://registry.m.jd.com/@types/markdown-it/download/@types/markdown-it-14.1.2.tgz"
     },
     "@types/mdurl@2.0.0": {
-      "integrity": "sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg=="
+      "integrity": "d43878b5b20222682163ae6f897b20447233bdfd",
+      "tarball": "http://registry.m.jd.com/@types/mdurl/download/@types/mdurl-2.0.0.tgz"
     },
     "argparse@2.0.1": {
-      "integrity": "sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q=="
+      "integrity": "246f50f3ca78a3240f6c997e8a9bd1eac49e4b38",
+      "tarball": "http://registry.m.jd.com/argparse/download/argparse-2.0.1.tgz"
     },
     "entities@4.5.0": {
-      "integrity": "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="
+      "integrity": "5d268ea5e7113ec74c4d033b79ea5a35a488fb48",
+      "tarball": "http://registry.m.jd.com/entities/download/entities-4.5.0.tgz"
     },
     "linkify-it@5.0.0": {
-      "integrity": "sha512-5aHCbzQRADcdP+ATqnDuhhJ/MRIqDkZX5pyjFHRRysS8vZ5AbqGEoFIb6pYHPZ+L/OC2Lc+xT8uHVVR5CAK/wQ==",
+      "integrity": "9ef238bfa6dc70bd8e7f9572b52d369af569b421",
       "dependencies": [
         "uc.micro"
-      ]
+      ],
+      "tarball": "http://registry.m.jd.com/linkify-it/download/linkify-it-5.0.0.tgz"
     },
     "markdown-it-anchor@9.2.0_@types+markdown-it@14.1.2_markdown-it@14.1.0": {
-      "integrity": "sha512-sa2ErMQ6kKOA4l31gLGYliFQrMKkqSO0ZJgGhDHKijPf0pNFM9vghjAh3gn26pS4JDRs7Iwa9S36gxm3vgZTzg==",
+      "integrity": "89375d9a2a79336403ab7c4fd36b1965cc45e5c8",
       "dependencies": [
         "@types/markdown-it",
         "markdown-it"
-      ]
+      ],
+      "tarball": "http://registry.m.jd.com/markdown-it-anchor/download/markdown-it-anchor-9.2.0.tgz"
     },
     "markdown-it-footnote@4.0.0": {
-      "integrity": "sha512-WYJ7urf+khJYl3DqofQpYfEYkZKbmXmwxQV8c8mO/hGIhgZ1wOe7R4HLFNwqx7TjILbnC98fuyeSsin19JdFcQ=="
+      "integrity": "02ede0cb68a42d7e7774c3abdc72d77aaa24c531",
+      "tarball": "http://registry.m.jd.com/markdown-it-footnote/download/markdown-it-footnote-4.0.0.tgz"
     },
     "markdown-it-toc-done-right@4.2.0": {
-      "integrity": "sha512-UB/IbzjWazwTlNAX0pvWNlJS8NKsOQ4syrXZQ/C72j+jirrsjVRT627lCaylrKJFBQWfRsPmIVQie8x38DEhAQ=="
+      "integrity": "3ccdce22d5022ffae7b991d07261b1b1de5459d0",
+      "tarball": "http://registry.m.jd.com/markdown-it-toc-done-right/download/markdown-it-toc-done-right-4.2.0.tgz"
     },
     "markdown-it@14.1.0": {
-      "integrity": "sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==",
+      "integrity": "3c3c5992883c633db4714ccb4d7b5935d98b7d45",
       "dependencies": [
         "argparse",
         "entities",
@@ -180,28 +154,40 @@
         "punycode.js",
         "uc.micro"
       ],
-      "bin": true
+      "bin": true,
+      "tarball": "http://registry.m.jd.com/markdown-it/download/markdown-it-14.1.0.tgz"
     },
     "mdurl@2.0.0": {
-      "integrity": "sha512-Lf+9+2r+Tdp5wXDXC4PcIBjTDtq4UKjCPMQhKIuzpJNW0b96kVqSwW0bT7FhRSfmAiFYgP+SCRvdrDozfh0U5w=="
-    },
-    "preact-render-to-string@6.6.1_preact@10.27.1": {
-      "integrity": "sha512-IIMfXRjmbSP9QmG18WJLQa4Z4yx3J0VC9QN5q9z2XYlWSzFlJ+bSm/AyLyyV/YFwjof1OXFX2Mz6Ao60LXudJg==",
-      "dependencies": [
-        "preact"
-      ]
-    },
-    "preact@10.27.1": {
-      "integrity": "sha512-V79raXEWch/rbqoNc7nT9E4ep7lu+mI3+sBmfRD4i1M73R3WLYcCtdI0ibxGVf4eQL8ZIz2nFacqEC+rmnOORQ=="
+      "integrity": "80676ec0433025dd3e17ee983d0fe8de5a2237e0",
+      "tarball": "http://registry.m.jd.com/mdurl/download/mdurl-2.0.0.tgz"
     },
     "prismjs@1.30.0": {
-      "integrity": "sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw=="
+      "integrity": "d9709969d9d4e16403f6f348c63553b19f0975a9",
+      "tarball": "http://registry.m.jd.com/prismjs/download/prismjs-1.30.0.tgz"
     },
     "punycode.js@2.3.1": {
-      "integrity": "sha512-uxFIHU0YlHYhDQtV4R9J6a52SLx28BCjT+4ieh7IGbgwVJWO+km431c4yRlREUAsAmt/uMjQUyQHNEPf0M39CA=="
+      "integrity": "6b53e56ad75588234e79f4affa90972c7dd8cdb7",
+      "tarball": "http://registry.m.jd.com/punycode.js/download/punycode.js-2.3.1.tgz"
+    },
+    "react-dom@19.1.1_react@19.1.1": {
+      "integrity": "2daa9ff7f3ae384aeb30e76d5ee38c046dc89893",
+      "dependencies": [
+        "react",
+        "scheduler"
+      ],
+      "tarball": "http://registry.m.jd.com/react-dom/download/react-dom-19.1.1.tgz"
+    },
+    "react@19.1.1": {
+      "integrity": "06d9149ec5e083a67f9a1e39ce97b06a03b644af",
+      "tarball": "http://registry.m.jd.com/react/download/react-19.1.1.tgz"
+    },
+    "scheduler@0.26.0": {
+      "integrity": "4ce8a8c2a2095f13ea11bf9a445be50c555d6337",
+      "tarball": "http://registry.m.jd.com/scheduler/download/scheduler-0.26.0.tgz"
     },
     "uc.micro@2.1.0": {
-      "integrity": "sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A=="
+      "integrity": "f8d3f7d0ec4c3dea35a7e3c8efa4cb8b45c9e7ee",
+      "tarball": "http://registry.m.jd.com/uc.micro/download/uc.micro-2.1.0.tgz"
     }
   },
   "redirects": {
@@ -245,7 +231,8 @@
   },
   "workspace": {
     "dependencies": [
-      "npm:preact@^10.27.0"
+      "npm:react-dom@^19.1.1",
+      "npm:react@^19.1.1"
     ]
   }
 }

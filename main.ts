@@ -1,7 +1,7 @@
 import { serveDir } from "jsr:@std/http/file-server";
 import {getCachedPosts} from "./utils/post.ts";
 import {TsxRender} from "./tsx-render.tsx";
-import {join} from "./deps.ts";
+import { join } from "jsr:@std/path";
 import {APP_PORT, APP_IS_PRD, APP_DISALLOW_SE} from "./config.ts"
 import {NotFound, TextResponse} from "./utils/response.ts"
 

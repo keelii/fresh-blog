@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Feed, Item } from "https://esm.sh/feed@4.2.2";
 import {getCachedPosts, MetaInfo, parseCachedYamlFile} from "./utils/post.ts";
 import {Layout} from "./component/Layout.tsx";
@@ -5,9 +6,9 @@ import {Container} from "./component/Container.tsx";
 import {toDisplayDate} from "./utils/util.ts";
 import {Comment} from "./component/Comment.tsx";
 import {Footer} from "./component/Footer.tsx";
-import { Fragment, h } from "npm:preact";
-import { render } from 'npm:preact-render-to-string';
-import {join} from "./deps.ts";
+import { renderToString } from "react-dom/server";
+import { join } from "jsr:@std/path";
+
 import {
   BLOG_AUTHOR,
   BLOG_DESCRIPTION,
@@ -145,7 +146,7 @@ export async function TsxRender(pathname: string): Promise<Response> {
 
   if (pathname === "" || pathname === "/") {
     const posts = await getCachedPosts();
-    html += render(<Home posts={posts} />)
+    html += renderToString(<Home posts={posts} />)
   } else {
     const file = join(BLOG_DIR, pathname + ".md");
     try {
@@ -158,14 +159,14 @@ export async function TsxRender(pathname: string): Promise<Response> {
     }
 
     const result = await parseCachedYamlFile(file, true);
-    html += render(<ArticleDetail {...result} />)
+    html += renderToString(<ArticleDetail {...result} />)
   }
 
   // html += `<script>${MathJaxConfig}</script>`
   html += `</html>`
   // html = html.replace("window.MathJax", MathJaxConfig)
 
-  let DisallowRobotHeader = {}
+  let DisallowRobotHeader: Record<string, string> = {}
 
   if (APP_DISALLOW_SE) {
     DisallowRobotHeader["X-Robots-Tag"] = "noindex, nofollow, noarchive, nosnippet, noimageindex"

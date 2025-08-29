@@ -1,6 +1,9 @@
 import { escape } from "jsr:@std/html/entities";
-import { MarkdownIt, MarkdownItAnchor, MarkdownItFootnote, MarkdownItToc } from "../deps.ts";
 
+import MarkdownIt from "npm:markdown-it";
+import MarkdownItAnchor from "npm:markdown-it-anchor";
+import MarkdownItToc from "npm:markdown-it-toc-done-right";
+import MarkdownItFootnote from "npm:markdown-it-footnote";
 import Prism from "npm:prismjs";
 // (window as any).Prism = Prism;
 
@@ -29,10 +32,17 @@ const slugify = function (s: string) {
   return String(s).trim().toLowerCase().replace(/\s+/g, "-");
 };
 md.use(MarkdownItAnchor, {
-  permalink: true,
-  permalinkClass: "anchor",
-  permalinkBefore: true,
-  permalinkSpace: false,
+  permalink: MarkdownItAnchor.permalink.linkInsideHeader({
+    space: false,
+    placement: 'before',
+    ariaHidden: true,
+    class: "anchor",
+    symbol: "¶"
+  }),
+  // permalink: true,
+  // permalinkClass: "anchor",
+  // permalinkBefore: true,
+  // permalinkSpace: false,
   slugify,
 });
 
