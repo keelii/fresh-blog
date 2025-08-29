@@ -23,7 +23,7 @@ import {
   XmlResponse
 } from "./utils/response.ts";
 
-function Home(props: {posts: MetaInfo[]}) {
+function Home(props: {count: Deno.KvEntryMaybe<number>, posts: MetaInfo[]}) {
   const { posts } = props;
 
   return (
@@ -37,14 +37,14 @@ function Home(props: {posts: MetaInfo[]}) {
           {/*<h2>文章</h2>*/}
           <ul className="posts">
             {posts.map((a) => (
-              <li>
+              <li key={a.url}>
                 <a href={a.url}>{a.title}</a>
               </li>
             ))}
           </ul>
           <hr style={{ marginTop: 40 }} />
         </div>
-        <Footer count={1} />
+        <Footer count={props.count} />
       </Container>
     </Layout>
   );
@@ -93,7 +93,7 @@ function ArticleDetail(props: MetaInfo) {
         </article>
         <div className="eof" />
         <Comment />
-        <Footer count={1} />
+        <Footer count={props.count} />
       </Container>
     </Layout>
   );
@@ -142,11 +142,19 @@ export async function TsxRender(pathname: string): Promise<Response> {
     return XmlResponse(feed)
   }
 
+  const kv = await Deno.openKv();
+  let count = await kv.get<number>(["views", pathname])
+  if (!count.value) {
+    const ret = await kv.set(["views", pathname], 1)
+  } else {
+    await kv.set(["views", pathname], count.value + 1)
+  }
+
   let html = `<!DOCTYPE html><html lang="en">`
 
   if (pathname === "" || pathname === "/") {
     const posts = await getCachedPosts();
-    html += renderToString(<Home posts={posts} />)
+    html += renderToString(<Home count={count} posts={posts} />)
   } else {
     const file = join(BLOG_DIR, pathname + ".md");
     try {
@@ -159,7 +167,7 @@ export async function TsxRender(pathname: string): Promise<Response> {
     }
 
     const result = await parseCachedYamlFile(file, true);
-    html += renderToString(<ArticleDetail {...result} />)
+    html += renderToString(<ArticleDetail count={count} {...result} />)
   }
 
   // html += `<script>${MathJaxConfig}</script>`

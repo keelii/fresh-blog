@@ -17,6 +17,7 @@ export interface MetaInfo {
   draft?: boolean;
   date: Date;
   content: string;
+  count: Deno.KvEntryMaybe<number>
 }
 
 interface ICache {

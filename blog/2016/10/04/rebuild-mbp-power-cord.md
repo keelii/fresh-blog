@@ -17,5 +17,5 @@ PS: 如果没有打磨工具可以直接找个空地面磨，有条件的话磨�
 
 <!--more-->
 
-![mbp-power-cord1](http://7i7iqa.com1.z0.glb.clouddn.com/note_ **1**_2016-10-04_09-43-57___SRC_6094.jpg)
-![mbp-power-cord2](http://7i7iqa.com1.z0.glb.clouddn.com/note_ **1**_2016-10-04_09-43-53___1719964175.jpg)
+![mbp-power-cord1](http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-10-04_09-43-57___SRC_6094.jpg)
+![mbp-power-cord2](http://7i7iqa.com1.z0.glb.clouddn.com/note___1___2016-10-04_09-43-53___1719964175.jpg)
