@@ -157,14 +157,14 @@ export async function TsxRender(pathname: string, _req: Request): Promise<Respon
   writeRobotsHeader(headers)
 
   const uid = await writeUUID(_req, headers, uuid)
-  const pvValue = await setPV(originPathname)
-  const uvValue = await setUV(originPathname, uid)
 
 
   let html = `<!DOCTYPE html><html lang="en">`
 
   if (pathname === "" || pathname === "/") {
     const posts = await getCachedPosts();
+    const pvValue = await setPV(originPathname)
+    const uvValue = await setUV(originPathname, uid)
 
     html += renderToString(<Home count={{pv: pvValue, uv: uvValue}} posts={posts} />)
   } else {
@@ -177,6 +177,9 @@ export async function TsxRender(pathname: string, _req: Request): Promise<Respon
       }
       return ServerError()
     }
+
+    const pvValue = await setPV(originPathname)
+    const uvValue = await setUV(originPathname, uid)
 
     const result = await parseCachedYamlFile(file, true);
     html += renderToString(<ArticleDetail count={{pv: pvValue, uv: uvValue}} {...result} />)
