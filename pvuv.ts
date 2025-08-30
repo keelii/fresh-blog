@@ -1,6 +1,6 @@
 import {getCookies} from "jsr:@std/http/cookie"
 import {setCookie} from "jsr:@std/http"
-import {initKV} from "./kv.ts"
+import {deleteItem, initKV} from "./kv.ts"
 import {APP_DISALLOW_SE} from "./config.ts"
 
 const pv = await initKV("PV")
@@ -8,6 +8,15 @@ const uv = await initKV("UV")
 
 // await pv.deleteAll()
 // await uv.deleteAll()
+
+export async function removePVUV(keys) {
+  return await deleteItem(keys)
+  // if (ns === "PV") {
+  //   return await pv.delete(key)
+  // } else if (ns === "UV") {
+  //   return await uv.delete(key)
+  // }
+}
 
 export async function setUV(k: string, uid: string) {
   const uuids = await uv.getOrSet(k, [])

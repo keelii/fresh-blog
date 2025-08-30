@@ -10,7 +10,7 @@ import {renderToString} from "react-dom/server"
 import {join} from "jsr:@std/path"
 
 import {
-  APP_DISALLOW_SE,
+  APP_DISALLOW_SE, APP_TOKEN,
   BLOG_AUTHOR,
   BLOG_DESCRIPTION,
   BLOG_DIR,
@@ -20,9 +20,10 @@ import {
 } from "./config.ts"
 import {HtmlResponse, NotFound, ServerError, XmlResponse} from "./utils/response.ts"
 import {Count} from "./types.ts"
-import {setPV, setUV, writeRobotsHeader, writeUUID} from "./pvuv.ts"
+import {removePVUV, setPV, setUV, writeRobotsHeader, writeUUID} from "./pvuv.ts"
 import {getAll} from "./kv.ts"
 import {KVTable} from "./component/KVTable.tsx"
+import {basicAuth} from "./utils/auth.ts"
 
 function Home(props: {count: Count, posts: MetaInfo[]}) {
   const { posts } = props;
@@ -134,9 +135,10 @@ async function generateRSS() {
 }
 
 
-export async function TsxRender(pathname: string, _req: Request): Promise<Response> {
-
+export async function TsxRender(url: URL, _req: Request): Promise<Response> {
+  let pathname = url.pathname
   const originPathname = pathname
+
   if (pathname.endsWith("/")) {
     pathname = pathname.slice(0, pathname.length - 1);
   }
@@ -146,6 +148,24 @@ export async function TsxRender(pathname: string, _req: Request): Promise<Respon
   }
   if (pathname === "/kv") {
     const kv = await getAll()
+    if (!APP_TOKEN) return NotFound()
+
+    console.log(kv)
+
+    const authRes = basicAuth(_req, "admin", APP_TOKEN);
+    if (authRes) return authRes;
+
+    const kStr = url.searchParams.get("k")
+
+    if (kStr) {
+      const keys = kStr.split(":")
+      await removePVUV(keys)
+      return HtmlResponse(renderToString(<KVTable title="KV" kv={kv} />), {
+        "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet, noimageindex",
+        "location": "/kv"
+      }, { status: 302 })
+    }
+
     return HtmlResponse(renderToString(<KVTable title="KV" kv={kv} />), {
       "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet, noimageindex"
     })

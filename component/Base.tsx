@@ -19,7 +19,7 @@ export function Base(props: React.PropsWithChildren<LayoutProps>) {
         <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
         <style type={"text/css"} dangerouslySetInnerHTML={{__html: ALL_CSS}}></style>
       </head>
-      <body class="wysiwyg">
+      <body className="wysiwyg">
       {props.children}
       </body>
     </Fragment>

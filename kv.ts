@@ -75,6 +75,10 @@ export async function getAll() {
   }
   return entries;
 }
+export async function deleteItem(key: string) {
+  await KV.delete(key);
+}
+
 
 export async function initKV(ns: string[]) {
   if (!KV) {

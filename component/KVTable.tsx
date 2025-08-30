@@ -10,12 +10,16 @@ export function KVTable({kv}: {kv: KVItem}) {
             <tr>
               <th>Key</th>
               <th>Value</th>
+              <th>Op</th>
             </tr>
           </thead>
           {kv.map(({k, v}) => (
-            <tr>
+            <tr key={k.join(":")}>
               <td>{k.join(":")}</td>
               <td>{Array.isArray(v) ? `${v.join(",")}` : v}</td>
+              <td>
+                <a href={"/kv?k=" + encodeURIComponent(k.join(":"))}>Delete</a>
+              </td>
             </tr>
           ))}
         </table>

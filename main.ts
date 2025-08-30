@@ -33,7 +33,7 @@ async function handler(_req: Request): Promise<Response> {
   }
 
   try {
-    return TsxRender(url.pathname, _req)
+    return TsxRender(url, _req)
   } catch (e: any) {
     return NotFound();
   }

@@ -12,6 +12,7 @@ export const BLOG_DESCRIPTION = Deno.env.get("BLOG_DESCRIPTION") || "芝兰生�
 export const BLOG_AUTHOR = Deno.env.get("BLOG_AUTHOR") || "keelii"
 export const BLOG_KEYWORDS = Deno.env.get("BLOG_KEYWORDS") || "前端开发,编程,javascript,typescript,css,html,nodejs,python,java"
 export const BLOG_RSS = Deno.env.get("BLOG_RSS") || "/atom.xml"
+export const APP_TOKEN = Deno.env.get("APP_TOKEN")
 
 warn("CONFIG:" + JSON.stringify({
   APP_ENV,
