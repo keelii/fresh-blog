@@ -4,7 +4,7 @@ export function HtmlResponse(html: string = "",
   if (headers instanceof Headers) {
     headers.append("content-type", "text/html; charset=utf-8");
   } else {
-    headers = new Headers(headers)
+    headers = new Headers({ "content-type": "text/html; charset=utf-8", ...headers })
   }
   return new Response(html, {
     headers,

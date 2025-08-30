@@ -58,6 +58,24 @@ class KVStore {
   }
 }
 
+export interface KVItem {
+  k: string[];
+  v: unknown ;
+}
+
+export async function getAll() {
+  if (!KV) {
+    KV = await Deno.openKv();
+  }
+
+  const iter = await KV.list({prefix: []});
+  const entries: KVItem[] = [];
+  for await (const entry of iter) {
+    entries.push({ k: entry.key as string[], v: entry.value })
+  }
+  return entries;
+}
+
 export async function initKV(ns: string[]) {
   if (!KV) {
     KV = await Deno.openKv();

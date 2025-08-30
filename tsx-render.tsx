@@ -21,6 +21,8 @@ import {
 import {HtmlResponse, NotFound, ServerError, XmlResponse} from "./utils/response.ts"
 import {Count} from "./types.ts"
 import {setPV, setUV, writeRobotsHeader, writeUUID} from "./pvuv.ts"
+import {getAll} from "./kv.ts"
+import {KVTable} from "./component/KVTable.tsx"
 
 function Home(props: {count: Count, posts: MetaInfo[]}) {
   const { posts } = props;
@@ -141,6 +143,12 @@ export async function TsxRender(pathname: string, _req: Request): Promise<Respon
   if (pathname === BLOG_RSS) {
     const feed = await generateRSS();
     return XmlResponse(feed)
+  }
+  if (pathname === "/kv") {
+    const kv = await getAll()
+    return HtmlResponse(renderToString(<KVTable title="KV" kv={kv} />), {
+      "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet, noimageindex"
+    })
   }
 
   const uuid = crypto.randomUUID()
