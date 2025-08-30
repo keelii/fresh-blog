@@ -1,7 +1,8 @@
 /** @jsxImportSourceTypes npm:@types/react@^19.1.1 */
 import {BLOG_AUTHOR, BLOG_RSS, BLOG_URL} from "../config.ts";
+import { Count } from "../types.ts";
 
-export function Footer({ count }: { count: Deno.KvEntryMaybe<number> }) {
+export function Footer({ count }: { count: Count }) {
   return (
     <footer>
       <p>
@@ -11,11 +12,10 @@ export function Footer({ count }: { count: Deno.KvEntryMaybe<number> }) {
         <a href={`${BLOG_URL}${BLOG_RSS}`}>
           <abbr title="RDF Site Summary">RSS</abbr>
         </a>
-        {count.value && (
-          <>
-            | <span>{count.value}</span>
-          </>
-        )}
+        <>
+          | <span>PV: {count.pv.value}</span>
+            <span>UV: {count.uv.value?.length}</span>
+        </>
       </p>
     </footer>
   );

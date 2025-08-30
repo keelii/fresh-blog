@@ -1,11 +1,13 @@
-export function HtmlResponse(html: string,
-                             headers: Record<string, string> = {},
+export function HtmlResponse(html: string = "",
+                             headers: Record<string, string> | Headers = {},
                              responseInit: ResponseInit = {}) {
+  if (headers instanceof Headers) {
+    headers.append("content-type", "text/html; charset=utf-8");
+  } else {
+    headers = new Headers(headers)
+  }
   return new Response(html, {
-    headers: {
-      "content-type": "text/html",
-      ...headers
-    },
+    headers,
     ...responseInit
   })
 }

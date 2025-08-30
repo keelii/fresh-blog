@@ -1,29 +1,28 @@
-import { Fragment } from "react";
-import { Feed, Item } from "https://esm.sh/feed@4.2.2";
-import {getCachedPosts, MetaInfo, parseCachedYamlFile} from "./utils/post.ts";
-import {Layout} from "./component/Layout.tsx";
-import {Container} from "./component/Container.tsx";
-import {toDisplayDate} from "./utils/util.ts";
-import {Comment} from "./component/Comment.tsx";
-import {Footer} from "./component/Footer.tsx";
-import { renderToString } from "react-dom/server";
-import { join } from "jsr:@std/path";
+import {Fragment} from "react"
+import {Feed, Item} from "https://esm.sh/feed@4.2.2"
+import {getCachedPosts, MetaInfo, parseCachedYamlFile} from "./utils/post.ts"
+import {Layout} from "./component/Layout.tsx"
+import {Container} from "./component/Container.tsx"
+import {toDisplayDate} from "./utils/util.ts"
+import {Comment} from "./component/Comment.tsx"
+import {Footer} from "./component/Footer.tsx"
+import {renderToString} from "react-dom/server"
+import {join} from "jsr:@std/path"
 
 import {
+  APP_DISALLOW_SE,
   BLOG_AUTHOR,
   BLOG_DESCRIPTION,
+  BLOG_DIR,
   BLOG_RSS,
   BLOG_TITLE,
-  BLOG_URL, BLOG_DIR, APP_DISALLOW_SE
+  BLOG_URL
 } from "./config.ts"
-import {
-  HtmlResponse,
-  ServerError,
-  NotFound,
-  XmlResponse
-} from "./utils/response.ts";
+import {HtmlResponse, NotFound, ServerError, XmlResponse} from "./utils/response.ts"
+import {Count} from "./types.ts"
+import {setPV, setUV, writeRobotsHeader, writeUUID} from "./pvuv.ts"
 
-function Home(props: {count: Deno.KvEntryMaybe<number>, posts: MetaInfo[]}) {
+function Home(props: {count: Count, posts: MetaInfo[]}) {
   const { posts } = props;
 
   return (
@@ -49,8 +48,8 @@ function Home(props: {count: Deno.KvEntryMaybe<number>, posts: MetaInfo[]}) {
     </Layout>
   );
 }
-function ArticleDetail(props: MetaInfo & { count: Deno.KvEntryMaybe<number> }) {
-  const { content, ...yaml } = props;
+function ArticleDetail(props: MetaInfo & { count: Count }) {
+  const { content, count, ...yaml } = props;
 
   const initMath = `
     window.MathJax = {
@@ -70,7 +69,7 @@ function ArticleDetail(props: MetaInfo & { count: Deno.KvEntryMaybe<number> }) {
           <h1>{yaml.title}</h1>
           <span className="meta">
             {toDisplayDate(yaml.date)}
-            <a style={{ marginLeft: 5 }} href="/">首页</a>
+            <a style={{ marginLeft: 5 }} href="/">首页</a> | <span>看过({count.uv.value.length})</span>
           </span>
         </header>
         <article className={"wysiwyg"}>
@@ -93,7 +92,7 @@ function ArticleDetail(props: MetaInfo & { count: Deno.KvEntryMaybe<number> }) {
         </article>
         <div className="eof" />
         <Comment />
-        <Footer count={props.count} />
+        <Footer count={count} />
       </Container>
     </Layout>
   );
@@ -133,7 +132,9 @@ async function generateRSS() {
 }
 
 
-export async function TsxRender(pathname: string): Promise<Response> {
+export async function TsxRender(pathname: string, _req: Request): Promise<Response> {
+
+  const originPathname = pathname
   if (pathname.endsWith("/")) {
     pathname = pathname.slice(0, pathname.length - 1);
   }
@@ -142,19 +143,22 @@ export async function TsxRender(pathname: string): Promise<Response> {
     return XmlResponse(feed)
   }
 
-  const kv = await Deno.openKv();
-  let count = await kv.get<number>(["views", pathname])
-  if (!count.value) {
-    const ret = await kv.set(["views", pathname], 1)
-  } else {
-    await kv.set(["views", pathname], count.value + 1)
-  }
+  const uuid = crypto.randomUUID()
+
+  const headers = new Headers();
+  writeRobotsHeader(headers)
+
+  const uid = await writeUUID(_req, headers, uuid)
+  const pvValue = await setPV(originPathname)
+  const uvValue = await setUV(originPathname, uid)
+
 
   let html = `<!DOCTYPE html><html lang="en">`
 
   if (pathname === "" || pathname === "/") {
     const posts = await getCachedPosts();
-    html += renderToString(<Home count={count} posts={posts} />)
+
+    html += renderToString(<Home count={{pv: pvValue, uv: uvValue}} posts={posts} />)
   } else {
     const file = join(BLOG_DIR, pathname + ".md");
     try {
@@ -167,18 +171,11 @@ export async function TsxRender(pathname: string): Promise<Response> {
     }
 
     const result = await parseCachedYamlFile(file, true);
-    html += renderToString(<ArticleDetail count={count} {...result} />)
+    html += renderToString(<ArticleDetail count={{pv: pvValue, uv: uvValue}} {...result} />)
   }
 
-  // html += `<script>${MathJaxConfig}</script>`
   html += `</html>`
-  // html = html.replace("window.MathJax", MathJaxConfig)
 
-  let DisallowRobotHeader: Record<string, string> = {}
 
-  if (APP_DISALLOW_SE) {
-    DisallowRobotHeader["X-Robots-Tag"] = "noindex, nofollow, noarchive, nosnippet, noimageindex"
-  }
-
-  return HtmlResponse(html, DisallowRobotHeader);
+  return HtmlResponse(html, headers);
 }

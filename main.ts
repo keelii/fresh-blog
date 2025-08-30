@@ -1,13 +1,13 @@
-import { serveDir } from "jsr:@std/http/file-server";
+import { serveDir } from "jsr:@std/http";
 import {getCachedPosts} from "./utils/post.ts";
 import {TsxRender} from "./tsx-render.tsx";
 import { join } from "jsr:@std/path";
 import {APP_PORT, APP_IS_PRD, APP_DISALLOW_SE} from "./config.ts"
 import {NotFound, TextResponse} from "./utils/response.ts"
 
-if (APP_IS_PRD) {
-  await getCachedPosts(true)
-}
+// if (APP_IS_PRD) {
+  // await getCachedPosts(true)
+// }
 
 function isStaticPath(pathname: string) {
   return [".css", ".js",
@@ -33,7 +33,7 @@ async function handler(_req: Request): Promise<Response> {
   }
 
   try {
-    return TsxRender(url.pathname)
+    return TsxRender(url.pathname, _req)
   } catch (e: any) {
     return NotFound();
   }
