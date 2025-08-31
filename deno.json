@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run -A --unstable-kv --env-file=.dev.env --watch=.dev.env main.ts",
+    "dev": "deno run -A --unstable-kv --env-file=.dev.env --watch=.dev.env,blog main.ts",
     "start": "deno run -A --env-file=.prd.env main.ts"
   },
   "compilerOptions": {

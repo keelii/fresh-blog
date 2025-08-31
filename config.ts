@@ -1,5 +1,6 @@
 import { join } from "jsr:@std/path";
 import { warn } from "jsr:@std/log";
+import {maskPass} from "./utils/util.ts"
 
 export const APP_PORT = Number(Deno.env.get("APP_PORT")) || 80;
 export const APP_ENV = Deno.env.get("APP_ENV") || "prd";
@@ -30,4 +31,5 @@ warn("CONFIG:" + JSON.stringify({
   BLOG_AUTHOR,
   BLOG_KEYWORDS,
   BLOG_RSS,
+  APP_TOKEN: maskPass(APP_TOKEN)
 }))

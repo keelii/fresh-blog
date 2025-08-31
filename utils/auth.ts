@@ -1,3 +1,5 @@
+import {maskPass} from "./util.ts"
+
 export function basicAuth(req: Request, user: string, pass: string): Response | null {
   const auth = req.headers.get("authorization");
   console.info("Auth:", auth);
@@ -11,9 +13,6 @@ export function basicAuth(req: Request, user: string, pass: string): Response | 
   if (scheme !== "Basic") return new Response("Bad Request", { status: 400 });
 
   const [username, password] = atob(encoded).split(":");
-  const maskPass = function(p: string) {
-    return p.substring(0, 4) + ("*".repeat(p.length));
-  }
   console.info("Auth matched:", user, username, maskPass(password), maskPass(pass));
   if (username !== user || password !== pass) {
     return new Response("Forbidden", { status: 403 });

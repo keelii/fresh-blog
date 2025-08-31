@@ -11,3 +11,7 @@ export function htmlEncode(x: string) {
 export function toDisplayDate(date: Date) {
   return new Intl.DateTimeFormat("zh-Hans-CN", {}).format(date);
 }
+
+export function maskPass(p: string) {
+  return p.substring(0, 4) + ("*".repeat(p.length));
+}
