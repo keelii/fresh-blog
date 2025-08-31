@@ -63,7 +63,8 @@ async function handler(_req: Request, info: Deno.ServeHandlerInfo): Promise<Resp
     });
   }
 
-  console.info("clientIp:", clientIp)
+  const hds = (await Array.fromAsync(_req.headers.entries())).map(([key, value]) => ({ key, value }))
+  console.info("client:", clientIp, JSON.stringify(hds))
 
   if (isDotFile(url.pathname) || isNotValidExt(url.pathname)) {
     return NotFound();
