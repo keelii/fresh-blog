@@ -150,8 +150,6 @@ export async function TsxRender(url: URL, _req: Request): Promise<Response> {
     const kv = await getAll()
     if (!APP_TOKEN) return NotFound()
 
-    console.log(kv)
-
     const authRes = basicAuth(_req, "admin", APP_TOKEN);
     if (authRes) return authRes;
 

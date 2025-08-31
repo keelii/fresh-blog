@@ -1,5 +1,6 @@
 export function basicAuth(req: Request, user: string, pass: string): Response | null {
   const auth = req.headers.get("authorization");
+  console.info("Auth:", auth);
   if (!auth) {
     return new Response("Unauthorized", {
       status: 401,
