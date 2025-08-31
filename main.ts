@@ -15,12 +15,21 @@ function isStaticPath(pathname: string) {
     ".ico", ".svg",
     ".woff", ".woff2", ".ttf", ".eot"].some(ext => pathname.endsWith(ext));
 }
+function isDotFile(p: string) {
+  return p.startsWith("/.")
+}
+function isNotValidExt(p: string) {
+  return p.endsWith(".php")
+}
 
 async function handler(_req: Request): Promise<Response> {
   const url = new URL(_req.url)
 
   if (APP_DISALLOW_SE && url.pathname === "/robots.txt") {
     return TextResponse("User-agent: *\nDisallow: /");
+  }
+  if (isDotFile(url.pathname) || isNotValidExt(url.pathname)) {
+    return NotFound();
   }
   if (isStaticPath(url.pathname)) {
     return serveDir(_req, {
