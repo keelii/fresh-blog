@@ -21,16 +21,38 @@ function isDotFile(p: string) {
 function isNotValidExt(p: string) {
   return p.endsWith(".php")
 }
+function getClientIp(req: Request, connInfo: Deno.ServeHandlerInfo): string {
+  const headers = req.headers;
 
-async function handler(_req: Request): Promise<Response> {
+  // 优先取代理头
+  const xff = headers.get("x-forwarded-for");
+  if (xff) {
+    // 可能是多个逗号分隔的IP，取第一个
+    return xff.split(",")[0].trim();
+  }
+
+  const xri = headers.get("x-real-ip");
+  if (xri) {
+    return xri;
+  }
+
+  const cf = headers.get("cf-connecting-ip");
+  if (cf) {
+    return cf;
+  }
+
+  return connInfo.remoteAddr.hostname;
+}
+
+
+async function handler(_req: Request, info: Deno.ServeHandlerInfo): Promise<Response> {
   const url = new URL(_req.url)
+  const clientIp = getClientIp(_req, info)
 
   if (APP_DISALLOW_SE && url.pathname === "/robots.txt") {
     return TextResponse("User-agent: *\nDisallow: /");
   }
-  if (isDotFile(url.pathname) || isNotValidExt(url.pathname)) {
-    return NotFound();
-  }
+
   if (isStaticPath(url.pathname)) {
     return serveDir(_req, {
       fsRoot: join(Deno.cwd(), "static"),
@@ -39,6 +61,12 @@ async function handler(_req: Request): Promise<Response> {
       enableCors: true,
       quiet: true,
     });
+  }
+
+  console.info("clientIp:", clientIp)
+
+  if (isDotFile(url.pathname) || isNotValidExt(url.pathname)) {
+    return NotFound();
   }
 
   try {
