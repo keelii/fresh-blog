@@ -15,7 +15,8 @@ export const BLOG_RSS = Deno.env.get("BLOG_RSS") || "/atom.xml"
 export const APP_TOKEN = Deno.env.get("APP_TOKEN")
 
 export const REDIRECTS = {
-  "/2019/07/03/nestjs-framework-tutorial-8/": "/2019/07/04/nestjs-framework-tutorial-8"
+  "/2019/07/03/nestjs-framework-tutorial-8": "/2019/07/04/nestjs-framework-tutorial-8",
+  "/2020/05/10/frontend-dev-bottleneck-and-future": "/2020/05/11/frontend-dev-bottleneck-and-future"
 }
 
 warn("CONFIG:" + JSON.stringify({

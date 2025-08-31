@@ -43,17 +43,39 @@ function getClientIp(req: Request, connInfo: Deno.ServeHandlerInfo): string {
 
   return connInfo.remoteAddr.hostname;
 }
+function trimSlashes(path: string) {
+  if (path.length > 1 && path.endsWith("/")) {
+    return path.slice(0, path.length - 1);
+  }
+  return path;
+}
+function redirectSlash(url: URL) {
+  const pathname = trimSlashes(url.pathname)
 
+  if (url.pathname !== pathname) {
+    const u = `${url.protocol}//${url.host}${pathname}${url.search}`
+    console.info("redirectSlash:", u)
+    return Response.redirect(u, 301);
+  }
 
+  if (REDIRECTS[pathname]) {
+    console.info("Redirect:", pathname, "->", REDIRECTS[pathname]);
+    return Response.redirect(`${url.protocol}//${url.host}${REDIRECTS[url.pathname]}`, 302);
+  }
+}
 async function handler(_req: Request, info: Deno.ServeHandlerInfo): Promise<Response> {
   const url = new URL(_req.url)
   const clientIp = getClientIp(_req, info)
+  const pathname = trimSlashes(url.pathname)
 
-  if (APP_DISALLOW_SE && url.pathname === "/robots.txt") {
+  const redirected = redirectSlash(url)
+  if (redirected) return redirected
+
+  if (APP_DISALLOW_SE && pathname === "/robots.txt") {
     return TextResponse("User-agent: *\nDisallow: /");
   }
 
-  if (isStaticPath(url.pathname)) {
+  if (isStaticPath(pathname)) {
     return serveDir(_req, {
       fsRoot: join(Deno.cwd(), "static"),
       urlRoot: "",
@@ -64,15 +86,10 @@ async function handler(_req: Request, info: Deno.ServeHandlerInfo): Promise<Resp
   }
 
   const hds = (await Array.fromAsync(_req.headers.entries())).map(([key, value]) => ({ key, value }))
-  console.info("client:", clientIp, JSON.stringify(hds))
+  // console.info("client:", clientIp, JSON.stringify(hds))
 
-  if (isDotFile(url.pathname) || isNotValidExt(url.pathname)) {
+  if (isDotFile(pathname) || isNotValidExt(pathname)) {
     return NotFound();
-  }
-
-  if (REDIRECTS[url.pathname]) {
-    console.info("Redirect:", url.pathname, "->", REDIRECTS[url.pathname]);
-    return Response.redirect(`${url.protocol}//${url.host}${REDIRECTS[url.pathname]}`, 302);
   }
 
   try {
