@@ -13,5 +13,9 @@ export function toDisplayDate(date: Date) {
 }
 
 export function maskPass(p: string) {
+  if (!p || typeof p !== "string") {
+    console.error("unexpected pass:", p);
+    return "";
+  }
   return p.substring(0, 4) + ("*".repeat(p.length));
 }
