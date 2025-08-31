@@ -2,7 +2,7 @@ import { serveDir } from "jsr:@std/http";
 import {getCachedPosts} from "./utils/post.ts";
 import {TsxRender} from "./tsx-render.tsx";
 import { join } from "jsr:@std/path";
-import {APP_PORT, APP_IS_PRD, APP_DISALLOW_SE} from "./config.ts"
+import {APP_PORT, APP_IS_PRD, APP_DISALLOW_SE, REDIRECTS} from "./config.ts"
 import {NotFound, TextResponse} from "./utils/response.ts"
 
 // if (APP_IS_PRD) {
@@ -68,6 +68,11 @@ async function handler(_req: Request, info: Deno.ServeHandlerInfo): Promise<Resp
 
   if (isDotFile(url.pathname) || isNotValidExt(url.pathname)) {
     return NotFound();
+  }
+
+  if (REDIRECTS[url.pathname]) {
+    console.info("Redirect:", url.pathname, "->", REDIRECTS[url.pathname]);
+    return Response.redirect(`${url.protocol}//${url.host}${REDIRECTS[url.pathname]}`, 302);
   }
 
   try {

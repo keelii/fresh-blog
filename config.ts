@@ -14,6 +14,10 @@ export const BLOG_KEYWORDS = Deno.env.get("BLOG_KEYWORDS") || "前端开发,编�
 export const BLOG_RSS = Deno.env.get("BLOG_RSS") || "/atom.xml"
 export const APP_TOKEN = Deno.env.get("APP_TOKEN")
 
+export const REDIRECTS = {
+  "/2019/07/03/nestjs-framework-tutorial-8/": "/2019/07/04/nestjs-framework-tutorial-8"
+}
+
 warn("CONFIG:" + JSON.stringify({
   APP_ENV,
   APP_PORT,
