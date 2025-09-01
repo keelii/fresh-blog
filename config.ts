@@ -13,11 +13,13 @@ export const BLOG_DESCRIPTION = Deno.env.get("BLOG_DESCRIPTION") || "芝兰生�
 export const BLOG_AUTHOR = Deno.env.get("BLOG_AUTHOR") || "keelii"
 export const BLOG_KEYWORDS = Deno.env.get("BLOG_KEYWORDS") || "前端开发,编程,javascript,typescript,css,html,nodejs,python,java"
 export const BLOG_RSS = Deno.env.get("BLOG_RSS") || "/atom.xml"
-export const APP_TOKEN = Deno.env.get("APP_TOKEN")
+export const APP_SALT = Number(Deno.env.get("APP_SALT") || "8")
+export const APP_PASS = Deno.env.get("APP_PASS") || ""
 
 export const REDIRECTS = {
   "/2019/07/03/nestjs-framework-tutorial-8": "/2019/07/04/nestjs-framework-tutorial-8",
-  "/2020/05/10/frontend-dev-bottleneck-and-future": "/2020/05/11/frontend-dev-bottleneck-and-future"
+  "/2020/05/10/frontend-dev-bottleneck-and-future": "/2020/05/11/frontend-dev-bottleneck-and-future",
+  "/2020/08/14/take-a-look-at-deno-from-actual-case": "/2020/08/15/take-a-look-at-deno-from-actual-case"
 }
 
 warn("CONFIG:" + JSON.stringify({
@@ -31,5 +33,5 @@ warn("CONFIG:" + JSON.stringify({
   BLOG_AUTHOR,
   BLOG_KEYWORDS,
   BLOG_RSS,
-  APP_TOKEN: maskPass(APP_TOKEN)
+  APP_PASS: maskPass(APP_PASS)
 }))

@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import {
   BLOG_AUTHOR,
   BLOG_DESCRIPTION,
@@ -104,7 +103,7 @@ const ALL_CSS = [resetCSS, wysiwygCSS, customCSS, codeCSS]
 
 export function Layout(props: React.PropsWithChildren<LayoutProps>) {
   return (
-    <Fragment>
+    <>
       <head>
         <title>{props.title}</title>
 
@@ -139,6 +138,6 @@ export function Layout(props: React.PropsWithChildren<LayoutProps>) {
       <body>
       {props.children}
       </body>
-    </Fragment>
+    </>
   );
 }

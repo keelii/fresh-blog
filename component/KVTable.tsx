@@ -1,9 +1,9 @@
 import {KVItem} from "../kv.ts"
 import {Base} from "./Base.tsx"
 
-export function KVTable({kv}: {kv: KVItem}) {
+export function KVTable({kv, title}: {title: string, kv: KVItem<any>[]}) {
   return (
-    <Base>
+    <Base title={title}>
       <div style={{fontSize: "14px"}}>
         <table>
           <thead>
@@ -18,7 +18,7 @@ export function KVTable({kv}: {kv: KVItem}) {
               <td>{k.join(":")}</td>
               <td>{Array.isArray(v) ? `${v.join(",")}` : v}</td>
               <td>
-                <a href={"/kv?k=" + encodeURIComponent(k.join(":"))}>Delete</a>
+                <a href={"/admin/kv?k=" + encodeURIComponent(k.join(":"))}>Delete</a>
               </td>
             </tr>
           ))}

@@ -1,4 +1,3 @@
-
 export function htmlEncode(x: string) {
   return String(x)
     .replace(/&/g, "&amp;")
@@ -17,5 +16,6 @@ export function maskPass(p: string) {
     console.error("unexpected pass:", p);
     return "";
   }
-  return p.substring(0, 4) + ("*".repeat(p.length));
+  return p.substring(0, 4) + ("*".repeat(5));
 }
+
