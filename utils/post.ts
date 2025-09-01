@@ -60,7 +60,7 @@ export async function parseCachedYamlFile(path: string, includeContent: boolean 
   return CACHE.post[path];
 }
 
-export async function parseYamlFile(path: string, includeContent: boolean = false) {
+export async function parseYamlFile(path: string, includeContent: boolean = false): Promise<MetaInfo | null> {
   const contents = await Deno.readTextFile(path);
   const [yamlContent, mdContent] = getYamlString(contents);
 

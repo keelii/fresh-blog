@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 interface LayoutProps {
   title: string;
 }
@@ -11,7 +9,7 @@ const ALL_CSS = resetCSS + wysiwygCSS;
 
 export function Base(props: React.PropsWithChildren<LayoutProps>) {
   return (
-    <Fragment>
+    <>
       <head>
         <title>{props.title}</title>
 
@@ -22,6 +20,6 @@ export function Base(props: React.PropsWithChildren<LayoutProps>) {
       <body className="wysiwyg">
       {props.children}
       </body>
-    </Fragment>
+    </>
   );
 }

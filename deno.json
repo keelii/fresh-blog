@@ -1,11 +1,11 @@
 {
   "tasks": {
-    "dev": "deno run -A --unstable-kv --env-file=.dev.env --watch=.dev.env,blog main.ts",
-    "start": "deno run -A --env-file=.prd.env main.ts"
+    "dev": "deno run -A --unstable-kv --env-file=.dev.env --watch=.dev.env,blog main.tsx",
+    "start": "deno run -A --env-file=.prd.env main.tsx"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "hono/jsx"
   },
   "lint": {
     "files": {
@@ -23,8 +23,6 @@
     }
   },
   "imports": {
-    "react": "npm:react@^19.1.1",
-    "react-dom": "npm:react-dom@^19.1.1",
-    "react-dom/server": "npm:react-dom@^19.1.1/server"
+    "hono": "npm:hono"
   }
 }
