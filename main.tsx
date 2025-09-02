@@ -87,7 +87,7 @@ app.use(async (c, next) => {
   await next()
 })
 app.use(async (c, next) => {
-  if (REDIRECTS[c.req.path] || REDIRECTS[c.req.path + "/"]) {
+  if (REDIRECTS[c.req.path]) {
     return c.redirect(REDIRECTS[c.req.path], 301)
   }
   await next()
