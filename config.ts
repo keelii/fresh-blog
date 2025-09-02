@@ -16,11 +16,11 @@ export const BLOG_RSS = Deno.env.get("BLOG_RSS") || "/atom.xml"
 export const APP_SALT = Number(Deno.env.get("APP_SALT") || "8")
 export const APP_PASS = Deno.env.get("APP_PASS") || ""
 
-export const REDIRECTS = {
+export const REDIRECTS: Record<string, string> = {
+  "/2019/07/03/nestjs-framework-tutorial-1": "/2019/07/04/nestjs-framework-tutorial-1",
   "/2019/07/03/nestjs-framework-tutorial-3": "/2019/07/04/nestjs-framework-tutorial-3",
-  "/2016/06/11/javascript-throttle": "2016/06/10/javascript-throttle",
-  "/2019/07/03/nestjs-framework-tutorial-1/": "/2019/07/04/nestjs-framework-tutorial-1",
   "/2019/07/03/nestjs-framework-tutorial-8": "/2019/07/04/nestjs-framework-tutorial-8",
+  "/2016/06/11/javascript-throttle": "2016/06/10/javascript-throttle",
   "/2020/05/10/frontend-dev-bottleneck-and-future": "/2020/05/11/frontend-dev-bottleneck-and-future",
   "/2020/08/14/take-a-look-at-deno-from-actual-case": "/2020/08/15/take-a-look-at-deno-from-actual-case",
   "/2016/06/13/about": "/about",
