@@ -8,19 +8,8 @@ import { trimTrailingSlash } from 'hono/trailing-slash'
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { basicAuth } from 'hono/basic-auth'
 import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
-
-import {
-  getCookie,
-  setCookie,
-} from 'hono/cookie'
-
-
-import {
-  APP_PASS,
-  APP_PORT, APP_SALT,
-  BLOG_DIR,
-  BLOG_RSS, REDIRECTS
-} from "./config.ts"
+import { getCookie, setCookie } from 'hono/cookie'
+import { APP_PASS, APP_PORT, APP_SALT, BLOG_DIR, BLOG_RSS, REDIRECTS } from "./config.ts"
 import {generateRSS} from "./utils/rss.ts";
 import { join } from "jsr:@std/path";
 import {getCachedPosts, parseYamlFile} from "./utils/post.ts";
@@ -32,18 +21,16 @@ import {KVTable} from "./component/KVTable.tsx";
 import {getAll} from "./kv.ts";
 import { languageDetector } from 'hono/language'
 import {NotFound} from "./component/NotFound.tsx"
-import { Context } from "hono";
 
 
 const rss = await generateRSS()
 await Deno.writeTextFile("./static/atom.xml", rss)
 
 const app = new Hono<HonoApp>()
-
-function notFound(c: Context<HonoApp>) {
+app.notFound((c) => {
   const url = c.req.url
   return c.redirect("/404?url=" + url, 302)
-}
+})
 
 app.use(compress())
 app.use(csrf())
@@ -120,10 +107,10 @@ app.get('/:year{\\d{4}}/:month{\\d{2}}/:date{\\d{2}}/:title{[A-Za-z0-9_-]+}', as
   const file = join(BLOG_DIR, year, month, date, title + ".md")
 
   if (!await exists(file, { isFile: true })) {
-    return notFound(c)
+    return c.notFound()
   } else {
     const post = await parseYamlFile(file, true)
-    if (!post) return notFound(c)
+    if (!post) return c.notFound()
 
     const {pv, uv} = await updatePVUV(c)
     return c.render(<ArticleDetail count={{pv, uv }} {...post} />)
@@ -134,11 +121,11 @@ app.get('/:page', async (c) => {
   const file = join(BLOG_DIR, page + ".md")
 
   if (!await exists(file, { isFile: true })) {
-    return notFound(c)
+    return c.notFound()
   } else {
     const {pv, uv} = await updatePVUV(c)
     const post = await parseYamlFile(file, true)
-    if (!post) return notFound(c)
+    if (!post) return c.notFound()
 
     return c.render(<ArticleDetail count={{pv, uv}} {...post} />)
   }
