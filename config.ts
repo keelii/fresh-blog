@@ -20,6 +20,7 @@ export const REDIRECTS = {
   "/2019/07/03/nestjs-framework-tutorial-8": "/2019/07/04/nestjs-framework-tutorial-8",
   "/2020/05/10/frontend-dev-bottleneck-and-future": "/2020/05/11/frontend-dev-bottleneck-and-future",
   "/2020/08/14/take-a-look-at-deno-from-actual-case": "/2020/08/15/take-a-look-at-deno-from-actual-case"
+  "/2016/06/13/about": "/about"
 }
 
 warn("CONFIG:" + JSON.stringify({
