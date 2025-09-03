@@ -1,3 +1,6 @@
+import { getConnInfo } from 'hono/deno';
+import { Context } from "hono"
+
 export function htmlEncode(x: string) {
   return String(x)
     .replace(/&/g, "&amp;")
@@ -19,3 +22,8 @@ export function maskPass(p: string) {
   return p.substring(0, 4) + ("*".repeat(5));
 }
 
+export function getClientIpAddress(c: Context) {
+  return c.req.header("x-forwarded-for")
+    || c.req.raw.headers.get("cf-connecting-ip")
+    || c.req.raw.headers.get("x-real-ip") || getConnInfo(c).remote.address!
+}

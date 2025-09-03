@@ -5,10 +5,7 @@ import { compress } from 'hono/compress'
 import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 import { jsxRenderer } from 'hono/jsx-renderer'
-import { basicAuth } from 'hono/basic-auth'
-import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
-import { getCookie, setCookie } from 'hono/cookie'
-import { APP_PASS, APP_PORT, APP_SALT, BLOG_DIR, BLOG_RSS, REDIRECTS } from "./config.ts"
+import { APP_PORT, BLOG_DIR, BLOG_RSS } from "./config.ts"
 import {generateRSS} from "./utils/rss.ts";
 import { join } from "jsr:@std/path";
 import {getCachedPosts, parseYamlFile} from "./utils/post.ts";
@@ -18,8 +15,12 @@ import {removePVUV, updatePVUV} from "./pvuv.ts";
 import {HonoApp} from "./types.ts";
 import {KVTable} from "./component/KVTable.tsx";
 import {getAll} from "./kv.ts";
-import { languageDetector } from 'hono/language'
 import {NotFound} from "./component/NotFound.tsx"
+import { rateLimitInstance} from "./middleware/rate-limit.ts";
+import {trailingSlash} from "./middleware/trailing-slash.ts";
+import {adminAuth} from "./middleware/admin-auth.ts";
+import {generateUuid} from "./middleware/generate-uuid.ts";
+import {internalRedirect} from "./middleware/internal-redirect.ts";
 
 
 const rss = await generateRSS()
@@ -27,17 +28,8 @@ await Deno.writeTextFile("./static/atom.xml", rss)
 
 const app = new Hono<HonoApp>()
 app.notFound((c) => {
-  if (
-    (c.req.method === 'GET' || c.req.method === 'HEAD') &&
-    c.req.path !== '/' &&
-    c.req.path.at(-1) === '/'
-  ) {
-    const url = new URL(c.req.url)
-    url.pathname = url.pathname.substring(0, url.pathname.length - 1)
-
-    console.info("trailing slash redirect:", url.toString())
-    return c.redirect(url.toString(), 301)
-  }
+  const yes = trailingSlash(c)
+  if (yes) return yes
 
   const url = "/404?url=" + encodeURIComponent(c.req.url)
   console.info("404 redirect", url)
@@ -47,56 +39,17 @@ app.notFound((c) => {
 app.use(compress())
 app.use(csrf())
 app.use(secureHeaders())
-app.use(
-  '/admin/*',
-  basicAuth({
-    username: 'admin',
-    password: APP_PASS,
-    verifyUser: (username, password) => {
-      const salt = bcrypt.genSaltSync(APP_SALT);
-      const hash = bcrypt.hashSync(password, salt);
-      return (
-        username === 'admin' && bcrypt.compareSync(password, hash)
-      )
-    },
-  })
-)
-app.use(
-  languageDetector({
-    supportedLanguages: ["zh_CN", "cn", "zh-CN", "en"],
-    fallbackLanguage: 'en',
-  })
-)
+app.use(generateUuid)
 
-app.use(async (c, next) => {
-  const uid = crypto.randomUUID()
-  const val = getCookie(c, "uid")
+app.use("*", rateLimitInstance)
+app.use(internalRedirect)
+app.use('/admin/*', adminAuth)
 
-  if (!val) {
-    setCookie(c, "uid", uid, {
-      httpOnly: true,
-      sameSite: "Strict",
-      expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) // 1 year
-    })
-    c.set("uid", uid)
-  } else {
-    c.set("uid", val)
-  }
-
-  await next()
-})
-app.use(async (c, next) => {
-  if (REDIRECTS[c.req.path]) {
-    console.info("internal mapping redirect:", REDIRECTS[c.req.path])
-    return c.redirect(REDIRECTS[c.req.path], 301)
-  }
-  await next()
-})
 app.on(
   "GET",
   ['/', '/:page', '/admin/kv', '/:year{\\d{4}}/:month{\\d{2}}/:date{\\d{2}}/:title{[A-Za-z0-9_-]+}'],
   jsxRenderer(({ children }, context) => {
-    return <html lang={context.get('language')}>{children}</html>
+    return <html lang="zh_CN">{children}</html>
   })
 )
 
@@ -109,7 +62,7 @@ app.get('/', async (c) => {
   const {pv, uv} = await updatePVUV(c)
   return c.render(<Home posts={posts} count={{pv, uv}} />)
 })
-app.get('/404', async (c) => {
+app.get('/404', (c) => {
   c.status(404)
   return c.render(<NotFound url={c.req.query()["url"]} />)
 })

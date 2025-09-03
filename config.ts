@@ -15,11 +15,14 @@ export const BLOG_KEYWORDS = Deno.env.get("BLOG_KEYWORDS") || "前端开发,编�
 export const BLOG_RSS = Deno.env.get("BLOG_RSS") || "/atom.xml"
 export const APP_SALT = Number(Deno.env.get("APP_SALT") || "8")
 export const APP_PASS = Deno.env.get("APP_PASS") || ""
+export const APP_RL_WINDOWS = Number(Deno.env.get("APP_RL_WINDOWS") || "1000")
+export const APP_RL_LIMIT = Number(Deno.env.get("APP_RL_LIMIT") || "10")
 
 export const REDIRECTS: Record<string, string> = {
   "/2019/07/03/nestjs-framework-tutorial-1": "/2019/07/04/nestjs-framework-tutorial-1",
   "/2019/07/03/nestjs-framework-tutorial-3": "/2019/07/04/nestjs-framework-tutorial-3",
   "/2019/07/03/nestjs-framework-tutorial-8": "/2019/07/04/nestjs-framework-tutorial-8",
+  "/nestjs-framework-tutorial-9": "/2019/07/04/nestjs-framework-tutorial-9",
   "/2016/06/11/javascript-throttle": "2016/06/10/javascript-throttle",
   "/2019/03/14/how-to-create-a-real-world-app-based-on-fe-tech": "/2019/03/15/how-to-create-a-real-world-app-based-on-fe-tech",
   "/2020/05/10/frontend-dev-bottleneck-and-future": "/2020/05/11/frontend-dev-bottleneck-and-future",
@@ -37,6 +40,6 @@ warn("CONFIG:" + JSON.stringify({
   BLOG_DESCRIPTION,
   BLOG_AUTHOR,
   BLOG_KEYWORDS,
-  BLOG_RSS,
+  BLOG_RSS, APP_RL_WINDOWS, APP_RL_LIMIT,
   APP_PASS: maskPass(APP_PASS)
 }))

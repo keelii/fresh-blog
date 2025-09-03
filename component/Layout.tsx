@@ -102,7 +102,7 @@ const codeCSS = `
 `
 const ALL_CSS = [resetCSS, wysiwygCSS, customCSS, codeCSS]
 
-export function Layout(props: React.PropsWithChildren<LayoutProps>) {
+export function Layout(props: any) {
   return (
     <>
       <head>
