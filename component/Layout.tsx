@@ -112,7 +112,7 @@ export function Layout(props: React.PropsWithChildren<LayoutProps>) {
         <meta name="keywords" content={BLOG_KEYWORDS} />
         <meta name="author" content={BLOG_AUTHOR} />
         <meta charSet="utf-8" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
         <link
           rel="canonical"
           href={BLOG_URL + (props.canonical || "")}

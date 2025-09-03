@@ -89,7 +89,7 @@ app.on(
 )
 
 app.use('/static/*', serveStatic({ root: './' }))
-app.use('/favicon.ico', serveStatic({ path: './static/favicon.ico' }))
+// app.use('/favicon.ico', serveStatic({ path: './static/favicon.ico' }))
 app.use(BLOG_RSS, serveStatic({ path: './static/atom.xml' }))
 
 app.get('/', async (c) => {

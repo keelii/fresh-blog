@@ -14,7 +14,7 @@ export function Base(props: React.PropsWithChildren<LayoutProps>) {
         <title>{props.title}</title>
 
         <meta charSet="utf-8" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
         <style type={"text/css"} dangerouslySetInnerHTML={{__html: ALL_CSS}}></style>
       </head>
       <body className="wysiwyg">
