@@ -20,8 +20,15 @@ export const APP_RL_LIMIT = Number(Deno.env.get("APP_RL_LIMIT") || "10")
 
 export const REDIRECTS: Record<string, string> = {
   "/2019/07/03/nestjs-framework-tutorial-1": "/2019/07/04/nestjs-framework-tutorial-1",
+  "/2019/07/03/nestjs-framework-tutorial-2": "/2019/07/04/nestjs-framework-tutorial-2",
   "/2019/07/03/nestjs-framework-tutorial-3": "/2019/07/04/nestjs-framework-tutorial-3",
+  "/2019/07/03/nestjs-framework-tutorial-4": "/2019/07/04/nestjs-framework-tutorial-4",
+  "/2019/07/03/nestjs-framework-tutorial-5": "/2019/07/04/nestjs-framework-tutorial-5",
+  "/2019/07/03/nestjs-framework-tutorial-6": "/2019/07/04/nestjs-framework-tutorial-6",
+  "/2019/07/03/nestjs-framework-tutorial-7": "/2019/07/04/nestjs-framework-tutorial-7",
   "/2019/07/03/nestjs-framework-tutorial-8": "/2019/07/04/nestjs-framework-tutorial-8",
+  "/2019/07/03/nestjs-framework-tutorial-9": "/2019/07/04/nestjs-framework-tutorial-9",
+  "/2019/07/03/nestjs-framework-tutorial-10": "/2019/07/04/nestjs-framework-tutorial-10",
   "/nestjs-framework-tutorial-9": "/2019/07/04/nestjs-framework-tutorial-9",
   "/2016/06/11/javascript-throttle": "2016/06/10/javascript-throttle",
   "/2019/03/14/how-to-create-a-real-world-app-based-on-fe-tech": "/2019/03/15/how-to-create-a-real-world-app-based-on-fe-tech",
