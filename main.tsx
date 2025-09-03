@@ -87,7 +87,7 @@ app.use(async (c, next) => {
 })
 app.use(async (c, next) => {
   if (REDIRECTS[c.req.path]) {
-    console.info("internal mapping redirect")
+    console.info("internal mapping redirect:", REDIRECTS[c.req.path])
     return c.redirect(REDIRECTS[c.req.path], 301)
   }
   await next()
