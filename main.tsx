@@ -4,7 +4,6 @@ import { serveStatic } from "hono/deno"
 import { compress } from 'hono/compress'
 import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
-import { trimTrailingSlash } from 'hono/trailing-slash'
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { basicAuth } from 'hono/basic-auth'
 import * as bcrypt from "https://deno.land/x/bcrypt/mod.ts";
@@ -28,14 +27,26 @@ await Deno.writeTextFile("./static/atom.xml", rss)
 
 const app = new Hono<HonoApp>()
 app.notFound((c) => {
-  const url = c.req.url
-  return c.redirect("/404?url=" + url, 302)
+  if (
+    (c.req.method === 'GET' || c.req.method === 'HEAD') &&
+    c.req.path !== '/' &&
+    c.req.path.at(-1) === '/'
+  ) {
+    const url = new URL(c.req.url)
+    url.pathname = url.pathname.substring(0, url.pathname.length - 1)
+
+    console.info("trailing slash redirect:", url.toString())
+    return c.redirect(url.toString(), 301)
+  }
+
+  const url = "/404?url=" + encodeURIComponent(c.req.url)
+  console.info("404 redirect", url)
+  return c.redirect(url, 302)
 })
 
 app.use(compress())
 app.use(csrf())
 app.use(secureHeaders())
-app.use(trimTrailingSlash())
 app.use(
   '/admin/*',
   basicAuth({
@@ -76,6 +87,7 @@ app.use(async (c, next) => {
 })
 app.use(async (c, next) => {
   if (REDIRECTS[c.req.path]) {
+    console.info("internal mapping redirect:", REDIRECTS[c.req.path])
     return c.redirect(REDIRECTS[c.req.path], 301)
   }
   await next()
