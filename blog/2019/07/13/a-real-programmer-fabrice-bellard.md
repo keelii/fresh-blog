@@ -67,14 +67,10 @@ Linus 的利害之处在于他说他是你的上帝，一般人连否定这句�
 
 法布里斯的每个作品都是那么惊艳：
 
-*   开源软件 FFmpeg，几乎被现在所有主流的媒体播放器使用
-
-*   发明了贝拉公式—最快圆周率算法，这个计算 N 位 PI 的公式比传统的 BBQ 算法要快 47%
-
-*   在PC上用软件实现 4G LTE 基站
-
-*   使用 JavaScript 写了一个 PC 虚拟机 [Jslinux](https://zh.wikipedia.org/wiki/Jslinux "Jslinux")
-
+* 开源软件 FFmpeg，几乎被现在所有主流的媒体播放器使用
+* 发明了贝拉公式—最快圆周率算法，这个计算 N 位 PI 的公式比传统的 BBQ 算法要快 47%
+* 在PC上用软件实现 4G LTE 基站
+* 使用 JavaScript 写了一个 PC 虚拟机 [Jslinux](https://zh.wikipedia.org/wiki/Jslinux "Jslinux")
 
 QuickJS 问世后，JavaScript 之父 Brendan Eich 也坐不住了，称赞法布里斯是**超级黑客**。
 
