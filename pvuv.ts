@@ -22,7 +22,8 @@ export async function removePVUV(keys: Deno.KvKey) {
 }
 
 export async function setUV(k: string, uid: string) {
-  // const uuids = await uv.getOrSet<string[]>(k, [])
+  const uuids = await uv.getOrSet<string[]>(k, [])
+  return uuids
   // return uuids.value.includes(uid)
   //   ? await uv.get(k) as Deno.KvEntry<string[]>
   //   : await uv.set(k, [...uuids.value, uid]) as Deno.KvEntry<string[]>;
