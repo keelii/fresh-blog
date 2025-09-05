@@ -1,5 +1,4 @@
 import { MetaInfo } from "../utils/post.ts";
-import { Count } from "../types.ts";
 import { Layout } from "./Layout.tsx";
 import { Container } from "./Container.tsx";
 import { toDisplayDate } from "../utils/util.ts";
@@ -7,8 +6,8 @@ import { Fragment } from "hono/jsx";
 import { Comment } from "./Comment.tsx";
 import { Footer } from "./Footer.tsx";
 
-export function ArticleDetail(props: MetaInfo & { count: Count }) {
-  const { content, count, ...yaml } = props;
+export function ArticleDetail(props: MetaInfo & { pv: Deno.KvEntry<number> | null }) {
+  const { content, pv, ...yaml } = props;
 
   const initMath = `
     window.MathJax = {
@@ -24,14 +23,14 @@ export function ArticleDetail(props: MetaInfo & { count: Count }) {
   return (
     <Layout title={yaml.title} canonical={yaml.url}>
       <Container>
-        <header className={"wysiwyg"}>
+        <header className="wysiwyg">
           <h1>{yaml.title}</h1>
           <span className="meta">
             {toDisplayDate(yaml.date)}
-            <a style={{ marginLeft: 5 }} href="/">首页</a> | <span>看过({count.uv?.value?.length})</span>
+            <a style={{ marginLeft: 5 }} href="/">首页</a> | <span>看过({pv?.value || 0})</span>
           </span>
         </header>
-        <article className={"wysiwyg"}>
+        <article className="wysiwyg">
           <div
             className="markdown-body"
             data-light-theme="light"
@@ -51,7 +50,7 @@ export function ArticleDetail(props: MetaInfo & { count: Count }) {
         </article>
         <div className="eof" />
         <Comment />
-        <Footer count={count} />
+        <Footer pv={pv} />
       </Container>
     </Layout>
   );

@@ -11,10 +11,10 @@ import { join } from "jsr:@std/path";
 import {getCachedPosts, parseYamlFile} from "./utils/post.ts";
 import {ArticleDetail} from "./component/ArticleDetail.tsx";
 import {Home} from "./component/Home.tsx";
-import {removePVUV, updatePVUV} from "./pvuv.ts";
+import {updatePageView} from "./pv.ts";
 import {HonoApp} from "./types.ts";
 import {KVTable} from "./component/KVTable.tsx";
-import {getAll} from "./kv.ts";
+import {deleteItem, getAll} from "./kv.ts";
 import {NotFound} from "./component/NotFound.tsx"
 import { rateLimitInstance } from "./middleware/rate-limit.ts";
 import {trailingSlash} from "./middleware/trailing-slash.ts";
@@ -45,10 +45,9 @@ app.use("*", rateLimitInstance)
 app.use(internalRedirect)
 app.use('/admin/*', adminAuth)
 
-app.on(
-  "GET",
-  ['/', '/:page', '/admin/kv', '/:year{\\d{4}}/:month{\\d{2}}/:date{\\d{2}}/:title{[A-Za-z0-9_-]+}'],
-  jsxRenderer(({ children }, context) => {
+app.get("*",
+  // ['/', '/:page', '/admin/kv', '/:year{\\d{4}}/:month{\\d{2}}/:date{\\d{2}}/:title{[A-Za-z0-9_-]+}'],
+  jsxRenderer(({ children }, c) => {
     return <html lang="zh_CN">{children}</html>
   })
 )
@@ -59,8 +58,8 @@ app.use(BLOG_RSS, serveStatic({ path: './static/atom.xml' }))
 
 app.get('/', async (c) => {
   const posts = await getCachedPosts()
-  // const {pv, uv} = await updatePVUV(c)
-  return c.render(<Home posts={posts} count={{pv: null, uv: null}} />)
+  const pv = await updatePageView(c.req.path)
+  return c.render(<Home posts={posts} pv={pv} />)
 });
 app.get('/404', (c) => {
   c.status(404)
@@ -77,8 +76,8 @@ app.get('/:year{\\d{4}}/:month{\\d{2}}/:date{\\d{2}}/:title{[A-Za-z0-9_-]+}', as
     const post = await parseYamlFile(file, true)
     if (!post) return c.notFound()
 
-    // const {pv, uv} = await updatePVUV(c)
-    return c.render(<ArticleDetail count={{ pv: null, uv: null }} {...post} />)
+    const pv = await updatePageView(c.req.path)
+    return c.render(<ArticleDetail pv={pv} {...post} />)
   }
 })
 app.get('/:page', async (c) => {
@@ -88,11 +87,12 @@ app.get('/:page', async (c) => {
   if (!await exists(file, { isFile: true })) {
     return c.notFound()
   } else {
-    // const {pv, uv} = await updatePVUV(c)
+
+    const pv = await updatePageView(c.req.path)
     const post = await parseYamlFile(file, true)
     if (!post) return c.notFound()
 
-    return c.render(<ArticleDetail count={{pv: null, uv: null}} {...post} />)
+    return c.render(<ArticleDetail pv={pv} {...post} />)
   }
 })
 
@@ -104,7 +104,7 @@ app.get("/admin/kv", async (c) => {
   if (kStr) {
     const keys = kStr.split(":")
 
-    await removePVUV(keys)
+    await deleteItem(keys)
     return c.redirect(c.req.path, 302)
   }
 

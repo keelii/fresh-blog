@@ -1,11 +1,10 @@
-import { Count } from "../types.ts";
 import { MetaInfo } from "../utils/post.ts";
 import { Layout } from "./Layout.tsx";
 import { BLOG_TITLE } from "../config.ts";
 import { Container } from "./Container.tsx";
 import { Footer } from "./Footer.tsx";
 
-export function Home(props: { count: Count; posts: MetaInfo[] }) {
+export function Home(props: { pv: Deno.KvEntry<number> | null; posts: MetaInfo[] }) {
   const { posts } = props;
 
   return (
@@ -26,7 +25,7 @@ export function Home(props: { count: Count; posts: MetaInfo[] }) {
           </ul>
           <hr style={{ marginTop: 40 }} />
         </div>
-        <Footer count={props.count} />
+        <Footer pv={props.pv} />
       </Container>
     </Layout>
   );

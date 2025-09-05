@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "hono/jsx";
 import {
   BLOG_AUTHOR,
   BLOG_DESCRIPTION,
@@ -102,7 +103,7 @@ const codeCSS = `
 `
 const ALL_CSS = [resetCSS, wysiwygCSS, customCSS, codeCSS]
 
-export function Layout(props: any) {
+export function Layout(props: PropsWithChildren<{ title: string, canonical: string }>) {
   return (
     <>
       <head>
@@ -126,14 +127,10 @@ export function Layout(props: any) {
         <meta name="sogou_site_verification" content="O1Cfr1TQve" />
         <meta name="baidu-site-verification" content="eLbyQls8CF" />
 
-        <style type={"text/css"}
+        <style type="text/css"
                dangerouslySetInnerHTML={{__html: ALL_CSS.join("\n")}}></style>
 
-        <script
-          async={true}
-          src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"
-        >
-        </script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-1"></script>
         <script dangerouslySetInnerHTML={{ __html: gaScript }}></script>
       </head>
       <body>

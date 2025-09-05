@@ -1,7 +1,7 @@
 import {BLOG_AUTHOR, BLOG_RSS, BLOG_URL} from "../config.ts";
 import { Count } from "../types.ts";
 
-export function Footer({ count }: { count: Count }) {
+export function Footer({ pv }: { pv: Deno.KvEntry<number> | null }) {
   return (
     <footer>
       <p>
@@ -11,10 +11,7 @@ export function Footer({ count }: { count: Count }) {
         <a href={`${BLOG_URL}${BLOG_RSS}`}>
           <abbr title="RDF Site Summary">RSS</abbr>
         </a>
-        <>
-          | <span>PV: {count.pv?.value || ""}</span>
-            <span>UV: {count.uv?.value?.length}</span>
-        </>
+        | <span>PV: {pv?.value || 0}</span>
       </p>
     </footer>
   );
