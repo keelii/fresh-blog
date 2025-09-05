@@ -11,12 +11,12 @@ import { join } from "jsr:@std/path";
 import {getCachedPosts, parseYamlFile} from "./utils/post.ts";
 import {ArticleDetail} from "./component/ArticleDetail.tsx";
 import {Home} from "./component/Home.tsx";
-// import {removePVUV, updatePVUV} from "./pvuv.ts";
+import {removePVUV, updatePVUV} from "./pvuv.ts";
 import {HonoApp} from "./types.ts";
-// import {KVTable} from "./component/KVTable.tsx";
-// import {getAll} from "./kv.ts";
+import {KVTable} from "./component/KVTable.tsx";
+import {getAll} from "./kv.ts";
 import {NotFound} from "./component/NotFound.tsx"
-import { rateLimitInstance} from "./middleware/rate-limit.ts";
+import { rateLimitInstance } from "./middleware/rate-limit.ts";
 import {trailingSlash} from "./middleware/trailing-slash.ts";
 import {adminAuth} from "./middleware/admin-auth.ts";
 import {generateUuid} from "./middleware/generate-uuid.ts";
@@ -96,19 +96,19 @@ app.get('/:page', async (c) => {
   }
 })
 
-// app.get("/admin/kv", async (c) => {
-//   const kStr = c.req.query()["k"]
-//
-//   const kv = await getAll()
-//
-//   if (kStr) {
-//     const keys = kStr.split(":")
-//
-//     await removePVUV(keys)
-//     return c.render(<KVTable title="KV" kv={kv} />)
-//   }
-//
-//   return c.render(<KVTable title="KV" kv={kv} />)
-// })
+app.get("/admin/kv", async (c) => {
+  const kStr = c.req.query()["k"]
+
+  const kv = await getAll()
+
+  if (kStr) {
+    const keys = kStr.split(":")
+
+    await removePVUV(keys)
+    return c.redirect(c.req.path, 302)
+  }
+
+  return c.render(<KVTable title="KV" kv={kv} />)
+})
 
 Deno.serve({ port: APP_PORT }, app.fetch)
