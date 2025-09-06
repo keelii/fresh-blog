@@ -24,7 +24,7 @@ import {internalRedirect} from "./middleware/internal-redirect.ts";
 
 
 const rss = await generateRSS()
-await Deno.writeTextFile("./static/atom.xml", rss)
+await Deno.writeTextFile(join(Deno.cwd(), "static/atom.xml"), rss)
 
 const app = new Hono<HonoApp>()
 app.notFound((c) => {
