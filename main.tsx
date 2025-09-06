@@ -111,4 +111,6 @@ app.get("/admin/kv", async (c) => {
   return c.render(<KVTable title="KV" kv={kv} />)
 })
 
-Deno.serve({ port: APP_PORT }, app.fetch)
+export function startApp() {
+  Deno.serve({ port: APP_PORT }, app.fetch)
+}
