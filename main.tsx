@@ -24,7 +24,7 @@ import {internalRedirect} from "./middleware/internal-redirect.ts";
 
 
 const rss = await generateRSS()
-await Deno.writeTextFile("./static/atom.xml", rss)
+// await Deno.writeTextFile(join(Deno.cwd(), "static/atom.xml"), rss)
 
 const app = new Hono<HonoApp>()
 app.notFound((c) => {
@@ -53,8 +53,12 @@ app.get("*",
 )
 
 app.use('/static/*', serveStatic({ root: './' }))
-// app.use('/favicon.ico', serveStatic({ path: './static/favicon.ico' }))
-app.use(BLOG_RSS, serveStatic({ path: './static/atom.xml' }))
+app.use('/favicon.ico', serveStatic({ path: './static/favicon.ico' }))
+// app.use(BLOG_RSS, serveStatic({ path: './static/atom.xml' }))
+app.get(BLOG_RSS, (c) => {
+  c.header('Content-Type', 'application/xml')
+  return c.newResponse(rss)
+})
 
 app.get('/', async (c) => {
   const posts = await getCachedPosts()
