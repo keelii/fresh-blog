@@ -43,25 +43,29 @@ export function initTask() {
 
   // Deno.cron("schedule insert tasks", "*/10 * * * *", async () => {
   Deno.cron("schedule insert tasks", "* * * * *", async () => {
-    console.log("=Task started")
+    if (items.length === 0) {
+      console.log("No tasks to process")
+    } else {
+      console.log("=Task started")
 
-    while (true) {
-      const task = items.pop();
-      if (!task) {
-        console.log("-Task empty")
-        break;
+      while (true) {
+        const task = items.pop();
+        if (!task) {
+          console.log("-Task empty")
+          break;
+        }
+
+        try {
+          console.log("-Pick item:", task.uid)
+          await insertDoc(task)
+          console.log("-Inserted item:", JSON.stringify(task))
+        } catch (e) {
+          console.error(e)
+        }
       }
 
-      try {
-        console.log("-Pick item:", task.uid)
-        await insertDoc(task)
-        console.log("-Inserted item:", JSON.stringify(task))
-      } catch (e) {
-        console.error(e)
-      }
+      console.log("=Task end")
     }
-
-    console.log("=Task end")
   });
 }
 
