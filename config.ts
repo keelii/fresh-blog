@@ -17,6 +17,8 @@ export const APP_SALT = Number(Deno.env.get("APP_SALT") || "8")
 export const APP_PASS = Deno.env.get("APP_PASS") || ""
 export const APP_RL_WINDOWS = Number(Deno.env.get("APP_RL_WINDOWS") || "1000")
 export const APP_RL_LIMIT = Number(Deno.env.get("APP_RL_LIMIT") || "10")
+export const COUCHDB_URL = Deno.env.get("COUCHDB_URL") || ""
+export const COUCHDB_AUTH = Deno.env.get("COUCHDB_AUTH") || ""
 
 export const REDIRECTS: Record<string, string> = {
   "/2019/07/03/nestjs-framework-tutorial-1": "/2019/07/04/nestjs-framework-tutorial-1",
@@ -52,5 +54,7 @@ warn("CONFIG:" + JSON.stringify({
   BLOG_AUTHOR,
   BLOG_KEYWORDS,
   BLOG_RSS, APP_RL_WINDOWS, APP_RL_LIMIT,
-  APP_PASS: maskPass(APP_PASS)
+  APP_PASS: maskPass(APP_PASS),
+  COUCHDB_URL,
+  COUCHDB_AUTH: maskPass(COUCHDB_AUTH),
 }))
