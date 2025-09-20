@@ -44,7 +44,7 @@ export function initTask() {
   // Deno.cron("schedule insert tasks", "*/10 * * * *", async () => {
   Deno.cron("schedule insert tasks", "* * * * *", async () => {
     if (items.length === 0) {
-      console.log("No tasks to process")
+      console.warn("No tasks to process")
     } else {
       console.log("=Task started")
 
