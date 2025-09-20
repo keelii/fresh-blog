@@ -19,7 +19,7 @@ export function Base(props: PropsWithChildren<LayoutProps>) {
         <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
         <style type="text/css" dangerouslySetInnerHTML={{__html: ALL_CSS}}></style>
       </head>
-      <body className="wysiwyg">
+      <body className="wysiwyg" style="padding: 2em;">
       {props.children}
       </body>
     </>
