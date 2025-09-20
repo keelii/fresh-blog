@@ -1,6 +1,7 @@
 import {initKV} from "./kv.ts"
 
 const pv = await initKV<number>("PV")
+// const uv = await initKV<number>("UV_cache")
 
 // await pv.deleteAll()
 // await uv.deleteAll()

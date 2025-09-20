@@ -1,10 +1,36 @@
 import {KVItem} from "../kv.ts"
 import {Base} from "./Base.tsx"
+import {UVItem} from "../couch_db.ts"
 
-export function KVTable({kv, title}: {title: string, kv: KVItem<any>[]}) {
+function JsonTable({json}: { json: UVItem[] }) {
+  return (
+    <table>
+      <thead>
+        <tr>
+          {Object.keys(json[0] || {}).map((key) => (
+            <th key={key}>{key}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {json.map((item, index) => (
+          <tr key={index}>
+            {Object.values(item).map((value, i) => (
+              <td key={i}>{String(value)}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+}
+export function KVTable({kv, title, items}: {title: string, kv: KVItem<any>[], items: UVItem[]}) {
   return (
     <Base title={title}>
       <div style={{fontSize: "14px"}}>
+        <h2>UVItem</h2>
+        <JsonTable json={items}  />
+        <h2>PVItem</h2>
         <table>
           <thead>
             <tr>

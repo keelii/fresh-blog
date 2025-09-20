@@ -21,6 +21,7 @@ import {trailingSlash} from "./middleware/trailing-slash.ts";
 import {adminAuth} from "./middleware/admin-auth.ts";
 import {generateUuid} from "./middleware/generate-uuid.ts";
 import {internalRedirect} from "./middleware/internal-redirect.ts";
+import {showTasks} from "./couch_db.ts"
 
 
 const rss = await generateRSS()
@@ -112,7 +113,9 @@ app.get("/admin/kv", async (c) => {
     return c.redirect(c.req.path, 302)
   }
 
-  return c.render(<KVTable title="KV" kv={kv} />)
+  const items = showTasks()
+
+  return c.render(<KVTable title="KV" kv={kv} items={items} />)
 })
 
 export function startApp() {
