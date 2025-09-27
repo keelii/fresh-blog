@@ -22,6 +22,7 @@ import {adminAuth} from "./middleware/admin-auth.ts";
 import {generateUuid} from "./middleware/generate-uuid.ts";
 import {internalRedirect} from "./middleware/internal-redirect.ts";
 import {showTasks} from "./couch_db.ts"
+import {Category} from "./component/Category.tsx"
 
 
 const rss = await generateRSS()
@@ -62,9 +63,18 @@ app.get(BLOG_RSS, (c) => {
 })
 
 app.get('/', async (c) => {
-  const posts = await getCachedPosts()
+  const ret = await getCachedPosts()
   const pv = await updatePageView(c.req.path)
-  return c.render(<Home posts={posts} pv={pv} />)
+  return c.render(<Home posts={ret.posts} pv={pv} />)
+});
+app.get('/categories/:name', async (c) => {
+  const { name } = c.req.param()
+  const ret = await getCachedPosts()
+  const posts = ret.category[name]
+  if (!posts) {
+    return c.notFound()
+  }
+  return c.render(<Category name={name} posts={posts} />)
 });
 app.get('/404', (c) => {
   c.status(404)
