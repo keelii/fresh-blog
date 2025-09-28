@@ -5,6 +5,7 @@ import { toDisplayDate } from "../utils/util.ts";
 import { Fragment } from "hono/jsx";
 import { Comment } from "./Comment.tsx";
 import { Footer } from "./Footer.tsx";
+import {CategoryItems} from "./CategoryItems.tsx";
 
 export function ArticleDetail(props: MetaInfo & { pv: Deno.KvEntry<number> | null }) {
   const { content, pv, ...yaml } = props;
@@ -26,8 +27,9 @@ export function ArticleDetail(props: MetaInfo & { pv: Deno.KvEntry<number> | nul
         <header className="wysiwyg">
           <h1>{yaml.title}</h1>
           <span className="meta">
-            {toDisplayDate(yaml.date)}
+            <span>{toDisplayDate(yaml.date)}</span>
             <a style={{ marginLeft: 5 }} href="/">首页</a> | <span>看过({pv?.value || 0})</span>
+            <span> <CategoryItems post={yaml} /></span>
           </span>
         </header>
         <article className="wysiwyg">

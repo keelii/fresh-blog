@@ -8,7 +8,7 @@ tags:
   - life
 ---
 
-看到HN上关于 React 的[一些讨论](https://news.ycombinator.com/item?id=45252715)，也想说点我的看法。
+看到 HN 上关于 React 的[一些讨论](https://news.ycombinator.com/item?id=45252715)，也想说点我的看法。
 
 ---
 
