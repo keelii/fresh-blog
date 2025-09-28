@@ -21,10 +21,12 @@ import {trailingSlash} from "./middleware/trailing-slash.ts";
 import {adminAuth} from "./middleware/admin-auth.ts";
 import {generateUuid} from "./middleware/generate-uuid.ts";
 import {internalRedirect} from "./middleware/internal-redirect.ts";
+import {showTasks} from "./couch_db.ts"
+import {Category} from "./component/Category.tsx"
 
 
 const rss = await generateRSS()
-await Deno.writeTextFile("./static/atom.xml", rss)
+// await Deno.writeTextFile(join(Deno.cwd(), "static/atom.xml"), rss)
 
 const app = new Hono<HonoApp>()
 app.notFound((c) => {
@@ -53,13 +55,26 @@ app.get("*",
 )
 
 app.use('/static/*', serveStatic({ root: './' }))
-// app.use('/favicon.ico', serveStatic({ path: './static/favicon.ico' }))
-app.use(BLOG_RSS, serveStatic({ path: './static/atom.xml' }))
+app.use('/favicon.ico', serveStatic({ path: './static/favicon.ico' }))
+// app.use(BLOG_RSS, serveStatic({ path: './static/atom.xml' }))
+app.get(BLOG_RSS, (c) => {
+  c.header('Content-Type', 'application/xml')
+  return c.newResponse(rss)
+})
 
 app.get('/', async (c) => {
-  const posts = await getCachedPosts()
+  const ret = await getCachedPosts()
   const pv = await updatePageView(c.req.path)
-  return c.render(<Home posts={posts} pv={pv} />)
+  return c.render(<Home posts={ret.posts} pv={pv} />)
+});
+app.get('/categories/:name', async (c) => {
+  const { name } = c.req.param()
+  const ret = await getCachedPosts()
+  const posts = ret.category[name]
+  if (!posts) {
+    return c.notFound()
+  }
+  return c.render(<Category name={name} posts={posts} />)
 });
 app.get('/404', (c) => {
   c.status(404)
@@ -108,7 +123,11 @@ app.get("/admin/kv", async (c) => {
     return c.redirect(c.req.path, 302)
   }
 
-  return c.render(<KVTable title="KV" kv={kv} />)
+  const items = showTasks()
+
+  return c.render(<KVTable title="KV" kv={kv} items={items} />)
 })
 
-Deno.serve({ port: APP_PORT }, app.fetch)
+export function startApp() {
+  Deno.serve({ port: APP_PORT }, app.fetch)
+}

@@ -20,11 +20,13 @@ export interface MetaInfo {
 
 interface ICache {
   posts: MetaInfo[] | null;
+  category: Record<string, MetaInfo[]>;
   post: Record<string, MetaInfo>;
 }
 
 let CACHE: ICache = {
   posts: null,
+  category: {},
   post: {},
 };
 
@@ -100,24 +102,37 @@ export async function parseYamlFile(path: string, includeContent: boolean = fals
 export async function getCachedPosts(includeContent: boolean = false) {
   if (!CACHE.posts) {
     try {
-      CACHE.posts = await getPosts(BLOG_DIR, includeContent);
+      const {articles, category} = await getPosts(BLOG_DIR, includeContent);
+      CACHE.posts = articles;
+      CACHE.category = category;
     } catch (e) {
       console.log("=====", BLOG_DIR)
       console.error(e);
       return []
     }
   }
-  return CACHE.posts;
+  return { posts: CACHE.posts, category: CACHE.category };
 }
 
 export async function getPosts(dir: string, includeContent: boolean = false) {
   const items = await walk(dir);
   const articles: MetaInfo[] = [];
+  const category: Record<string, MetaInfo[]> = {};
 
   for await (const item of items) {
     if (item.isFile) {
       let info = await parseYamlFile(item.path, includeContent);
 
+      const ret = await parseYamlFile(item.path, false)
+      if (Array.isArray(ret && ret.categories) && ret.categories.length) {
+        ret.categories.forEach(name => {
+          const key = name.replaceAll(/\s+/g, "-")
+          if (!category[key]) {
+            category[key] = []
+          }
+          category[key].push(info)
+        })
+      }
       info && articles.push(info);
 
       // if (info) {
@@ -146,6 +161,6 @@ export async function getPosts(dir: string, includeContent: boolean = false) {
     }
   }
 
-  // @ts-ignore:
-  return articles.sort((a, b) => b.date - a.date);
+  articles.sort((a, b) => b.date - a.date);
+  return { articles, category };
 }

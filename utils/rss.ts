@@ -18,8 +18,8 @@ export async function generateRSS() {
     },
   });
 
-  const posts = await getCachedPosts(true);
-  for (const post of posts) {
+  const ret = await getCachedPosts(true);
+  for (const post of ret.posts) {
     const item: Item = {
       id: BLOG_URL + post.url,
       link: BLOG_URL + post.url,
