@@ -23,6 +23,7 @@ import {generateUuid} from "./middleware/generate-uuid.ts";
 import {internalRedirect} from "./middleware/internal-redirect.ts";
 import {showTasks} from "./couch_db.ts"
 import {Category} from "./component/Category.tsx"
+import {CategoryList} from "./component/CategoryList.tsx";
 
 
 const rss = await generateRSS()
@@ -66,6 +67,16 @@ app.get('/', async (c) => {
   const ret = await getCachedPosts()
   const pv = await updatePageView(c.req.path)
   return c.render(<Home posts={ret.posts} pv={pv} />)
+});
+app.get('/categories/', async (c) => {
+  const { name } = c.req.param()
+  const ret = await getCachedPosts()
+  const items = Object.keys(ret.category).map(name => {
+    return {
+      name, count: ret.category[name].length
+    }
+  })
+  return c.render(<CategoryList items={items} />)
 });
 app.get('/categories/:name', async (c) => {
   const { name } = c.req.param()

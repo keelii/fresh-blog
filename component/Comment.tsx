@@ -1,6 +1,6 @@
 export function Comment(props: any) {
   return (
-    <div className="comment">
+    <div className="comment giscus">
       <script
         src="https://giscus.app/client.js"
         data-repo="keelii/fresh-blog"

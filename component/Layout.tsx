@@ -101,8 +101,8 @@ const codeCSS = `
   .token.italic { font-style: italic; }
   .token.entity { cursor: help; }
   .cate-item { display: flex; justify-content: space-between; align-items: center; }
-  .cate-item>span { text-align: right; font-size: 14px; color: #666; }
-  .cate-item em { font-weight: normal; margin: 0 5px; }
+  .cate-item>span { text-align: right; font-size: 16px; color: #666; }
+  .cate-item em { font-weight: normal; }
   .cate-item>span>a { color: #666; }
   .cate-title { max-width: 70%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 `
