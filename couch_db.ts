@@ -27,6 +27,7 @@ export async function checkDatabase() {
     console.warn(`Database connecting Fail [${Date.now() - cost}ms]:`, json)
   }
 }
+
 export function showTasks() {
   return items.map(i => {
     return {
@@ -35,38 +36,49 @@ export function showTasks() {
     }
   })
 }
-export function initTask() {
+
+let started = false;
+export function startTask() {
+  if (started) return;
+  started = true;
+  console.log("Task started")
+}
+export function stopTask() {
+  if (!started) return;
+  started = false;
+  console.log("Task stopped")
+}
+async function runTask() {
   if (!Deno.cron) {
     console.log("cron is not supported")
     return
   }
 
-  // Deno.cron("schedule insert tasks", "*/10 * * * *", async () => {
-  Deno.cron("schedule insert tasks", "* * * * *", async () => {
-    if (items.length === 0) {
-      console.warn("No tasks to process")
-    } else {
-      console.log("=Task started")
+  if (!started) return;
 
-      while (true) {
-        const task = items.pop();
-        if (!task) {
-          console.log("-Task empty")
-          break;
-        }
+  if (items.length === 0) {
+    console.warn("No tasks to process")
+  } else {
+    console.log("=Task started")
 
-        try {
-          console.log("-Pick item:", task.uid)
-          await insertDoc(task)
-          console.log("-Inserted item:", JSON.stringify(task))
-        } catch (e) {
-          console.error(e)
-        }
+    while (true) {
+      const task = items.pop();
+      if (!task) {
+        console.log("-Task empty")
+        break;
       }
 
-      console.log("=Task end")
+      try {
+        console.log("-Pick item:", task.uid)
+        await insertDoc(task)
+        console.log("-Inserted item:", JSON.stringify(task))
+      } catch (e) {
+        console.error(e)
+      }
     }
-  });
+
+    console.log("=Task end")
+  }
 }
 
 export function enqueue(item: Record<string, unknown>) {
@@ -93,3 +105,6 @@ async function insertDoc(doc: Record<string, unknown>) {
     console.error(data)
   }
 }
+
+// Deno.cron("schedule insert tasks", "*/10 * * * *", async () => {
+Deno.cron("schedule insert tasks", "* * * * *", runTask);

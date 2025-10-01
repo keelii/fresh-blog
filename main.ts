@@ -1,11 +1,12 @@
 import {startApp} from "./main.tsx"
-import {checkDatabase, initTask} from "./couch_db.ts"
+import {checkDatabase, startTask, stopTask} from "./couch_db.ts"
 
 startApp();
 
 try {
   await checkDatabase()
-  initTask();
+  startTask()
 } catch (e) {
+  stopTask()
   console.error(e)
 }

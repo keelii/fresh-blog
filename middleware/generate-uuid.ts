@@ -15,7 +15,7 @@ export async function generateUuid(c: Context, next: Next) {
       })
       c.set("uid", uid)
       enqueue({
-        uid,
+        _id: uid,
         clientIp: getClientIpAddress(c),
         userAgent: c.req.header("User-Agent") || "",
         referer: c.req.header("Referer") || "",
