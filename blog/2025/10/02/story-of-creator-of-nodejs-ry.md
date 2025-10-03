@@ -203,9 +203,9 @@ V8 的出现让 chrome 浏览器在 2008–2015 年期间，市场占用率从 0
 
 **第二**：JavaScript 语言特性丰富
 
-JavaScript 语言是一门看起来啥功能都有的语言。我们可以看看中的一段关于 JavaScript 的介绍
+JavaScript 语言是一门看起来啥功能都有的语言。我们可以看看《JavaScript 权威指南》中的一段关于 JavaScript 的介绍
 
-> JavaScript 是面向 web 的编程语言，是一门 **高阶的**（high-level）、 **动态的**（dynamic）、 **弱类型的**（untyped） **解释型**（interpreted）编程语言，适合面向对象（oop）和函数式的（functional）编程风格。JavaScript 语法源自 Java 和 C，一等函数（first-class function）来自于 Scheme，它的基于原型继承来自于 Self
+> JavaScript 是面向 web 的编程语言，是一门 **高阶的**（high-level）、**动态的**（dynamic）、**弱类型的**（untyped）**解释型**（interpreted）编程语言，适合面向对象（oop）和函数式的（functional）编程风格。JavaScript 语法源自 Java 和 C，一等函数（first-class function）来自于 Scheme，它的基于原型继承来自于 Self
 
 可以看出来 JavaScript 啥特性都有，但实际上啥特性都不好用。这就给 ry 一个选择 JavaScript 的理由，这门编程语言上没有什么特别好的东西，才不至于它有一些默认的范式而导致语言层面引入异步 IO 会产生很大的阻力。
 
