@@ -2,6 +2,7 @@
 .prd.env
 .vscode
 .idea
+.obsidian
 # Logs
 logs
 *.log
