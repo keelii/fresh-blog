@@ -7,8 +7,8 @@ try {
   await fetchRemote()
 
   startApp();
-  startTask();
+  // startTask();
 } catch (e) {
-  stopTask()
+  // stopTask()
   console.error(e)
 }

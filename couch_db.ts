@@ -107,4 +107,4 @@ async function insertDoc(doc: Record<string, unknown>) {
 }
 
 // Deno.cron("schedule insert tasks", "*/10 * * * *", async () => {
-Deno.cron("schedule insert tasks", "* * * * *", runTask);
+// Deno.cron("schedule insert tasks", "* * * * *", runTask);
