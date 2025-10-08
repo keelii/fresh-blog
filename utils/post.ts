@@ -94,7 +94,7 @@ export async function parseYamlFile(path: string, includeContent: boolean = fals
       content: includeContent ? html : "",
     };
   } catch (e) {
-    console.error(e);
+    console.error(path, e);
   }
   return null;
 }
@@ -115,7 +115,10 @@ export async function getCachedPosts(includeContent: boolean = false) {
 }
 
 export async function getPosts(dir: string, includeContent: boolean = false) {
-  const items = await walk(dir);
+  const items = await walk(dir, {
+    exts: [".md"],
+    skip: [/\.obsidian/, /node_modules/, /\.git/, /\.vscode/, /\.idea/],
+  });
   const articles: MetaInfo[] = [];
   const category: Record<string, MetaInfo[]> = {};
 
