@@ -68,10 +68,16 @@ export async function parseYamlContent(path: string, contents: string, includeCo
 
   try {
     const toml = parseYaml(yamlContent) as any;
-
     const html = md.render(mdContent);
 
-    if (toml.draft) return null;
+    if (!toml) {
+      console.warn(path, contents.length, yamlContent)
+      return null
+    }
+
+    if (toml.draft) {
+      return null;
+    }
 
     const date = new Date(Date.parse(toml.date));
     const datePrefix = new Intl.DateTimeFormat("zh-Hans-CN", {
@@ -173,6 +179,6 @@ export async function getPosts(dir: string, includeContent: boolean = false) {
     return { articles, category };
   }
 
-  console.log("read local posts")
+  console.log("read local posts", POST_CACHE.size)
   return getLocalPosts(dir, includeContent);
 }
