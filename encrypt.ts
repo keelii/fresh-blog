@@ -80,7 +80,7 @@ if (!Deno.env.has("ENCRYPT_KEY")) {
   console.warn("ENCRYPT_KEY not set, generating a new one.");
   const exportedKey = await exportKey();
   console.log(exportedKey);
-  Deno.exit(1)
+  throw new Error("ENCRYPT_KEY not set, generating a new one.")
 } else {
   exportedKey = Deno.env.get("ENCRYPT_KEY")
 }
