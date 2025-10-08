@@ -6,6 +6,7 @@ import { walk } from "jsr:@std/fs";
 
 import { md } from "./markdown.ts";
 import {BLOG_DIR} from "../config.ts";
+import {POST_CACHE} from "../cache.ts"
 
 export interface MetaInfo {
   title: string;
@@ -62,8 +63,7 @@ export async function parseCachedYamlFile(path: string, includeContent: boolean 
   return CACHE.post[path];
 }
 
-export async function parseYamlFile(path: string, includeContent: boolean = false): Promise<MetaInfo | null> {
-  const contents = await Deno.readTextFile(path);
+export async function parseYamlContent(path: string, contents: string, includeContent: boolean = false): Promise<MetaInfo | null> {
   const [yamlContent, mdContent] = getYamlString(contents);
 
   try {
@@ -98,6 +98,10 @@ export async function parseYamlFile(path: string, includeContent: boolean = fals
   }
   return null;
 }
+export async function parseYamlFile(path: string, includeContent: boolean = false): Promise<MetaInfo | null> {
+  const contents = await Deno.readTextFile(path);
+  return parseYamlContent(path, contents, includeContent);
+}
 
 export async function getCachedPosts(includeContent: boolean = false) {
   if (!CACHE.posts) {
@@ -114,7 +118,7 @@ export async function getCachedPosts(includeContent: boolean = false) {
   return { posts: CACHE.posts, category: CACHE.category };
 }
 
-export async function getPosts(dir: string, includeContent: boolean = false) {
+export async function getLocalPosts(dir: string, includeContent: boolean = false) {
   const items = await walk(dir, {
     exts: [".md"],
     skip: [/\.obsidian/, /node_modules/, /\.git/, /\.vscode/, /\.idea/],
@@ -137,33 +141,38 @@ export async function getPosts(dir: string, includeContent: boolean = false) {
         })
       }
       info && articles.push(info);
-
-      // if (info) {
-      //   const {title, date, url, content, ...rest} = info
-      //   try {
-      //     let matter = {title, date} as any
-      //     if (rest.categories && rest.categories.length) {
-      //       matter.categories = rest.categories
-      //     }
-      //     if (rest.tags && rest.tags.length) {
-      //       matter.tags = rest.tags
-      //     }
-      //     if (rest.math) matter.math = rest.math
-      //     if (rest.draft) matter.draft = rest.draft
-      //
-      //     // if (item.path.includes("test-post")) {
-      //     //   const cnt = `---\n${stringify(matter)}---\n\n${content}`
-      //       // Deno.writeTextFileSync(item.path, cnt)
-      //     // }
-      //   } catch (e) {
-      //     console.log(rest)
-      //     console.log("ERROR: ", item.path, e.message)
-      //     break;
-      //   }
-      // }
     }
   }
 
   articles.sort((a, b) => b.date - a.date);
   return { articles, category };
+}
+export async function getPosts(dir: string, includeContent: boolean = false) {
+  if (POST_CACHE.size) {
+    const articles: MetaInfo[] = [];
+    const category: Record<string, MetaInfo[]> = {};
+    for (let [path, content] of POST_CACHE) {
+      const info = await parseYamlContent(path, content, includeContent);
+      if (!info) {
+        console.warn("No info:", path)
+        continue;
+      }
+      articles.push(info)
+      ;(info.categories || []).forEach(name => {
+        const key = name.replaceAll(/\s+/g, "-")
+        if (!category[key]) {
+          category[key] = []
+        }
+        category[key].push(info)
+      })
+    }
+
+    console.log("use cache posts:", articles.length)
+
+    articles.sort((a, b) => b.date - a.date);
+    return { articles, category };
+  }
+
+  console.log("read local posts")
+  return getLocalPosts(dir, includeContent);
 }
