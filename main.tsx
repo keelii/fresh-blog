@@ -93,12 +93,12 @@ app.get('/404', (c) => {
 app.get('/:year{\\d{4}}/:month{\\d{2}}/:date{\\d{2}}/:title{[A-Za-z0-9_-]+}', async (c) => {
   const { year, month, date, title } = c.req.param()
 
-  const file = join(BLOG_DIR, year, month, date, title + ".md")
+  const cache = await getCachedPosts(true);
+  const post = cache.posts.find(p => p.url === `/${year}/${month}/${date}/${title}`)
 
-  if (!await exists(file, { isFile: true })) {
+  if (!post) {
     return c.notFound()
   } else {
-    const post = await parseYamlFile(file, true)
     if (!post) return c.notFound()
 
     const pv = await updatePageView(c.req.path)
