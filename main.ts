@@ -12,4 +12,6 @@ try {
 } catch (e) {
   // stopTask()
   console.error(e)
+  console.warn("Fallback to local")
+  startApp();
 }
