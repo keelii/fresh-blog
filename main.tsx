@@ -99,8 +99,6 @@ app.get('/:year{\\d{4}}/:month{\\d{2}}/:date{\\d{2}}/:title{[A-Za-z0-9_-]+}', as
   if (!post) {
     return c.notFound()
   } else {
-    if (!post) return c.notFound()
-
     const pv = await updatePageView(c.req.path)
     return c.render(<ArticleDetail pv={pv} {...post} />)
   }
