@@ -4,16 +4,13 @@ import {generateRSS} from "./utils/rss.ts"
 export let POST_CACHE = new Map<string, string>()
 export let RSS_CONTENT = null
 
-export async function cacheRSS() {
-  if (!RSS_CONTENT) {
-    RSS_CONTENT = await generateRSS()
-  }
-}
-export async function fetchRemote() {
+async function fetchRemote() {
   const BLOG_API_URI = Deno.env.get("BLOG_API_URI")
   if (!BLOG_API_URI) {
     throw new Error("BLOG_API_URI is missing")
   }
+
+  const cachePost = new Map<string, string>()
 
   try {
     const res = await fetch(BLOG_API_URI)
@@ -26,11 +23,42 @@ export async function fetchRemote() {
         console.warn("No path:", post)
         continue
       }
-      POST_CACHE.set(post.path, post.content)
+      cachePost.set(post.path, post.content)
     }
-    console.log("Fetched remote posts:", POST_CACHE.size)
+    console.log("Fetched remote posts:", cachePost.size)
+    return cachePost;
   } catch (e) {
     console.error(e)
+    return POST_CACHE
+  }
+}
+
+export async function cacheRSS() {
+  if (!RSS_CONTENT) {
+    RSS_CONTENT = await generateRSS()
+  }
+}
+export async function cachePosts() {
+  if (POST_CACHE.size === 0) {
+    POST_CACHE = await fetchRemote()
+  }
+}
+
+export async function refreshCache() {
+  try {
+    RSS_CONTENT = await generateRSS()
+    POST_CACHE = await fetchRemote()
+    const result = {
+      posts: POST_CACHE.size,
+      rss: RSS_CONTENT.length
+    }
+    console.log("Cache refreshed:", result)
+    return result
+  } catch (e) {
+    console.error("refresh error", e)
+    return {
+      error: e.message
+    }
   }
 }
 

@@ -6,7 +6,6 @@ import { csrf } from 'hono/csrf'
 import { secureHeaders } from 'hono/secure-headers'
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { APP_PORT, BLOG_DIR, BLOG_RSS } from "./config.ts"
-import {generateRSS} from "./utils/rss.ts";
 import { join } from "jsr:@std/path";
 import {getCachedPosts, parseYamlFile} from "./utils/post.ts";
 import {ArticleDetail} from "./component/ArticleDetail.tsx";
@@ -24,7 +23,7 @@ import {internalRedirect} from "./middleware/internal-redirect.ts";
 import {showTasks} from "./couch_db.ts"
 import {Category} from "./component/Category.tsx"
 import {CategoryList} from "./component/CategoryList.tsx";
-import {RSS_CONTENT} from "./cache.ts"
+import {refreshCache, RSS_CONTENT} from "./cache.ts"
 
 
 // await Deno.writeTextFile(join(Deno.cwd(), "static/atom.xml"), rss)
@@ -110,14 +109,13 @@ app.get('/:page', async (c) => {
   const { page } = c.req.param()
   const file = join(BLOG_DIR, page + ".md")
 
-  if (!await exists(file, { isFile: true })) {
+  const cache = await getCachedPosts(true);
+  const post = cache.posts.find(p => p.url === "/" + page)
+
+  if (!post) {
     return c.notFound()
   } else {
-
     const pv = await updatePageView(c.req.path)
-    const post = await parseYamlFile(file, true)
-    if (!post) return c.notFound()
-
     return c.render(<ArticleDetail pv={pv} {...post} />)
   }
 })
@@ -137,6 +135,10 @@ app.get("/admin/kv", async (c) => {
   const items = showTasks()
 
   return c.render(<KVTable title="KV" kv={kv} items={items} />)
+})
+app.get("/admin/refresh", async (c) => {
+  const ret = await refreshCache()
+  return c.json(ret)
 })
 
 export function startApp() {

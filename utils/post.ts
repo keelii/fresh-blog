@@ -3,7 +3,6 @@ import { parse as parseYaml } from "jsr:@std/yaml";
 import { walk } from "jsr:@std/fs";
 
 
-
 import { md } from "./markdown.ts";
 import {BLOG_DIR} from "../config.ts";
 import {POST_CACHE} from "../cache.ts"
@@ -22,15 +21,7 @@ export interface MetaInfo {
 interface ICache {
   posts: MetaInfo[] | null;
   category: Record<string, MetaInfo[]>;
-  post: Record<string, MetaInfo>;
 }
-
-let CACHE: ICache = {
-  posts: null,
-  category: {},
-  post: {},
-};
-
 export function getYamlString(content: string) {
   const lines = content.split("\n");
   const yaml: string[] = [];
@@ -52,17 +43,6 @@ export function getYamlString(content: string) {
 
   return [yaml.join("\n").trim(), lines.slice(i).join("\n").trim()];
 }
-
-export async function parseCachedYamlFile(path: string, includeContent: boolean = false) {
-  if (!CACHE.post[path]) {
-    const result = await parseYamlFile(path, includeContent);
-    if (result) {
-      CACHE.post[path] = result;
-    }
-  }
-  return CACHE.post[path];
-}
-
 export async function parseYamlContent(path: string, contents: string, includeContent: boolean = false): Promise<MetaInfo | null> {
   const [yamlContent, mdContent] = getYamlString(contents);
 
@@ -87,7 +67,8 @@ export async function parseYamlContent(path: string, contents: string, includeCo
       timeZone: "UTC",
     }).format(date);
     const name = basename(path, ".md");
-    const url = `/${datePrefix}/${name}`;
+    const isPage = !/^\d{4}/.test(path);
+    const url = isPage ? `/${name}` : `/${datePrefix}/${name}`;
 
     return {
       title: toml.title,
@@ -104,32 +85,30 @@ export async function parseYamlContent(path: string, contents: string, includeCo
   }
   return null;
 }
+
 export async function parseYamlFile(path: string, includeContent: boolean = false): Promise<MetaInfo | null> {
   const contents = await Deno.readTextFile(path);
   return parseYamlContent(path, contents, includeContent);
 }
 
-export async function getCachedPosts(includeContent: boolean = false) {
-  if (!CACHE.posts) {
-    try {
-      const {articles, category} = await getPosts(BLOG_DIR, includeContent);
-      CACHE.posts = articles;
-      CACHE.category = category;
-    } catch (e) {
-      console.log("=====", BLOG_DIR)
-      console.error(e);
-      return []
+export async function getCachedPosts(includeContent: boolean = false): ICache {
+  try {
+    return await getPosts(BLOG_DIR, includeContent);
+  } catch (e) {
+    console.error(e);
+    return {
+      posts: [],
+      category: {},
     }
   }
-  return { posts: CACHE.posts, category: CACHE.category };
 }
 
-export async function getLocalPosts(dir: string, includeContent: boolean = false) {
+export async function getLocalPosts(dir: string, includeContent: boolean = false): ICache {
   const items = await walk(dir, {
     exts: [".md"],
     skip: [/\.obsidian/, /node_modules/, /\.git/, /\.vscode/, /\.idea/],
   });
-  const articles: MetaInfo[] = [];
+  const posts: MetaInfo[] = [];
   const category: Record<string, MetaInfo[]> = {};
 
   for await (const item of items) {
@@ -146,16 +125,16 @@ export async function getLocalPosts(dir: string, includeContent: boolean = false
           category[key].push(info)
         })
       }
-      info && articles.push(info);
+      info && posts.push(info);
     }
   }
 
-  articles.sort((a, b) => b.date - a.date);
-  return { articles, category };
+  posts.sort((a, b) => b.date - a.date);
+  return { posts, category };
 }
-export async function getPosts(dir: string, includeContent: boolean = false) {
+export async function getPosts(dir: string, includeContent: boolean = false): ICache {
   if (POST_CACHE.size) {
-    const articles: MetaInfo[] = [];
+    const posts: MetaInfo[] = [];
     const category: Record<string, MetaInfo[]> = {};
     for (let [path, content] of POST_CACHE) {
       const info = await parseYamlContent(path, content, includeContent);
@@ -163,7 +142,7 @@ export async function getPosts(dir: string, includeContent: boolean = false) {
         // console.warn("No info:", path)
         continue;
       }
-      articles.push(info)
+      posts.push(info)
       ;(info.categories || []).forEach(name => {
         const key = name.replaceAll(/\s+/g, "-")
         if (!category[key]) {
@@ -173,13 +152,12 @@ export async function getPosts(dir: string, includeContent: boolean = false) {
       })
     }
 
-    console.log("Use cached posts:", articles.length)
+    console.log("Use cached posts:", posts.length)
 
-    articles.sort((a, b) => b.date - a.date);
-    return { articles, category };
+    posts.sort((a, b) => b.date - a.date);
+    return { posts, category };
   }
 
-  debugger;
-  console.log("read local posts", POST_CACHE.size)
+  console.log("Read local posts", POST_CACHE.size)
   return getLocalPosts(dir, includeContent);
 }
