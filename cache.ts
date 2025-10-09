@@ -1,7 +1,14 @@
 import {decryptString} from "./encrypt.ts"
+import {generateRSS} from "./utils/rss.ts"
 
 export let POST_CACHE = new Map<string, string>()
+export let RSS_CONTENT = null
 
+export async function cacheRSS() {
+  if (!RSS_CONTENT) {
+    RSS_CONTENT = await generateRSS()
+  }
+}
 export async function fetchRemote() {
   const BLOG_API_URI = Deno.env.get("BLOG_API_URI")
   if (!BLOG_API_URI) {
@@ -21,7 +28,7 @@ export async function fetchRemote() {
       }
       POST_CACHE.set(post.path, post.content)
     }
-    console.log("Fetched posts:", POST_CACHE.size)
+    console.log("Fetched remote posts:", POST_CACHE.size)
   } catch (e) {
     console.error(e)
   }

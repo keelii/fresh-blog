@@ -160,7 +160,7 @@ export async function getPosts(dir: string, includeContent: boolean = false) {
     for (let [path, content] of POST_CACHE) {
       const info = await parseYamlContent(path, content, includeContent);
       if (!info) {
-        console.warn("No info:", path)
+        // console.warn("No info:", path)
         continue;
       }
       articles.push(info)
@@ -173,12 +173,13 @@ export async function getPosts(dir: string, includeContent: boolean = false) {
       })
     }
 
-    console.log("use cache posts:", articles.length)
+    console.log("Use cached posts:", articles.length)
 
     articles.sort((a, b) => b.date - a.date);
     return { articles, category };
   }
 
+  debugger;
   console.log("read local posts", POST_CACHE.size)
   return getLocalPosts(dir, includeContent);
 }

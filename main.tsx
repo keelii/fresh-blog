@@ -24,9 +24,9 @@ import {internalRedirect} from "./middleware/internal-redirect.ts";
 import {showTasks} from "./couch_db.ts"
 import {Category} from "./component/Category.tsx"
 import {CategoryList} from "./component/CategoryList.tsx";
+import {RSS_CONTENT} from "./cache.ts"
 
 
-const rss = await generateRSS()
 // await Deno.writeTextFile(join(Deno.cwd(), "static/atom.xml"), rss)
 
 const app = new Hono<HonoApp>()
@@ -60,7 +60,7 @@ app.use('/favicon.ico', serveStatic({ path: './static/favicon.ico' }))
 // app.use(BLOG_RSS, serveStatic({ path: './static/atom.xml' }))
 app.get(BLOG_RSS, (c) => {
   c.header('Content-Type', 'application/xml')
-  return c.newResponse(rss)
+  return c.newResponse(RSS_CONTENT)
 })
 
 app.get('/', async (c) => {
