@@ -1,4 +1,3 @@
-import { exists } from "jsr:@std/fs/exists";
 import { Hono } from "hono"
 import { serveStatic } from "hono/deno"
 import { compress } from 'hono/compress'

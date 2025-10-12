@@ -4,6 +4,13 @@ import {generateRSS} from "./utils/rss.ts"
 export let POST_CACHE = new Map<string, string>()
 export let RSS_CONTENT = null
 
+export async function fetchDecrypted(api: string) {
+  const ret = await fetch(api)
+  const json = await ret.json()
+  const raw = await decryptString(json.iv, json.ciphertext)
+  return JSON.parse(raw)
+}
+
 async function fetchRemote() {
   const BLOG_API_URI = Deno.env.get("BLOG_API_URI")
   if (!BLOG_API_URI) {
@@ -13,17 +20,19 @@ async function fetchRemote() {
   const cachePost = new Map<string, string>()
 
   try {
-    const res = await fetch(BLOG_API_URI)
-    const json = await res.json()
-    const raw = await decryptString(json.iv, json.ciphertext)
-
-    const posts = JSON.parse(raw)
+    const posts = await fetchDecrypted(BLOG_API_URI + "/posts")
+    console.log(`prepare to fetch ${posts.length} posts`)
     for (let post of posts) {
       if (!post.path) {
         console.warn("No path:", post)
         continue
       }
-      cachePost.set(post.path, post.content)
+
+      const id = encodeURIComponent(post._id)
+      const item = await fetchDecrypted(BLOG_API_URI + "/posts/" + id)
+      console.debug(`fetchDecrypted:`, post._id, item.content.length)
+
+      cachePost.set(item.path, item.content)
     }
     console.log("Fetched remote posts:", cachePost.size)
     return cachePost;
@@ -46,8 +55,8 @@ export async function cachePosts() {
 
 export async function refreshCache() {
   try {
-    RSS_CONTENT = await generateRSS()
     POST_CACHE = await fetchRemote()
+    RSS_CONTENT = await generateRSS()
     const result = {
       posts: POST_CACHE.size,
       rss: RSS_CONTENT.length
@@ -61,12 +70,3 @@ export async function refreshCache() {
     }
   }
 }
-
-// try {
-//   const file = join("./blog/", post.path)
-//   await ensureFile(file)
-//   await writeTextFile(file, post.content)
-//   console.log("write:", file)
-// } catch (e) {
-//   console.error(post.path, e)
-// }

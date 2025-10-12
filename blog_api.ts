@@ -170,26 +170,8 @@ export async function queryAllPosts() {
       children: d.children,
     })
   }
-  const cipher = await encryptString(JSON.stringify(results))
-
-  return cipher
+  return await encryptString(JSON.stringify(results))
 }
-
-// Deno.serve({ port }, async (request, info) => {
-//   const start = Date.now()
-//   const ret = await queryAll()
-//   const end = Date.now()
-//
-//   const time = format(new Date(start), "yyyy-MM-dd HH:mm:ss.SSS")
-//
-//   console.log(`${time} ${request.url} ${info.remoteAddr.hostname}:${info.remoteAddr.port} ${end - start}ms ${request.headers.get("User-Agent") || "-"}`)
-//
-//   return new Response(JSON.stringify(ret), {
-//     headers: {
-//       "content-type": "application/json;charset=utf-8",
-//     }
-//   })
-// })
 
 function jsonResponse(json: Record<string, any>) {
   return new Response(JSON.stringify(json), {
@@ -201,15 +183,17 @@ function jsonResponse(json: Record<string, any>) {
 
  const routes: Route[] = [
    {
-     pattern: new URLPattern({ pathname: "/posts" }),
+     pattern: new URLPattern({ pathname: "/blog/posts" }),
      handler: async () => jsonResponse(await queryAllPosts()),
    },
    {
-     pattern: new URLPattern({ pathname: "/posts/:id" }),
+     pattern: new URLPattern({ pathname: "/blog/posts/:id" }),
      handler: async (_req, params) => jsonResponse(await queryPostById(params?.pathname.groups.id)),
    },
  ];
 
-Deno.serve(route(routes, (req) => {
+Deno.serve({ port }, route(routes, (req, info) => {
+  const time = format(new Date(), "yyyy-MM-dd HH:mm:ss.SSS")
+  console.log(`${time} ${req.url} ${info.remoteAddr.hostname}:${info.remoteAddr.port} ${req.headers.get("User-Agent") || "-"}`)
   return new Response("Not found", { status: 404 });
 }));
