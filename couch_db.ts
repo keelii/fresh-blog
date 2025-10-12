@@ -16,6 +16,7 @@ export async function checkDatabase() {
   const cost = Date.now()
   const res = await fetch(COUCHDB_URL, {
     method: "PUT",
+    signal: AbortSignal.timeout(5000),
     headers: {
       "Authorization": `Basic ${AUTH}`,
     },
