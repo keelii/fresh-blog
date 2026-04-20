@@ -1,3 +1,4 @@
+import {route, type Route} from "jsr:@std/http/unstable-route"
 import {format} from "jsr:@std/datetime"
 import {encryptString} from "./encrypt.ts"
 
@@ -50,6 +51,7 @@ async function dbFetch<T = any>(u: string, init: RequestInit = {}): Promise<Couc
       }, headers)
       ,
       method,
+      signal: AbortSignal.timeout(5000),
       ...rest
     })
     return await resp.json()
@@ -107,61 +109,91 @@ export async function queryDocuments() {
   });
   return res.docs || []
 }
-export async function queryById(id: string) {
-  let result = {
-    path: "",
-    content: ""
-  }
-  try {
-    const path = encodeURIComponent(id)
-    const ret = await dbFetch(path + "?include_docs=false")
-
-    result.path = ret.path
-
-    if (ret.children) {
-      const data = await queryByIds(ret.children)
-      const content = data.rows.map(r => r.doc.data).join("")
-      result.content = content
-    } else {
-      console.log("No docs found:", id, ret)
-    }
-
-    return result
-  } catch (e) {
-    console.error(e)
-    return result
-  }
-}
-export async function queryByIds(ids: string[]) {
-  return await dbFetch("_all_docs?include_docs=true", {
+export async function queryDocumentById(id: string) {
+  const res = await dbFetch("_find", {
     method: "POST",
-    body: JSON.stringify({ keys: ids })
-  })
+    body: JSON.stringify({
+      selector: {
+        "type": "plain",
+        "_id": id
+      },
+      "limit": 1,
+    })
+  });
+
+  if (res.docs && res.docs.length === 1) {
+    return res.docs[0]
+  } else {
+    return null
+  }
 }
-export async function queryAll() {
-  let results = []
+export async function queryPostById(id: string) {
+  const doc = await queryDocumentById(decodeURIComponent(id))
+  if (!doc) return null
+
+  if (!doc.children || doc.children.length === 0) {
+    console.log("No docs found")
+    return null
+  }
+
+  const post = await dbFetch("_all_docs?include_docs=true", {
+    method: "POST",
+    body: JSON.stringify({ keys: doc.children })
+  })
+
+  if (post.error) {
+    console.error("Query post error:", post)
+    return null
+  }
+  if (!Array.isArray(post.rows)) {
+    console.error("Query post rows invalid:", post)
+    return null
+  }
+
+  const result = {
+    path: doc.path,
+    ctime: format(new Date(doc.ctime), "yyyy-MM-dd HH:mm:ss.SSS"),
+    mtime: format(new Date(doc.mtime), "yyyy-MM-dd HH:mm:ss.SSS"),
+    size: doc.size,
+    content: post.rows.map(r => r.doc.data).join("")
+  }
+  return await encryptString(JSON.stringify(result))
+}
+export async function queryAllPosts() {
+  let results: Array<{ _id: string, path: string, children: string[] }> = []
 
   const docs = await queryDocuments()
   for (const d of docs) {
-    const ret = await queryById(d._id)
-    results.push(ret)
+    results.push({
+      _id: d._id,
+      path: d.path,
+      children: d.children,
+    })
   }
-
   return await encryptString(JSON.stringify(results))
 }
 
-Deno.serve({ port }, async (request, info) => {
-  const start = Date.now()
-  const ret = await queryAll()
-  const end = Date.now()
-
-  const time = format(new Date(start), "yyyy-MM-dd HH:mm:ss.SSS")
-
-  console.log(`${time} ${request.url} ${info.remoteAddr.hostname}:${info.remoteAddr.port} ${end - start}ms ${request.headers.get("User-Agent") || "-"}`)
-
-  return new Response(JSON.stringify(ret), {
+function jsonResponse(json: Record<string, any>) {
+  return new Response(JSON.stringify(json), {
     headers: {
       "content-type": "application/json;charset=utf-8",
     }
   })
-})
+}
+
+ const routes: Route[] = [
+   {
+     pattern: new URLPattern({ pathname: "/blog/posts" }),
+     handler: async () => jsonResponse(await queryAllPosts()),
+   },
+   {
+     pattern: new URLPattern({ pathname: "/blog/posts/:id" }),
+     handler: async (_req, params) => jsonResponse(await queryPostById(params?.pathname.groups.id)),
+   },
+ ];
+
+Deno.serve({ port }, route(routes, (req, info) => {
+  const time = format(new Date(), "yyyy-MM-dd HH:mm:ss.SSS")
+  console.log(`${time} ${req.url} ${info.remoteAddr.hostname}:${info.remoteAddr.port} ${req.headers.get("User-Agent") || "-"}`)
+  return new Response("Not found", { status: 404 });
+}));

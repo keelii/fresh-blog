@@ -16,6 +16,7 @@ export async function checkDatabase() {
   const cost = Date.now()
   const res = await fetch(COUCHDB_URL, {
     method: "PUT",
+    signal: AbortSignal.timeout(5000),
     headers: {
       "Authorization": `Basic ${AUTH}`,
     },
@@ -107,4 +108,4 @@ async function insertDoc(doc: Record<string, unknown>) {
 }
 
 // Deno.cron("schedule insert tasks", "*/10 * * * *", async () => {
-Deno.cron("schedule insert tasks", "* * * * *", runTask);
+// Deno.cron("schedule insert tasks", "* * * * *", runTask);

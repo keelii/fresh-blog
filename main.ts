@@ -1,14 +1,17 @@
 import {startApp} from "./main.tsx"
 import {checkDatabase, startTask, stopTask} from "./couch_db.ts"
-import {fetchRemote} from "./cache.ts"
+import {cachePosts, cacheRSS} from "./cache.ts"
 
 try {
   await checkDatabase()
-  await fetchRemote()
+  await cachePosts()
+  await cacheRSS()
 
   startApp();
-  startTask();
+  // startTask()
 } catch (e) {
-  stopTask()
+  // stopTask()
   console.error(e)
+  console.warn("Fallback to local")
+  startApp();
 }
