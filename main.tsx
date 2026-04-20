@@ -62,6 +62,12 @@ app.get(BLOG_RSS, (c) => {
   c.header('Content-Type', 'application/xml')
   return c.newResponse(rss)
 })
+app.get("/robots.txt", (c) => {
+  c.header('Content-Type', 'text/plain')
+  return c.newResponse(`User-agent: *
+Disallow: /
+`)
+})
 
 app.get('/', async (c) => {
   const ret = await getCachedPosts()
