@@ -13,11 +13,11 @@
     "jsr:@std/path@*": "1.1.4",
     "jsr:@std/path@^1.1.4": "1.1.4",
     "jsr:@std/yaml@*": "1.0.12",
-    "npm:hono@*": "4.9.5",
-    "npm:markdown-it-anchor@*": "9.2.0_@types+markdown-it@14.1.2_markdown-it@14.1.0",
+    "npm:hono@*": "4.12.14",
+    "npm:markdown-it-anchor@*": "9.2.0_@types+markdown-it@14.1.2_markdown-it@14.1.1",
     "npm:markdown-it-footnote@*": "4.0.0",
     "npm:markdown-it-toc-done-right@*": "4.2.0",
-    "npm:markdown-it@*": "14.1.0",
+    "npm:markdown-it@*": "14.1.1",
     "npm:prismjs@*": "1.30.0"
   },
   "jsr": {
@@ -60,9 +60,6 @@
         "jsr:@std/internal"
       ]
     },
-    "@std/yaml@1.0.9": {
-      "integrity": "6bad3dc766dd85b4b37eabcba81b6aa4eac7a392792ae29abcfb0f90602d55bb"
-    },
     "@std/yaml@1.0.12": {
       "integrity": "7deabca4545bcedd07c5f69ea53acea71b8b4c67562f224e17b90d75944cb20c"
     }
@@ -92,9 +89,9 @@
       "integrity": "5d268ea5e7113ec74c4d033b79ea5a35a488fb48",
       "tarball": "http://registry.m.jd.com/entities/download/entities-4.5.0.tgz"
     },
-    "hono@4.9.5": {
-      "integrity": "c89838109e6c1bd098c42c7c3a56934d8149a7ef",
-      "tarball": "http://registry.m.jd.com/hono/download/hono-4.9.5.tgz"
+    "hono@4.12.14": {
+      "integrity": "4777c9512b7c84138e4f09e61e3d2fa305eb1414",
+      "tarball": "http://registry.m.jd.com/hono/download/hono-4.12.14.tgz"
     },
     "linkify-it@5.0.0": {
       "integrity": "9ef238bfa6dc70bd8e7f9572b52d369af569b421",
@@ -103,7 +100,7 @@
       ],
       "tarball": "http://registry.m.jd.com/linkify-it/download/linkify-it-5.0.0.tgz"
     },
-    "markdown-it-anchor@9.2.0_@types+markdown-it@14.1.2_markdown-it@14.1.0": {
+    "markdown-it-anchor@9.2.0_@types+markdown-it@14.1.2_markdown-it@14.1.1": {
       "integrity": "89375d9a2a79336403ab7c4fd36b1965cc45e5c8",
       "dependencies": [
         "@types/markdown-it",
@@ -119,8 +116,8 @@
       "integrity": "3ccdce22d5022ffae7b991d07261b1b1de5459d0",
       "tarball": "http://registry.m.jd.com/markdown-it-toc-done-right/download/markdown-it-toc-done-right-4.2.0.tgz"
     },
-    "markdown-it@14.1.0": {
-      "integrity": "3c3c5992883c633db4714ccb4d7b5935d98b7d45",
+    "markdown-it@14.1.1": {
+      "integrity": "856f90b66fc39ae70affd25c1b18b581d7deee1f",
       "dependencies": [
         "argparse",
         "entities",
@@ -130,7 +127,7 @@
         "uc.micro"
       ],
       "bin": true,
-      "tarball": "http://registry.m.jd.com/markdown-it/download/markdown-it-14.1.0.tgz"
+      "tarball": "http://registry.m.jd.com/markdown-it/download/markdown-it-14.1.1.tgz"
     },
     "mdurl@2.0.0": {
       "integrity": "80676ec0433025dd3e17ee983d0fe8de5a2237e0",
@@ -160,7 +157,7 @@
     "https://esm.sh/prismjs/components/prism-python?no-check&pin=v57": "https://esm.sh/prismjs@1.30.0/components/prism-python?no-check&pin=v57",
     "https://esm.sh/prismjs/components/prism-typescript?no-check&pin=v57": "https://esm.sh/prismjs@1.30.0/components/prism-typescript?no-check&pin=v57",
     "https://esm.sh/prismjs/components/prism-vim?no-check&pin=v57": "https://esm.sh/prismjs@1.30.0/components/prism-vim?no-check&pin=v57",
-    "https://esm.sh/sax@^1.2.4?target=denonext": "https://esm.sh/sax@1.4.1?target=denonext",
+    "https://esm.sh/sax@^1.2.4?target=denonext": "https://esm.sh/sax@1.6.0?target=denonext",
     "https://esm.sh/xml-js@^1.6.11?target=denonext": "https://esm.sh/xml-js@1.6.11?target=denonext"
   },
   "remote": {
@@ -169,7 +166,7 @@
     "https://deno.land/x/bcrypt@v0.4.1/src/bcrypt/bcrypt.ts": "ec221648cc6453ea5e3803bc817c01157dada06aa6f7a0ba6b9f87aae32b21e2",
     "https://deno.land/x/bcrypt@v0.4.1/src/main.ts": "08d201b289c8d9c46f8839c69cd6625b213863db29775c7a200afc3b540e64f8",
     "https://esm.sh/feed@4.2.2": "dca62237661ed6cf5ca20d97a9138cc5727054bb5d1f741676402e7e95446acb",
-    "https://esm.sh/feed@4.2.2/denonext/feed.mjs": "f61177a13d321ebe406b8c57004632d5dcb1bd366c57860e226668f41855ba12",
+    "https://esm.sh/feed@4.2.2/denonext/feed.mjs": "cd62fd7f1ce84670f17fa404d1d7d4da0b22346af2202be860767977463d5e37",
     "https://esm.sh/prismjs@1.30.0/components/prism-bash?no-check&pin=v57": "7f65d990355fec19dcd01e03938b1daf7f5fa4ad8caaee60d7e700cb1d83c90a",
     "https://esm.sh/prismjs@1.30.0/components/prism-http?no-check&pin=v57": "d1748ddf2f7661f882c14fb1544ec4628e11cac8b455fc875b38519ea67ed8f6",
     "https://esm.sh/prismjs@1.30.0/components/prism-java?no-check&pin=v57": "685da9b1dc39a97d8ecdad13377f2707d95591444c8a36895bbf7b71893fb5e9",
@@ -179,8 +176,8 @@
     "https://esm.sh/prismjs@1.30.0/components/prism-python?no-check&pin=v57": "dfb441b93f75fff8d9288a28e7e218e241b958b256dcd2622b42b7a677fc781d",
     "https://esm.sh/prismjs@1.30.0/components/prism-typescript?no-check&pin=v57": "20ed7b3e0247b9dbbc6b5f3022440fc97a8e782e70b2949f3370db095b21961b",
     "https://esm.sh/prismjs@1.30.0/components/prism-vim?no-check&pin=v57": "eb6e98b0982165baf096aaa0121455c403b1e64af6e28c0a4a29d21b4a0d20b4",
-    "https://esm.sh/sax@1.4.1/denonext/sax.mjs": "f6b76bfda979cf50ea49b0f4c36fdba9ac24c2f5261e31df0adb662f505ef277",
-    "https://esm.sh/sax@1.4.1?target=denonext": "e27842cb4e8dc59720f1f3df21075f69ddeb0b5c06bb055efcd72d1d59fefd79",
+    "https://esm.sh/sax@1.6.0/denonext/sax.mjs": "448cfc6c0fc4f1e2c38c864fe6a7b100a17116d2f14e64c065090dbc38ea8a3d",
+    "https://esm.sh/sax@1.6.0?target=denonext": "90edf8aea409972a7be1a323331a9c428e1db378e21354058bf2e67cf00fd405",
     "https://esm.sh/v57/prismjs@1.30.0/denonext/components/prism-bash.js": "42e892b48ef45e7f25ee77f1d914cf61196eff53c0b6dc49e949a49d83274ff8",
     "https://esm.sh/v57/prismjs@1.30.0/denonext/components/prism-http.js": "a843a38a59a35a256a4e01f19cd874d2c58f8d9e89ccf823d52ec7e2d788abef",
     "https://esm.sh/v57/prismjs@1.30.0/denonext/components/prism-java.js": "913e630468d7c401a89e7e318e8dc2b3620d889bd49fa5e1a3deca79b7d4a048",
